@@ -534,7 +534,7 @@ void Menu::Render()
             }
             if (Tabs == 4) {
                 if (SubTabMisc == 1) {
-                    mGui::Checkbox("Bunny hop", g_Options.misc_bhop);
+                    ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
                     ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
                     ImGui::Checkbox("Watermark##hc", g_Options.misc_watermark);
                     if (ImGui::Button("Unload")) {
