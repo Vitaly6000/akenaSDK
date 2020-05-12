@@ -89,31 +89,30 @@ public:
 		// 
 		// COLORS
 		// 
-		OPTION(Color, color_esp_ally_visible, Color(0, 128, 255));
-		OPTION(Color, color_esp_enemy_visible, Color(255, 0, 0));
-		OPTION(Color, color_esp_ally_occluded, Color(0, 128, 255));
-		OPTION(Color, color_esp_enemy_occluded, Color(255, 0, 0));
-		OPTION(Color, color_esp_crosshair, Color(255, 255, 255));
-		OPTION(Color, color_esp_weapons, Color(128, 0, 128));
-		OPTION(Color, color_esp_defuse, Color(0, 128, 255));
-		OPTION(Color, color_esp_c4, Color(255, 255, 0));
-		OPTION(Color, color_esp_item, Color(255, 255, 255));
+		float color_esp_ally_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_enemy_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_ally_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_enemy_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_crosshair[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_weapons[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_defuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_c4[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_esp_item[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-		OPTION(Color, color_glow_ally, Color(0, 128, 255));
-		OPTION(Color, color_glow_enemy, Color(255, 0, 0));
-		OPTION(Color, color_glow_chickens, Color(0, 128, 0));
-		OPTION(Color, color_glow_c4_carrier, Color(255, 255, 0));
-		OPTION(Color, color_glow_planted_c4, Color(128, 0, 128));
-		OPTION(Color, color_glow_defuse, Color(255, 255, 255));
-		OPTION(Color, color_glow_weapons, Color(255, 128, 0));
+		float color_glow_ally[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_enemy[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_chickens[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_c4_carrier[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_planted_c4[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_defuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_glow_weapons[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-		OPTION(Color, color_chams_player_ally_visible, Color(0, 128, 255));
-		OPTION(Color, color_chams_player_ally_occluded, Color(0, 255, 128));
-		OPTION(Color, color_chams_player_enemy_visible, Color(255, 0, 0));
-		OPTION(Color, color_chams_player_enemy_occluded, Color(255, 128, 0));
-		OPTION(Color, color_chams_arms_visible, Color(0, 128, 255));
-		OPTION(Color, color_chams_arms_occluded, Color(0, 128, 255));
-		OPTION(Color, color_watermark, Color(0, 128, 255)); // no menu config cuz its useless
+		float color_chams_player_ally_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_player_ally_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_player_enemy_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_player_enemy_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_arms_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_arms_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 };
 
 inline Options g_Options;

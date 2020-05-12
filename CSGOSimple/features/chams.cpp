@@ -74,8 +74,8 @@ void Chams::OnDrawModelExecute(
 			if (!enemy && g_Options.chams_player_enemies_only)
 				return;
 
-			const auto clr_front = enemy ? g_Options.color_chams_player_enemy_visible : g_Options.color_chams_player_ally_visible;
-			const auto clr_back = enemy ? g_Options.color_chams_player_enemy_occluded : g_Options.color_chams_player_ally_occluded;
+			const auto clr_front = enemy ? Color(g_Options.color_chams_player_enemy_visible) : Color(g_Options.color_chams_player_ally_visible);
+			const auto clr_back = enemy ? Color(g_Options.color_chams_player_enemy_occluded) : Color(g_Options.color_chams_player_ally_occluded);
 
 			if (g_Options.chams_player_ignorez) {
 				OverrideMaterial(
@@ -130,14 +130,14 @@ void Chams::OnDrawModelExecute(
 					g_Options.chams_arms_flat,
 					g_Options.chams_arms_wireframe,
 					false,
-					g_Options.color_chams_arms_occluded);
+					Color(g_Options.color_chams_arms_occluded));
 				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
 				OverrideMaterial(
 					false,
 					g_Options.chams_arms_flat,
 					g_Options.chams_arms_wireframe,
 					false,
-					g_Options.color_chams_arms_visible);
+					Color(g_Options.color_chams_arms_visible));
 			}
 			else {
 				OverrideMaterial(
@@ -145,7 +145,7 @@ void Chams::OnDrawModelExecute(
 					g_Options.chams_arms_flat,
 					g_Options.chams_arms_wireframe,
 					g_Options.chams_arms_glass,
-					g_Options.color_chams_arms_visible);
+					Color(g_Options.color_chams_arms_visible));
 			}
 		}
 	}

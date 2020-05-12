@@ -86,7 +86,7 @@ bool Visuals::Player::Begin(C_BasePlayer* pl)
 	if (!ctx.is_enemy && g_Options.esp_enemies_only)
 		return false;
 
-	ctx.clr = ctx.is_enemy ? (ctx.is_visible ? g_Options.color_esp_enemy_visible : g_Options.color_esp_enemy_occluded) : (ctx.is_visible ? g_Options.color_esp_ally_visible : g_Options.color_esp_ally_occluded);
+	ctx.clr = ctx.is_enemy ? (ctx.is_visible ? Color(g_Options.color_esp_enemy_visible) : Color(g_Options.color_esp_enemy_occluded)) : (ctx.is_visible ? Color(g_Options.color_esp_ally_visible) : Color(g_Options.color_esp_ally_occluded));
 
 	auto head = pl->GetHitboxPos(HITBOX_HEAD);
 	auto origin = pl->m_vecOrigin();
@@ -190,8 +190,8 @@ void Visuals::RenderCrosshair()
 
 	int cx = w / 2;
 	int cy = h / 2;
-	Render::Get().RenderLine(cx - 25, cy, cx + 25, cy, g_Options.color_esp_crosshair);
-	Render::Get().RenderLine(cx, cy - 25, cx, cy + 25, g_Options.color_esp_crosshair);
+	Render::Get().RenderLine(cx - 25, cy, cx + 25, cy, Color(g_Options.color_esp_crosshair));
+	Render::Get().RenderLine(cx, cy - 25, cx, cy + 25, Color(g_Options.color_esp_crosshair));
 }
 //--------------------------------------------------------------------------------
 void Visuals::RenderWeapon(C_BaseCombatWeapon* ent)
@@ -216,7 +216,7 @@ void Visuals::RenderWeapon(C_BaseCombatWeapon* ent)
 	if (bbox.right == 0 || bbox.bottom == 0)
 		return;
 
-	Render::Get().RenderBox(bbox, g_Options.color_esp_weapons);
+	Render::Get().RenderBox(bbox, Color(g_Options.color_esp_weapons));
 
 
 	auto name = clean_item_name(ent->GetClientClass()->m_pNetworkName);
@@ -225,7 +225,7 @@ void Visuals::RenderWeapon(C_BaseCombatWeapon* ent)
 	int w = bbox.right - bbox.left;
 
 
-	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, g_Options.color_esp_weapons);
+	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, Color(g_Options.color_esp_weapons));
 }
 //--------------------------------------------------------------------------------
 void Visuals::RenderDefuseKit(C_BaseEntity* ent)
@@ -238,12 +238,12 @@ void Visuals::RenderDefuseKit(C_BaseEntity* ent)
 	if (bbox.right == 0 || bbox.bottom == 0)
 		return;
 
-	Render::Get().RenderBox(bbox, g_Options.color_esp_defuse);
+	Render::Get().RenderBox(bbox, Color(g_Options.color_esp_defuse));
 
 	auto name = "Defuse Kit";
 	auto sz = g_pDefaultFont->CalcTextSizeA(14.f, FLT_MAX, 0.0f, name);
 	int w = bbox.right - bbox.left;
-	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, g_Options.color_esp_defuse);
+	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, Color(g_Options.color_esp_defuse));
 }
 //--------------------------------------------------------------------------------
 void Visuals::RenderPlantedC4(C_BaseEntity* ent)
@@ -254,7 +254,7 @@ void Visuals::RenderPlantedC4(C_BaseEntity* ent)
 		return;
 
 
-	Render::Get().RenderBox(bbox, g_Options.color_esp_c4);
+	Render::Get().RenderBox(bbox, Color(g_Options.color_esp_c4));
 
 
 	int bombTimer = std::ceil(ent->m_flC4Blow() - g_GlobalVars->curtime);
@@ -264,7 +264,7 @@ void Visuals::RenderPlantedC4(C_BaseEntity* ent)
 	auto sz = g_pDefaultFont->CalcTextSizeA(14.f, FLT_MAX, 0.0f, name.c_str());
 	int w = bbox.right - bbox.left;
 
-	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, g_Options.color_esp_c4);
+	Render::Get().RenderText(name, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, Color(g_Options.color_esp_c4));
 }
 //--------------------------------------------------------------------------------
 void Visuals::RenderItemEsp(C_BaseEntity* ent)
@@ -331,7 +331,7 @@ void Visuals::RenderItemEsp(C_BaseEntity* ent)
 
 
 	//Render::Get().RenderBox(bbox, g_Options.color_esp_item);
-	Render::Get().RenderText(itemstr, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, g_Options.color_esp_item);
+	Render::Get().RenderText(itemstr, ImVec2((bbox.left + w * 0.5f) - sz.x * 0.5f, bbox.bottom + 1), 14.f, Color(g_Options.color_esp_item));
 }
 //--------------------------------------------------------------------------------
 void Visuals::ThirdPerson() {
