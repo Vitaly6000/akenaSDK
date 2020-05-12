@@ -90,95 +90,6 @@ bool Tab(const char* label, const char* icon, const ImVec2& size_arg, const bool
 }
 #pragma endregion
 
-// =========================================================
-// 
-// These are the tabs on the sidebar
-// 
-// =========================================================
-static char* sidebar_tabs[] = {
-    "ESP",
-    "AIM",
-    "MISC",
-    "CONFIG"
-};
-
-constexpr static float get_sidebar_item_width() { return 150.0f; }
-constexpr static float get_sidebar_item_height() { return  50.0f; }
-
-enum {
-	TAB_ESP,
-	TAB_AIMBOT,
-	TAB_MISC,
-	TAB_CONFIG
-};
-
-namespace ImGuiEx
-{
-    inline bool ColorEdit4(const char* label, Color* v, bool show_alpha = true)
-    {
-        auto clr = ImVec4{
-            v->r() / 255.0f,
-            v->g() / 255.0f,
-            v->b() / 255.0f,
-            v->a() / 255.0f
-        };
-
-        if(ImGui::ColorEdit4(label, &clr.x, show_alpha)) {
-            v->SetColor(clr.x, clr.y, clr.z, clr.w);
-            return true;
-        }
-        return false;
-    }
-    inline bool ColorEdit3(const char* label, Color* v)
-    {
-        return ColorEdit4(label, v, false);
-    }
-}
-
-template<size_t N>
-void render_tabs(char* (&names)[N], int& activetab, float w, float h, bool sameline)
-{
-    bool values[N] = { false };
-
-    values[activetab] = true;
-
-    for(auto i = 0; i < N; ++i) {
-        if(ImGui::ToggleButton(names[i], &values[i], ImVec2{ w, h })) {
-            activetab = i;
-        }
-        if(sameline && i < N - 1)
-            ImGui::SameLine();
-    }
-}
-
-ImVec2 get_sidebar_size()
-{
-    constexpr float padding = 10.0f;
-    constexpr auto size_w = padding * 2.0f + get_sidebar_item_width();
-    constexpr auto size_h = padding * 2.0f + (sizeof(sidebar_tabs) / sizeof(char*)) * get_sidebar_item_height();
-
-    return ImVec2{ size_w, ImMax(325.0f, size_h) };
-}
-
-int get_fps()
-{
-    using namespace std::chrono;
-    static int count = 0;
-    static auto last = high_resolution_clock::now();
-    auto now = high_resolution_clock::now();
-    static int fps = 0;
-
-    count++;
-
-    if(duration_cast<milliseconds>(now - last).count() > 1000) {
-        fps = count;
-        count = 0;
-        last = now;
-    }
-
-    return fps;
-}
-
 void RenderEspTab()
 {
     static char* esp_tab_names[] = { "ESP", "GLOW", "CHAMS" };
@@ -188,10 +99,7 @@ void RenderEspTab()
 
     auto& style = ImGui::GetStyle();
     float group_w = ImGui::GetCurrentWindow()->Size.x - style.WindowPadding.x * 2;
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-    {
-        render_tabs(esp_tab_names, active_esp_tab, group_w / _countof(esp_tab_names), 25.0f, true);
-    }
+
     ImGui::PopStyleVar();
     ImGui::BeginGroupBox("##body_content");
     {
@@ -221,17 +129,17 @@ void RenderEspTab()
 
             ImGui::NextColumn();
 
-            ImGui::PushItemWidth(100);
-            ImGuiEx::ColorEdit3("Allies Visible", g_Options.color_esp_ally_visible);
-            ImGuiEx::ColorEdit3("Enemies Visible", g_Options.color_esp_enemy_visible);
-            ImGuiEx::ColorEdit3("Allies Occluded", g_Options.color_esp_ally_occluded);
-            ImGuiEx::ColorEdit3("Enemies Occluded", g_Options.color_esp_enemy_occluded);
-            ImGuiEx::ColorEdit3("Crosshair", g_Options.color_esp_crosshair);
-            ImGuiEx::ColorEdit3("Dropped Weapons", g_Options.color_esp_weapons);
-            ImGuiEx::ColorEdit3("Defuse Kit", g_Options.color_esp_defuse);
-            ImGuiEx::ColorEdit3("Planted C4", g_Options.color_esp_c4);
-			ImGuiEx::ColorEdit3("Item Esp", g_Options.color_esp_item);
-            ImGui::PopItemWidth();
+          /*  ImGui::PushItemWidth(100);
+            ImGui::ColorEdit3("Allies Visible", &g_Options.color_esp_ally_visible);
+            ImGui::ColorEdit3("Enemies Visible", g_Options.color_esp_enemy_visible);
+            ImGui::ColorEdit3("Allies Occluded", g_Options.color_esp_ally_occluded);
+            ImGui::ColorEdit3("Enemies Occluded", g_Options.color_esp_enemy_occluded);
+            ImGui::ColorEdit3("Crosshair", g_Options.color_esp_crosshair);
+            ImGui::ColorEdit3("Dropped Weapons", g_Options.color_esp_weapons);
+            ImGui::ColorEdit3("Defuse Kit", g_Options.color_esp_defuse);
+            ImGui::ColorEdit3("Planted C4", g_Options.color_esp_c4);
+			ImGui::ColorEdit3("Item Esp", g_Options.color_esp_item);
+            ImGui::PopItemWidth();*/
 
             ImGui::Columns(1, nullptr, false);
             ImGui::PopStyleVar();
@@ -253,7 +161,7 @@ void RenderEspTab()
 
             ImGui::NextColumn();
 
-            ImGui::PushItemWidth(100);
+           /* ImGui::PushItemWidth(100);
             ImGuiEx::ColorEdit3("Ally", g_Options.color_glow_ally);
             ImGuiEx::ColorEdit3("Enemy", g_Options.color_glow_enemy);
             ImGuiEx::ColorEdit3("Chickens", g_Options.color_glow_chickens);
@@ -261,7 +169,7 @@ void RenderEspTab()
             ImGuiEx::ColorEdit3("Planted C4", g_Options.color_glow_planted_c4);
             ImGuiEx::ColorEdit3("Defuse Kits", g_Options.color_glow_defuse);
             ImGuiEx::ColorEdit3("Weapons", g_Options.color_glow_weapons);
-            ImGui::PopItemWidth();
+            ImGui::PopItemWidth();*/
 
             ImGui::NextColumn();
 
@@ -282,12 +190,12 @@ void RenderEspTab()
                 ImGui::Checkbox("Flat", g_Options.chams_player_flat);
                 ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez); ImGui::SameLine();
                 ImGui::Checkbox("Glass", g_Options.chams_player_glass);
-                ImGui::PushItemWidth(110);
+               /* ImGui::PushItemWidth(110);
                 ImGuiEx::ColorEdit4("Ally (Visible)", g_Options.color_chams_player_ally_visible);
                 ImGuiEx::ColorEdit4("Ally (Occluded)", g_Options.color_chams_player_ally_occluded);
                 ImGuiEx::ColorEdit4("Enemy (Visible)", g_Options.color_chams_player_enemy_visible);
                 ImGuiEx::ColorEdit4("Enemy (Occluded)", g_Options.color_chams_player_enemy_occluded);
-                ImGui::PopItemWidth();
+                ImGui::PopItemWidth();*/
             }
             ImGui::EndGroupBox();
 
@@ -300,10 +208,10 @@ void RenderEspTab()
                 ImGui::Checkbox("Flat", g_Options.chams_arms_flat);
                 ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);
                 ImGui::Checkbox("Glass", g_Options.chams_arms_glass);
-                ImGui::PushItemWidth(110);
+               /* ImGui::PushItemWidth(110);
                 ImGuiEx::ColorEdit4("Color (Visible)", g_Options.color_chams_arms_visible);
                 ImGuiEx::ColorEdit4("Color (Occluded)", g_Options.color_chams_arms_occluded);
-                ImGui::PopItemWidth();
+                ImGui::PopItemWidth();*/
             }
             ImGui::EndGroupBox();
 
@@ -413,9 +321,6 @@ void Menu::Render()
     static int SubTabLegit = 1;
     static int SubTabMisc = 1;
     static int SubTabVisuals = 1;
-
-    const auto sidebar_size = get_sidebar_size();
-    static int active_sidebar_tab = 0;
 
     static auto flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar;
     ImGui::SetNextWindowSize({ 430,430 });
@@ -554,52 +459,6 @@ void Menu::Render()
         ImGui::EndChild();
     }
     ImGui::End();
-
-    /*
-	if (ImGui::Begin("CSGOSimple",
-		&_visible,
-		ImGuiWindowFlags_NoCollapse |
-		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoTitleBar)) {
-
-		//auto& style = ImGui::GetStyle();
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
-        {
-            ImGui::BeginGroupBox("##sidebar", sidebar_size);
-            {
-				//ImGui::GetCurrentWindow()->Flags &= ~ImGuiWindowFlags_ShowBorders;
-
-                render_tabs(sidebar_tabs, active_sidebar_tab, get_sidebar_item_width(), get_sidebar_item_height(), false);
-            }
-            ImGui::EndGroupBox();
-        }
-        ImGui::PopStyleVar();
-        ImGui::SameLine();
-
-        // Make the body the same vertical size as the sidebar
-        // except for the width, which we will set to auto
-        auto size = ImVec2{ 0.0f, sidebar_size.y };
-
-		ImGui::BeginGroupBox("##body", size);
-        if(active_sidebar_tab == TAB_ESP) {
-            RenderEspTab();
-        } else if(active_sidebar_tab == TAB_AIMBOT) {
-          //  RenderEmptyTab();
-        } else if(active_sidebar_tab == TAB_MISC) {
-            RenderMiscTab();
-        } else if(active_sidebar_tab == TAB_CONFIG) {
-            RenderConfigTab();
-        }
-        ImGui::EndGroupBox();
-
-        ImGui::TextColored(ImVec4{ 0.0f, 0.5f, 0.0f, 1.0f }, "FPS: %03d", get_fps());
-        ImGui::SameLine(ImGui::GetWindowWidth() - 150 - ImGui::GetStyle().WindowPadding.x);
-        if(ImGui::Button("Unload", ImVec2{ 150, 25 })) {
-            g_Unload = true;
-        }
-        ImGui::End();
-    }
-    */
 }
 
 void Menu::Toggle()
