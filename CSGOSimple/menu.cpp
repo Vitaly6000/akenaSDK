@@ -449,13 +449,13 @@ void Menu::Render()
                 }
                 if (SubTabVisuals == 3) {
                     ImGui::Columns(2, nullptr, false);
+                    static char* chams_material[] = { "Regular", "Flat", "Glass", "Glow" };
+                    static char* chams_material_arms[] = { "Regular", "Flat", "Glass", "Glow" };
                     ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
                         ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
-                        ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
+                        ImGui::Combo("Material##player", g_Options.chams_material, chams_material, IM_ARRAYSIZE(chams_material));
                         ImGui::Checkbox("Wireframe", g_Options.chams_player_wireframe);
-                        ImGui::Checkbox("Flat", g_Options.chams_player_flat);
                         ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez);
-                        ImGui::Checkbox("Glass", g_Options.chams_player_glass);
                     }
                     ImGui::EndChild();
 
@@ -463,10 +463,9 @@ void Menu::Render()
 
                     ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
                         ImGui::Checkbox("Enabled Arms", g_Options.chams_arms_enabled);
+                        ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_arms, IM_ARRAYSIZE(chams_material_arms));
                         ImGui::Checkbox("Wireframe", g_Options.chams_arms_wireframe);
-                        ImGui::Checkbox("Flat", g_Options.chams_arms_flat);
-                        ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);
-                        ImGui::Checkbox("Glass", g_Options.chams_arms_glass);
+                        ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);                   
                     }
                     ImGui::EndChild();
                 }
@@ -482,7 +481,44 @@ void Menu::Render()
                     ImGui::Checkbox("No hands", g_Options.misc_no_hands);
                 }
                 if (SubTabVisuals == 5) {
+                    ImGui::Columns(3, nullptr, false);
+                    ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
+                        ImGui::ColorEdit4("Allies Visible", g_Options.color_esp_ally_visible, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Enemies Visible", g_Options.color_esp_enemy_visible, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Allies Occluded", g_Options.color_esp_ally_occluded, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Enemies Occluded", g_Options.color_esp_enemy_occluded, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Crosshair", g_Options.color_esp_crosshair, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Dropped Weapons", g_Options.color_esp_weapons, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Defuse Kit", g_Options.color_esp_defuse, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Planted C4", g_Options.color_esp_c4, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Item Esp", g_Options.color_esp_item, ImGuiColorEditFlags_NoInputs);
+                    }
+                    ImGui::EndChild();
 
+                    ImGui::NextColumn();
+
+                    ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
+                        ImGui::ColorEdit4("Ally", g_Options.color_glow_ally, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Enemy", g_Options.color_glow_enemy, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Chickens", g_Options.color_glow_chickens, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("C4 Carrier", g_Options.color_glow_c4_carrier, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Planted C4", g_Options.color_glow_planted_c4, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Defuse Kits", g_Options.color_glow_defuse, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Weapons", g_Options.color_glow_weapons, ImGuiColorEditFlags_NoInputs);
+                    }
+                    ImGui::EndChild();
+
+                    ImGui::NextColumn();
+
+                    ImGui::BeginChild("##thirddchild", ImVec2(0, 0)); {
+                        ImGui::ColorEdit4("Ally Visible", g_Options.color_chams_player_ally_visible, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Ally Occluded", g_Options.color_chams_player_ally_occluded, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Enemy Visible", g_Options.color_chams_player_enemy_visible, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Enemy Occluded", g_Options.color_chams_player_enemy_occluded, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Arms Color Visible", g_Options.color_chams_arms_visible, ImGuiColorEditFlags_NoInputs);
+                        ImGui::ColorEdit4("Arms Color Occluded", g_Options.color_chams_arms_occluded, ImGuiColorEditFlags_NoInputs);
+                    }
+                    ImGui::EndChild();
                 }
             }
             if (Tabs == 3) {

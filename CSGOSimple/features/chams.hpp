@@ -25,8 +25,10 @@ public:
         matrix3x4_t *pCustomBoneToWorld);
 
 private:
-    void OverrideMaterial(bool ignoreZ, bool flat, bool wireframe, bool glass, const Color& rgba);
+    void OverrideMaterialPlayer(bool ignoreZ, bool wireframe, int type, const Color& rgba);
+    void OverrideMaterialArms(bool ignoreZ, bool wireframe, int type, const Color& rgba);
 
     IMaterial* materialRegular = nullptr;
     IMaterial* materialFlat = nullptr;
+    IMaterial* materialGlow = nullptr;
 };

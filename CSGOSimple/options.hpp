@@ -71,6 +71,8 @@ public:
 		OPTION(bool, chams_arms_flat, false);
 		OPTION(bool, chams_arms_ignorez, false);
 		OPTION(bool, chams_arms_glass, false);
+		OPTION(int, chams_material, 0);
+		OPTION(int, chams_material_arms, 0);
 
 		//
 		// MISC
