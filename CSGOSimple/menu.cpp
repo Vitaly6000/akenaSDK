@@ -453,6 +453,7 @@ void Menu::Render()
                     static char* chams_material_arms[] = { "Regular", "Flat", "Glass", "Glow" };
                     ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
                         ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
+                        ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
                         ImGui::Combo("Material##player", g_Options.chams_material, chams_material, IM_ARRAYSIZE(chams_material));
                         ImGui::Checkbox("Wireframe", g_Options.chams_player_wireframe);
                         ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez);
