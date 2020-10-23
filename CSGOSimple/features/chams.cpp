@@ -160,45 +160,25 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 	}
 	else if (is_sleeve && g_Options.chams_arms_enabled) {
 		auto material = g_MatSystem->FindMaterial(mdl->szName, TEXTURE_GROUP_MODEL);
-		if (!material)
-			return;
-		// 
-		// Remove sleeves when drawing Chams.
-		// 
+		if (!material) return;
 		material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
 		g_MdlRender->ForcedMaterialOverride(material);
 	}
 	else if (is_arm) {
 		auto material = g_MatSystem->FindMaterial(mdl->szName, TEXTURE_GROUP_MODEL);
-		if (!material)
-			return;
+		if (!material) return;
 		if (g_Options.misc_no_hands) {
-			// 
-			// No hands.
-			// 
 			material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
 			g_MdlRender->ForcedMaterialOverride(material);
 		}
 		else if (g_Options.chams_arms_enabled) {
 			if (g_Options.chams_arms_ignorez) {
-				OverrideMaterialArms(
-					true,
-					g_Options.chams_arms_wireframe,
-					g_Options.chams_material_arms,
-					Color(g_Options.color_chams_arms_occluded));
+				OverrideMaterialArms(true, g_Options.chams_arms_wireframe, g_Options.chams_material_arms, Color(g_Options.color_chams_arms_occluded));
 				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
-				OverrideMaterialArms(
-					false,
-					g_Options.chams_arms_wireframe,
-					g_Options.chams_material_arms,
-					Color(g_Options.color_chams_arms_visible));
+				OverrideMaterialArms(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms,Color(g_Options.color_chams_arms_visible));
 			}
 			else {
-				OverrideMaterialArms(
-					false,
-					g_Options.chams_arms_wireframe,
-					g_Options.chams_material_arms,
-					Color(g_Options.color_chams_arms_visible));
+				OverrideMaterialArms(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms,Color(g_Options.color_chams_arms_visible));
 			}
 		}
 	}
