@@ -13,7 +13,7 @@
 #include "../imgui/impl/imgui_impl_dx9.h"
 #include "../imgui/impl/imgui_impl_win32.h"
 
-#include "../valve_sdk/misc/Color.hpp"
+#include "../sdk/misc/Color.hpp"
 
 extern ImFont* g_pDefaultFont;
 extern ImFont* g_pSecondFont;

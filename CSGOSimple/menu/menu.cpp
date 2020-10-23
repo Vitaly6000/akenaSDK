@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <chrono>
 
-#include "../valve_sdk/csgostructs.hpp"
+#include "../sdk/csgostructs.hpp"
 #include "../helpers/input.hpp"
 #include "../configs/options.hpp"
 #include "../configs/config.hpp"

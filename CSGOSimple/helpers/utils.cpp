@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../valve_sdk/csgostructs.hpp"
+#include "../sdk/csgostructs.hpp"
 #include "Math.hpp"
 
 

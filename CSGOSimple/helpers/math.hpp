@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../valve_sdk/sdk.hpp"
+#include "../sdk/sdk.hpp"
 
 #include <DirectXMath.h>
 

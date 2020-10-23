@@ -4,7 +4,7 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
-#include "../valve_sdk/Misc/Color.hpp"
+#include "../sdk/Misc/Color.hpp"
 
 #define A( s ) #s
 #define OPTION(type, var, val) Var<type> var = {A(var), val}

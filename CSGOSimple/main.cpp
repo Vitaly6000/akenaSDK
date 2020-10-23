@@ -1,7 +1,7 @@
 #define NOMINMAX
 #include <Windows.h>
 
-#include "valve_sdk/sdk.hpp"
+#include "sdk/sdk.hpp"
 #include "helpers/utils.hpp"
 #include "helpers/input.hpp"
 

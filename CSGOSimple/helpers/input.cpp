@@ -1,6 +1,6 @@
 #include "input.hpp"
 
-#include "../valve_sdk/sdk.hpp"
+#include "../sdk/sdk.hpp"
 #include "../imgui/imgui.h"
 #include "../imgui/impl/imgui_impl_win32.h"
 #include "../menu/menu.hpp"

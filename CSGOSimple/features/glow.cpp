@@ -1,6 +1,6 @@
 #include "glow.hpp"
 
-#include "../valve_sdk/csgostructs.hpp"
+#include "../sdk/csgostructs.hpp"
 #include "../configs/options.hpp"
 
 Glow::Glow()

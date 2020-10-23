@@ -3,7 +3,7 @@
 #include <mutex>
 
 #include "../features/visuals.hpp"
-#include "../valve_sdk/csgostructs.hpp"
+#include "../sdk/csgostructs.hpp"
 #include "../helpers/input.hpp"
 #include "../menu/menu.hpp"
 #include "../configs/options.hpp"

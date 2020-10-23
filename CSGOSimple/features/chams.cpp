@@ -1,7 +1,7 @@
 ﻿#include "chams.hpp"
 #include <fstream>
 
-#include "../valve_sdk/csgostructs.hpp"
+#include "../sdk/csgostructs.hpp"
 #include "../configs/options.hpp"
 #include "../hooks/hooks.hpp"
 #include "../helpers/input.hpp"
