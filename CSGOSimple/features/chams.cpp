@@ -59,23 +59,25 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 	bool is_sleeve = strstr(mdl->szName, "sleeve") != nullptr;
 	bool is_weapon = strstr(mdl->szName, "models/weapons/v_") != nullptr;
 
-	if (is_player && g_Options.chams_player_enabled) {
-		auto ent = C_BasePlayer::GetPlayerByIndex(info.entity_index);
+	if (g_Options.chams_player_enabled) {
+		C_BasePlayer* entity = (C_BasePlayer*)g_EntityList->GetClientEntity(info.entity_index);
+		if (!entity || entity->IsDormant() || !entity->IsPlayer()) return;
 
-		if (ent && g_LocalPlayer && ent->IsAlive()) {
-			const auto enemy = ent->m_iTeamNum() != g_LocalPlayer->m_iTeamNum();
-			if (!enemy && g_Options.chams_player_enemies_only) return;
+		const auto enemy = entity->m_iTeamNum() != g_LocalPlayer->m_iTeamNum();
+		if (!enemy && g_Options.chams_player_enemies_only) return;
 
-			const auto clr_front = enemy ? Color(g_Options.color_chams_player_enemy_visible) : Color(g_Options.color_chams_player_ally_visible);
-			const auto clr_back = enemy ? Color(g_Options.color_chams_player_enemy_occluded) : Color(g_Options.color_chams_player_ally_occluded);
+		auto is_local = entity->EntIndex() == g_LocalPlayer->EntIndex();
+		if (is_local) return;
 
-			if (g_Options.chams_player_ignorez) {
-				OverrideMaterial(true, g_Options.chams_player_wireframe, g_Options.chams_material, clr_back);
-				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
-				OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
-			}
-			else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);			
+		const auto clr_front = enemy ? Color(g_Options.color_chams_player_enemy_visible) : Color(g_Options.color_chams_player_ally_visible);
+		const auto clr_back = enemy ? Color(g_Options.color_chams_player_enemy_occluded) : Color(g_Options.color_chams_player_ally_occluded);
+
+		if (g_Options.chams_player_ignorez) {
+			OverrideMaterial(true, g_Options.chams_player_wireframe, g_Options.chams_material, clr_back);
+			fnDME(g_MdlRender, 0, ctx, state, info, matrix);
+			OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
 		}
+		else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);		
 	}
 	else if (is_sleeve && g_Options.chams_arms_enabled) {
 		auto material = g_MatSystem->FindMaterial(mdl->szName, TEXTURE_GROUP_MODEL);
