@@ -2,10 +2,10 @@
 
 #include "../sdk/csgostructs.hpp"
 #include "../helpers/vfunc_hook.hpp"
+#include "minhook/minhook.h"
 #include <d3d9.h>
 
-namespace index
-{
+namespace index {
 	constexpr auto EmitSound1               = 5;
 	constexpr auto EmitSound2               = 6;
     constexpr auto EndScene                 = 42;
@@ -21,8 +21,9 @@ namespace index
 	constexpr auto LockCursor               = 67;
 }
 
-namespace Hooks
-{
+namespace Hooks {
+	inline unsigned int get_virtual(void* _class, unsigned int index) { return static_cast<unsigned int>((*static_cast<int**>(_class))[index]); }
+
     void Initialize();
     void Shutdown();
 
@@ -36,17 +37,70 @@ namespace Hooks
 	inline vfunc_hook clientmode_hook;
 	inline vfunc_hook sv_cheats;
 
+	namespace end_scene {
+		using fn_endscene = long(__stdcall*)(IDirect3DDevice9*);
+		long __stdcall hook(IDirect3DDevice9* device);
+		inline fn_endscene o_end_scene = nullptr;
+	}
 
-    long __stdcall hkEndScene(IDirect3DDevice9* device);
-    long __stdcall hkReset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* pPresentationParameters);
-    void __stdcall hkCreateMove(int sequence_number, float input_sample_frametime, bool active, bool& bSendPacket);
-	void __fastcall hkCreateMove_Proxy(void* _this, int, int sequence_number, float input_sample_frametime, bool active);
-	void __fastcall hkPaintTraverse(void* _this, int edx, vgui::VPANEL panel, bool forceRepaint, bool allowForce);
-	void __fastcall hkEmitSound1(void* _this, int, IRecipientFilter & filter, int iEntIndex, int iChannel, const char * pSoundEntry, unsigned int nSoundEntryHash, const char * pSample, float flVolume, int nSeed, float flAttenuation, int iFlags, int iPitch, const Vector * pOrigin, const Vector * pDirection, void * pUtlVecOrigins, bool bUpdatePositions, float soundtime, int speakerentity, int unk);
-    void __fastcall hkDrawModelExecute(void* _this, int, IMatRenderContext* ctx, const DrawModelState_t& state, const ModelRenderInfo_t& pInfo, matrix3x4_t* pCustomBoneToWorld);
-    void __fastcall hkFrameStageNotify(void* _this, int, ClientFrameStage_t stage);
-	void __fastcall hkOverrideView(void* _this, int, CViewSetup * vsView);
-	void __fastcall hkLockCursor(void* _this);
-    int  __fastcall hkDoPostScreenEffects(void* _this, int, int a1);
-	bool __fastcall hkSvCheatsGetBool(void* pConVar, void* edx);
+	namespace reset {
+		using fn_reset = long(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+		long __stdcall hook(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* presentation_parameters);
+		inline fn_reset o_reset = nullptr;
+	}
+
+	namespace creatmove {
+		using fn_crmove = bool(__stdcall*)(float, CUserCmd*);
+		bool __stdcall hook(float input_sample_frametime, CUserCmd* cmd);
+		inline fn_crmove o_crmove = nullptr;
+	}
+
+	namespace pant_traverse {
+		using fn_paint = void(__fastcall*)(void*, int, vgui::VPANEL, bool, bool);
+		void __fastcall hook(void* _this, int edx, vgui::VPANEL panel, bool force_repaint, bool allow_force);
+		inline fn_paint o_paint = nullptr;
+	}
+
+	namespace emit_sound {
+		using fn_sound = long(__fastcall*)(void*, int, IRecipientFilter&, int, int, const char*, unsigned int, const char*, float, int, float, int, int, const Vector*, const Vector*, void*, bool, float, int, int);
+		void __fastcall hook(void* _this, int edx, IRecipientFilter& filter, int ent_index, int channel, const char* sound_entry, unsigned int sound_entry_hash, const char* sample, float volume, int seed, float attenuation, int flags, int pitch, const Vector* origin, const Vector* direction, void* utl_vec_origins, bool update_positions, float sound_time, int speaker_entity, int unk);
+		inline fn_sound o_sound = nullptr;
+	}
+
+	namespace dme {
+		using fn_dme = void(__fastcall*)(void*, int, IMatRenderContext*, const DrawModelState_t&, const ModelRenderInfo_t&, matrix3x4_t*);
+		void __fastcall hook(void* _this, int edx, IMatRenderContext* ctx, const DrawModelState_t& state, const ModelRenderInfo_t& info, matrix3x4_t* custom_bone_to_world);
+		inline fn_dme o_dme = nullptr;
+	}
+
+	namespace fsn {
+		using fn_fsn = void(__fastcall*)(void*, int, ClientFrameStage_t);
+		void __fastcall hook(void* _this, int, ClientFrameStage_t stage);
+		inline fn_fsn o_fsn = nullptr;
+	}
+
+	namespace override_view {
+		using fn_ovview = void(__fastcall*)(void*, int, CViewSetup*);
+		void __fastcall hook(void* _this, int, CViewSetup* vs_view);
+		inline fn_ovview o_ovview = nullptr;
+	}
+
+	namespace lock_cursour {
+		using fn_lock = void(__fastcall*)(void*);
+		void __fastcall hook(void* _this);
+		inline fn_lock o_lock = nullptr;
+	}
+
+	namespace dpse {
+		using fn_effects = int(__fastcall*)(void*, int, int);
+		int  __fastcall hook(void* _this, int edx, int a1);
+		inline fn_effects o_effects = nullptr;
+	}
+
+	namespace cheats {
+		using fn_cheats = bool(__fastcall*)(void*, void*);
+		bool __fastcall hook(void* convar, void* edx);
+		inline fn_cheats o_cheats = nullptr;
+	}
+
 }

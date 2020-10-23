@@ -388,5 +388,11 @@
     <ClInclude Include="sdk\sdk.hpp">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
+    <ClInclude Include="hooks\minhook\minhook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="hooks\minhook\minhook.lib" />
   </ItemGroup>
 </Project>

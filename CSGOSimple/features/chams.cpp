@@ -51,8 +51,6 @@ void Chams::OverrideMaterial(bool ignoreZ, bool wireframe, int type, const Color
 
 void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& state,const ModelRenderInfo_t& info,matrix3x4_t* matrix)
 {
-	static auto fnDME = Hooks::mdlrender_hook.get_original<decltype(&Hooks::hkDrawModelExecute)>(index::DrawModelExecute);
-
 	const auto mdl = info.pModel;
 	bool is_arm = strstr(mdl->szName, "arms") != nullptr;
 	bool is_player = strstr(mdl->szName, "models/player") != nullptr; //usless after agents update
@@ -74,7 +72,7 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 
 		if (g_Options.chams_player_ignorez) {
 			OverrideMaterial(true, g_Options.chams_player_wireframe, g_Options.chams_material, clr_back);
-			fnDME(g_MdlRender, 0, ctx, state, info, matrix);
+			Hooks::dme::o_dme(g_MdlRender, 0, ctx, state, info, matrix);
 			OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
 		}
 		else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);		
@@ -95,7 +93,7 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 		else if (g_Options.chams_arms_enabled) {
 			if (g_Options.chams_arms_ignorez) {
 				OverrideMaterial(true, g_Options.chams_arms_wireframe, g_Options.chams_material_arms, Color(g_Options.color_chams_arms_occluded));
-				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
+				Hooks::dme::o_dme(g_MdlRender, 0, ctx, state, info, matrix);
 				OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms, Color(g_Options.color_chams_arms_visible));
 			}
 			else OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms, Color(g_Options.color_chams_arms_visible));		
