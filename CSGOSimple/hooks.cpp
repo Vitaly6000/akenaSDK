@@ -273,21 +273,14 @@ namespace Hooks {
 	{
 		static auto ofunc = mdlrender_hook.get_original<decltype(&hkDrawModelExecute)>(index::DrawModelExecute);
 
-		if (g_MdlRender->IsForcedMaterialOverride() &&
-			!strstr(pInfo.pModel->szName, "arms") &&
-			!strstr(pInfo.pModel->szName, "weapons/v_")) {
+		if (g_MdlRender->IsForcedMaterialOverride())
 			return ofunc(_this, edx, ctx, state, pInfo, pCustomBoneToWorld);
-		}
 
 		Chams::Get().OnDrawModelExecute(ctx, state, pInfo, pCustomBoneToWorld);
-
 		ofunc(_this, edx, ctx, state, pInfo, pCustomBoneToWorld);
-
 		g_MdlRender->ForcedMaterialOverride(nullptr);
 	}
 
-	
-	
 	bool __fastcall hkSvCheatsGetBool(PVOID pConVar, void* edx)
 	{
 		static auto dwCAM_Think = Utils::PatternScan(GetModuleHandleW(L"client.dll"), "85 C0 75 30 38 86");
