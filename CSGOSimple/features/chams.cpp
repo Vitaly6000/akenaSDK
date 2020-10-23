@@ -116,16 +116,12 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 	static auto fnDME = Hooks::mdlrender_hook.get_original<decltype(&Hooks::hkDrawModelExecute)>(index::DrawModelExecute);
 
 	const auto mdl = info.pModel;
-
 	bool is_arm = strstr(mdl->szName, "arms") != nullptr;
-	bool is_player = strstr(mdl->szName, "models/player") != nullptr;
+	bool is_player = strstr(mdl->szName, "models/player") != nullptr; //usless after agents update
 	bool is_sleeve = strstr(mdl->szName, "sleeve") != nullptr;
-	//bool is_weapon = strstr(mdl->szName, "weapons/v_")  != nullptr;
+	bool is_weapon = strstr(mdl->szName, "models/weapons/v_") != nullptr;
 
 	if (is_player && g_Options.chams_player_enabled) {
-		// 
-		// Draw player Chams.
-		// 
 		auto ent = C_BasePlayer::GetPlayerByIndex(info.entity_index);
 
 		if (ent && g_LocalPlayer && ent->IsAlive()) {
@@ -137,24 +133,12 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 			const auto clr_back = enemy ? Color(g_Options.color_chams_player_enemy_occluded) : Color(g_Options.color_chams_player_ally_occluded);
 
 			if (g_Options.chams_player_ignorez) {
-				OverrideMaterialPlayer(
-					true,
-					g_Options.chams_player_wireframe,
-					g_Options.chams_material,
-					clr_back);
+				OverrideMaterialPlayer(true,g_Options.chams_player_wireframe,g_Options.chams_material,clr_back);
 				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
-				OverrideMaterialPlayer(
-					false,
-					g_Options.chams_player_wireframe,
-					g_Options.chams_material,
-					clr_front);
+				OverrideMaterialPlayer(false,g_Options.chams_player_wireframe,g_Options.chams_material,clr_front);
 			}
 			else {
-				OverrideMaterialPlayer(
-					false,
-					g_Options.chams_player_wireframe,
-					g_Options.chams_material,
-					clr_front);
+				OverrideMaterialPlayer(false,g_Options.chams_player_wireframe,g_Options.chams_material,clr_front);
 			}
 		}
 	}
