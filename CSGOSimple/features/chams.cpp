@@ -2,8 +2,8 @@
 #include <fstream>
 
 #include "../valve_sdk/csgostructs.hpp"
-#include "../options.hpp"
-#include "../hooks.hpp"
+#include "../configs/options.hpp"
+#include "../hooks/hooks.hpp"
 #include "../helpers/input.hpp"
 
 Chams::Chams() {

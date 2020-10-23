@@ -3,16 +3,16 @@
 #include <Windows.h>
 #include <chrono>
 
-#include "valve_sdk/csgostructs.hpp"
-#include "helpers/input.hpp"
-#include "options.hpp"
-#include "ui.hpp"
-#include "config.hpp"
+#include "../valve_sdk/csgostructs.hpp"
+#include "../helpers/input.hpp"
+#include "../configs/options.hpp"
+#include "../configs/config.hpp"
+#include "../ui/ui.hpp"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
-#include "imgui/imgui_internal.h"
-#include "imgui/impl/imgui_impl_dx9.h"
-#include "imgui/impl/imgui_impl_win32.h"
+#include "../imgui/imgui_internal.h"
+#include "../imgui/impl/imgui_impl_dx9.h"
+#include "../imgui/impl/imgui_impl_win32.h"
 
 #pragma region MenuTabs
 bool SubTabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg)

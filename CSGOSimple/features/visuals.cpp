@@ -2,7 +2,7 @@
 
 #include "visuals.hpp"
 
-#include "../options.hpp"
+#include "../configs/options.hpp"
 #include "../helpers/math.hpp"
 #include "../helpers/utils.hpp"
 

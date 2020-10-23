@@ -41,12 +41,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="valve_sdk\misc\characterset.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
@@ -107,12 +101,6 @@
     <ClCompile Include="helpers\input.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
-    <ClCompile Include="render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="features\visuals.cpp">
       <Filter>Source Files\features</Filter>
     </ClCompile>
@@ -124,6 +112,18 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks\hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menu\menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="render\render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\ui.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,16 +307,7 @@
     <ClInclude Include="valve_sdk\math\VMatrix.hpp">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
-    <ClInclude Include="hooks.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="helpers\math.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="menu.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="options.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="singleton.hpp">
@@ -358,12 +349,6 @@
     <ClInclude Include="helpers\input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ui.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="render.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="valve_sdk\interfaces\IRefCounted.hpp">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
@@ -376,9 +361,6 @@
     <ClInclude Include="imgui\impl\imgui_impl_win32.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="fonts\droid.hpp">
       <Filter>Header Files\fonts</Filter>
     </ClInclude>
@@ -388,7 +370,22 @@
     <ClInclude Include="fonts\cousine.hpp">
       <Filter>Header Files\fonts</Filter>
     </ClInclude>
-    <ClInclude Include="config.hpp">
+    <ClInclude Include="configs\config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="configs\options.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks\hooks.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menu\menu.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="render\render.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui\ui.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

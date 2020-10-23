@@ -1,15 +1,15 @@
 #include "hooks.hpp"
 #include <intrin.h>  
 
-#include "render.hpp"
-#include "menu.hpp"
-#include "options.hpp"
-#include "helpers/input.hpp"
-#include "helpers/utils.hpp"
-#include "features/bhop.hpp"
-#include "features/chams.hpp"
-#include "features/visuals.hpp"
-#include "features/glow.hpp"
+#include "../render/render.hpp"
+#include "../menu/menu.hpp"
+#include "../configs/options.hpp"
+#include "../helpers/input.hpp"
+#include "../helpers/utils.hpp"
+#include "../features/bhop.hpp"
+#include "../features/chams.hpp"
+#include "../features/visuals.hpp"
+#include "../features/glow.hpp"
 #pragma intrinsic(_ReturnAddress)  
 
 namespace Hooks {

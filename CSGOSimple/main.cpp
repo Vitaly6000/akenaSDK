@@ -5,10 +5,10 @@
 #include "helpers/utils.hpp"
 #include "helpers/input.hpp"
 
-#include "hooks.hpp"
-#include "menu.hpp"
-#include "options.hpp"
-#include "render.hpp"
+#include "hooks/hooks.hpp"
+#include "menu/menu.hpp"
+#include "configs/options.hpp"
+#include "render/render.hpp"
 
 DWORD WINAPI OnDllAttach(LPVOID base)
 {

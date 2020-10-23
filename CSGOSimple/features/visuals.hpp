@@ -2,11 +2,9 @@
 
 #include "../singleton.hpp"
 
-#include "../render.hpp"
+#include "../render/render.hpp"
 #include "../helpers/math.hpp"
 #include "../valve_sdk/csgostructs.hpp"
-
-
 
 
 class Visuals : public Singleton<Visuals>

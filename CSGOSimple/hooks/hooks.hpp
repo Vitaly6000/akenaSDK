@@ -1,7 +1,7 @@
 #pragma once
 
-#include "valve_sdk/csgostructs.hpp"
-#include "helpers/vfunc_hook.hpp"
+#include "../valve_sdk/csgostructs.hpp"
+#include "../helpers/vfunc_hook.hpp"
 #include <d3d9.h>
 
 namespace index

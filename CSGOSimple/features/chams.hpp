@@ -37,6 +37,7 @@ private:
         case 1: return materialFlat;
         case 2: return materialFlat;
         case 3: return materialGlow;
+        default: break;
         }
     }
 };

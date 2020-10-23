@@ -1,5 +1,5 @@
 #include "ui.hpp"
-#include "menu.hpp"
+#include "../menu/menu.hpp"
 #include <deque>
 #include <algorithm>
 #include <vector>

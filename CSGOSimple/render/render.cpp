@@ -2,13 +2,13 @@
 
 #include <mutex>
 
-#include "features/visuals.hpp"
-#include "valve_sdk/csgostructs.hpp"
-#include "helpers/input.hpp"
-#include "menu.hpp"
-#include "options.hpp"
-#include "fonts/fonts.hpp"
-#include "helpers/math.hpp"
+#include "../features/visuals.hpp"
+#include "../valve_sdk/csgostructs.hpp"
+#include "../helpers/input.hpp"
+#include "../menu/menu.hpp"
+#include "../configs/options.hpp"
+#include "../fonts/fonts.hpp"
+#include "../helpers/math.hpp"
 
 ImFont* g_pDefaultFont;
 ImFont* g_pSecondFont;

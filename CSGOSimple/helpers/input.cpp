@@ -3,7 +3,7 @@
 #include "../valve_sdk/sdk.hpp"
 #include "../imgui/imgui.h"
 #include "../imgui/impl/imgui_impl_win32.h"
-#include "../menu.hpp"
+#include "../menu/menu.hpp"
 
 InputSys::InputSys()
 	: m_hTargetWindow(nullptr), m_ulOldWndProc(0)

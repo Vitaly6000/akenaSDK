@@ -105,16 +105,16 @@
     <ClCompile Include="helpers\math.cpp" />
     <ClCompile Include="helpers\utils.cpp" />
     <ClCompile Include="helpers\vfunc_hook.cpp" />
-    <ClCompile Include="hooks.cpp" />
+    <ClCompile Include="hooks\hooks.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="imgui\impl\imgui_impl_dx9.cpp" />
     <ClCompile Include="imgui\impl\imgui_impl_win32.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="menu.cpp" />
-    <ClCompile Include="render.cpp" />
-    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="menu\menu.cpp" />
+    <ClCompile Include="render\render.cpp" />
+    <ClCompile Include="ui\ui.cpp" />
     <ClCompile Include="valve_sdk\csgostructs.cpp" />
     <ClCompile Include="valve_sdk\sdk.cpp" />
     <ClCompile Include="valve_sdk\math\Vector2D.cpp" />
@@ -130,12 +130,11 @@
     <ClCompile Include="valve_sdk\netvars.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.hpp" />
+    <ClInclude Include="configs\config.hpp" />
     <ClInclude Include="fonts\cousine.hpp" />
     <ClInclude Include="fonts\fonts.hpp" />
     <ClInclude Include="imgui\impl\imgui_impl_dx9.h" />
     <ClInclude Include="imgui\impl\imgui_impl_win32.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="valve_sdk\Misc\datamap.hpp" />
     <ClInclude Include="fonts\droid.hpp" />
     <ClInclude Include="features\bhop.hpp" />
@@ -146,7 +145,7 @@
     <ClInclude Include="helpers\math.hpp" />
     <ClInclude Include="helpers\utils.hpp" />
     <ClInclude Include="helpers\vfunc_hook.hpp" />
-    <ClInclude Include="hooks.hpp" />
+    <ClInclude Include="hooks\hooks.hpp" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
@@ -154,11 +153,11 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="valve_sdk\interfaces\IRefCounted.hpp" />
-    <ClInclude Include="menu.hpp" />
-    <ClInclude Include="options.hpp" />
-    <ClInclude Include="render.hpp" />
+    <ClInclude Include="menu\menu.hpp" />
+    <ClInclude Include="configs\options.hpp" />
+    <ClInclude Include="render\render.hpp" />
     <ClInclude Include="singleton.hpp" />
-    <ClInclude Include="ui.hpp" />
+    <ClInclude Include="ui\ui.hpp" />
     <ClInclude Include="valve_sdk\csgostructs.hpp" />
     <ClInclude Include="valve_sdk\sdk.hpp" />
     <ClInclude Include="valve_sdk\interfaces\CClientState.hpp" />
