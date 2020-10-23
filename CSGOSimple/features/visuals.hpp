@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../singleton.hpp"
+#include "../helpers/singleton.hpp"
 
 #include "../render/render.hpp"
 #include "../helpers/math.hpp"

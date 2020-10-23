@@ -7,7 +7,7 @@
 #pragma comment(lib,"d3d9.lib")
 #pragma comment(lib,"d3dx9.lib")
 
-#include "../singleton.hpp"
+#include "../helpers/singleton.hpp"
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_internal.h"
 #include "../imgui/impl/imgui_impl_dx9.h"

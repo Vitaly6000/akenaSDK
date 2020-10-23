@@ -1,6 +1,6 @@
 #pragma once
 #include "options.hpp"
-#include "../singleton.hpp"
+#include "../helpers/singleton.hpp"
 
 #include <fstream>
 

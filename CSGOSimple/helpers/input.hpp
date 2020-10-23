@@ -9,7 +9,7 @@
 #include <stdexcept>
 #include <d3d9.h>
 
-#include "../singleton.hpp"
+#include "../helpers/singleton.hpp"
 
 enum class KeyState
 {

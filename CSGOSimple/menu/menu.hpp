@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../singleton.hpp"
+#include "../helpers/singleton.hpp"
 #include "../imgui/imgui.h"
 
 struct IDirect3DDevice9;

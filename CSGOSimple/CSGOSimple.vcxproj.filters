@@ -310,9 +310,6 @@
     <ClInclude Include="helpers\math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="singleton.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="helpers\utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -386,6 +383,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ui\ui.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\singleton.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -156,7 +156,7 @@
     <ClInclude Include="menu\menu.hpp" />
     <ClInclude Include="configs\options.hpp" />
     <ClInclude Include="render\render.hpp" />
-    <ClInclude Include="singleton.hpp" />
+    <ClInclude Include="helpers\singleton.hpp" />
     <ClInclude Include="ui\ui.hpp" />
     <ClInclude Include="valve_sdk\csgostructs.hpp" />
     <ClInclude Include="valve_sdk\sdk.hpp" />
