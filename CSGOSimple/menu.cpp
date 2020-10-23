@@ -251,10 +251,6 @@ void RenderMiscTab()
         //ImGui::PushItemWidth(-1.0f);
 		ImGui::NextColumn();
         ImGui::SliderInt("viewmodel_fov:", g_Options.viewmodel_fov, 68, 120);
-		ImGui::Text("Postprocessing:");
-        ImGui::SliderFloat("Red", g_Options.mat_ambient_light_r, 0, 1);
-        ImGui::SliderFloat("Green", g_Options.mat_ambient_light_g, 0, 1);
-        ImGui::SliderFloat("Blue", g_Options.mat_ambient_light_b, 0, 1);
         //ImGui::PopItemWidth();
 
         ImGui::Columns(1, nullptr, false);
@@ -472,10 +468,6 @@ void Menu::Render()
                 }
                 if (SubTabVisuals == 4) {
                     ImGui::SliderInt("##viewmodel_fov", g_Options.viewmodel_fov, 68, 120, "Viewmodel FOV : %.1f");
-                    ImGui::Text("Postprocessing:");
-                    ImGui::SliderFloat("##Red", g_Options.mat_ambient_light_r, 0, 1, "Red : %.3f");
-                    ImGui::SliderFloat("##Green", g_Options.mat_ambient_light_g, 0, 1, "Green : %.3f");
-                    ImGui::SliderFloat("##Blue", g_Options.mat_ambient_light_b, 0, 1, "Blue : %.3f");
                     ImGui::Checkbox("Third Person", g_Options.misc_thirdperson);
                     if (g_Options.misc_thirdperson)
                         ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);

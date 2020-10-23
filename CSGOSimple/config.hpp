@@ -5,8 +5,6 @@
 #include <fstream>
 
 
-
-
 class Config : public Singleton<Config> {
 public:
 	void Save() {
