@@ -70,11 +70,11 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 			const auto clr_back = enemy ? Color(g_Options.color_chams_player_enemy_occluded) : Color(g_Options.color_chams_player_ally_occluded);
 
 			if (g_Options.chams_player_ignorez) {
-				/*OverrideMaterialPlayer*/OverrideMaterial(true,g_Options.chams_player_wireframe,g_Options.chams_material,clr_back);
+				OverrideMaterial(true, g_Options.chams_player_wireframe, g_Options.chams_material, clr_back);
 				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
-				/*OverrideMaterialPlayer*/OverrideMaterial(false,g_Options.chams_player_wireframe,g_Options.chams_material,clr_front);
+				OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
 			}
-			else /*OverrideMaterialPlayer*/OverrideMaterial(false,g_Options.chams_player_wireframe,g_Options.chams_material,clr_front);			
+			else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);			
 		}
 	}
 	else if (is_sleeve && g_Options.chams_arms_enabled) {
@@ -92,11 +92,11 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 		}
 		else if (g_Options.chams_arms_enabled) {
 			if (g_Options.chams_arms_ignorez) {
-				/*OverrideMaterialArms*/OverrideMaterial(true, g_Options.chams_arms_wireframe, g_Options.chams_material_arms, Color(g_Options.color_chams_arms_occluded));
+				OverrideMaterial(true, g_Options.chams_arms_wireframe, g_Options.chams_material_arms, Color(g_Options.color_chams_arms_occluded));
 				fnDME(g_MdlRender, 0, ctx, state, info, matrix);
-				/*OverrideMaterialArms*/OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms,Color(g_Options.color_chams_arms_visible));
+				OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms, Color(g_Options.color_chams_arms_visible));
 			}
-			else /*OverrideMaterialArms*/OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms,Color(g_Options.color_chams_arms_visible));		
+			else OverrideMaterial(false,g_Options.chams_arms_wireframe,g_Options.chams_material_arms, Color(g_Options.color_chams_arms_visible));		
 		}
 	}
 }
