@@ -110,8 +110,7 @@ public:
 		float color_chams_player_ally_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_player_enemy_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_player_enemy_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		float color_chams_arms_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		float color_chams_arms_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_arms[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 };
 
 inline Options g_Options;

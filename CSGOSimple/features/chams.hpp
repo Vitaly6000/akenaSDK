@@ -35,9 +35,7 @@ private:
         switch (material) {
         case 0: return materialRegular;
         case 1: return materialFlat;
-        case 2: return materialFlat;
-        case 3: return materialGlow;
-        default: break;
+        case 2: return materialGlow;
         }
     }
 };

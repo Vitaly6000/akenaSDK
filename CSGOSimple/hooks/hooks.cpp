@@ -136,10 +136,7 @@ namespace Hooks {
 	//--------------------------------------------------------------------------------
 	bool __stdcall creatmove::hook(float input_sample_frametime, CUserCmd* cmd) {
 		o_crmove(input_sample_frametime, cmd);
-
-		if (!cmd || !cmd->command_number)
-			return false;
-		
+	
 		if (Menu::Get().IsVisible())
 			cmd->buttons &= ~IN_ATTACK;
 

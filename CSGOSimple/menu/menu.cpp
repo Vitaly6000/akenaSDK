@@ -89,234 +89,184 @@ bool Tab(const char* label, const char* icon, const ImVec2& size_arg, const bool
     return TabEx(label, icon, selected, size_arg);
 }
 #pragma endregion
+#pragma region initialize
+static int Tabs = 1;
+static int SubTabLegit = 1;
+static int SubTabMisc = 1;
+static int SubTabVisuals = 1;
+#pragma endregion;
 
-void RenderEspTab()
-{
-    static char* esp_tab_names[] = { "ESP", "GLOW", "CHAMS" };
-    static int   active_esp_tab = 0;
-
-    bool placeholder_true = true;
-
-    auto& style = ImGui::GetStyle();
-    float group_w = ImGui::GetCurrentWindow()->Size.x - style.WindowPadding.x * 2;
-
-    ImGui::PopStyleVar();
-    ImGui::BeginGroupBox("##body_content");
-    {
-        if(active_esp_tab == 0) {
-            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ style.WindowPadding.x, style.ItemSpacing.y });
-            ImGui::Columns(3, nullptr, false);
-            ImGui::SetColumnOffset(1, group_w / 3.0f);
-            ImGui::SetColumnOffset(2, 2 * group_w / 3.0f);
-            ImGui::SetColumnOffset(3, group_w);
-
-            ImGui::Checkbox("Enabled", g_Options.esp_enabled);
-            ImGui::Checkbox("Team check", g_Options.esp_enemies_only);
-            ImGui::Checkbox("Boxes", g_Options.esp_player_boxes);
-            ImGui::Checkbox("Names", g_Options.esp_player_names);
-            ImGui::Checkbox("Health", g_Options.esp_player_health);
-            ImGui::Checkbox("Armour", g_Options.esp_player_armour);
-            ImGui::Checkbox("Weapon", g_Options.esp_player_weapons);
-            ImGui::Checkbox("Snaplines", g_Options.esp_player_snaplines);
-
-            ImGui::NextColumn();
-
-            ImGui::Checkbox("Crosshair", g_Options.esp_crosshair);
-            ImGui::Checkbox("Dropped Weapons", g_Options.esp_dropped_weapons);
-            ImGui::Checkbox("Defuse Kit", g_Options.esp_defuse_kit);
-            ImGui::Checkbox("Planted C4", g_Options.esp_planted_c4);
-			ImGui::Checkbox("Item Esp", g_Options.esp_items);
-
-            ImGui::NextColumn();
-
-           ImGui::PushItemWidth(100);
-            ImGui::ColorEdit4("Allies Visible", g_Options.color_esp_ally_visible);
-            ImGui::ColorEdit4("Enemies Visible", g_Options.color_esp_enemy_visible);
-            ImGui::ColorEdit4("Allies Occluded", g_Options.color_esp_ally_occluded);
-            ImGui::ColorEdit4("Enemies Occluded", g_Options.color_esp_enemy_occluded);
-            ImGui::ColorEdit4("Crosshair", g_Options.color_esp_crosshair);
-            ImGui::ColorEdit4("Dropped Weapons", g_Options.color_esp_weapons);
-            ImGui::ColorEdit4("Defuse Kit", g_Options.color_esp_defuse);
-            ImGui::ColorEdit4("Planted C4", g_Options.color_esp_c4);
-			ImGui::ColorEdit4("Item Esp", g_Options.color_esp_item);
-            ImGui::PopItemWidth();
-
-            ImGui::Columns(1, nullptr, false);
-            ImGui::PopStyleVar();
-        } else if(active_esp_tab == 1) {
-            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ style.WindowPadding.x, style.ItemSpacing.y });
-            ImGui::Columns(3, nullptr, false);
-            ImGui::SetColumnOffset(1, group_w / 3.0f);
-            ImGui::SetColumnOffset(2, 2 * group_w / 3.0f);
-            ImGui::SetColumnOffset(3, group_w);
-
-            ImGui::Checkbox("Enabled", g_Options.glow_enabled);
-            ImGui::Checkbox("Team check", g_Options.glow_enemies_only);
-            ImGui::Checkbox("Players", g_Options.glow_players);
-            ImGui::Checkbox("Chickens", g_Options.glow_chickens);
-            ImGui::Checkbox("C4 Carrier", g_Options.glow_c4_carrier);
-            ImGui::Checkbox("Planted C4", g_Options.glow_planted_c4);
-            ImGui::Checkbox("Defuse Kits", g_Options.glow_defuse_kits);
-            ImGui::Checkbox("Weapons", g_Options.glow_weapons);
-
-            ImGui::NextColumn();
-
-            ImGui::PushItemWidth(100);
-            ImGui::ColorEdit4("Ally", g_Options.color_glow_ally);
-            ImGui::ColorEdit4("Enemy", g_Options.color_glow_enemy);
-            ImGui::ColorEdit4("Chickens", g_Options.color_glow_chickens);
-            ImGui::ColorEdit4("C4 Carrier", g_Options.color_glow_c4_carrier);
-            ImGui::ColorEdit4("Planted C4", g_Options.color_glow_planted_c4);
-            ImGui::ColorEdit4("Defuse Kits", g_Options.color_glow_defuse);
-            ImGui::ColorEdit4("Weapons", g_Options.color_glow_weapons);
-            ImGui::PopItemWidth();
-
-            ImGui::NextColumn();
-
-            ImGui::Columns(1, nullptr, false);
-            ImGui::PopStyleVar();
-        } else if(active_esp_tab == 2) {
-            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ style.WindowPadding.x, style.ItemSpacing.y });
-            ImGui::Columns(3, nullptr, false);
-            ImGui::SetColumnOffset(1, group_w / 3.0f);
-            ImGui::SetColumnOffset(2, 2 * group_w / 2.9f);
-            ImGui::SetColumnOffset(3, group_w);
-
-            ImGui::BeginGroupBox("Players");
-            {
-                ImGui::Checkbox("Enabled", g_Options.chams_player_enabled); ImGui::SameLine();
-                ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
-                ImGui::Checkbox("Wireframe", g_Options.chams_player_wireframe);
-                ImGui::Checkbox("Flat", g_Options.chams_player_flat);
-                ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez); ImGui::SameLine();
-                ImGui::Checkbox("Glass", g_Options.chams_player_glass);
-               ImGui::PushItemWidth(110);
-                ImGui::ColorEdit4("Ally (Visible)", g_Options.color_chams_player_ally_visible);
-                ImGui::ColorEdit4("Ally (Occluded)", g_Options.color_chams_player_ally_occluded);
-                ImGui::ColorEdit4("Enemy (Visible)", g_Options.color_chams_player_enemy_visible);
-                ImGui::ColorEdit4("Enemy (Occluded)", g_Options.color_chams_player_enemy_occluded);
-                ImGui::PopItemWidth();
-            }
-            ImGui::EndGroupBox();
-
-            ImGui::NextColumn();
-
-            ImGui::BeginGroupBox("Arms");
-            {
-                ImGui::Checkbox("Enabled", g_Options.chams_arms_enabled);
-                ImGui::Checkbox("Wireframe", g_Options.chams_arms_wireframe);
-                ImGui::Checkbox("Flat", g_Options.chams_arms_flat);
-                ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);
-                ImGui::Checkbox("Glass", g_Options.chams_arms_glass);
-                ImGui::PushItemWidth(110);
-                ImGui::ColorEdit4("Color (Visible)", g_Options.color_chams_arms_visible);
-                ImGui::ColorEdit4("Color (Occluded)", g_Options.color_chams_arms_occluded);
-                ImGui::PopItemWidth();
-            }
-            ImGui::EndGroupBox();
-
-            ImGui::Columns(1, nullptr, false);
-            ImGui::PopStyleVar();
-        }
-    }
-    ImGui::EndGroupBox();
-}
-
-void RenderMiscTab()
-{
-    bool placeholder_true = true;
-
-    auto& style = ImGui::GetStyle();
-    float group_w = ImGui::GetCurrentWindow()->Size.x - style.WindowPadding.x * 2;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
-    ImGui::ToggleButton("MISC", &placeholder_true, ImVec2{ group_w, 25.0f });
-    ImGui::PopStyleVar();
-
-    ImGui::BeginGroupBox("##body_content");
-    {
-        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ style.WindowPadding.x, style.ItemSpacing.y });
-        ImGui::Columns(3, nullptr, false);
-        ImGui::SetColumnOffset(1, group_w / 3.0f);
-        ImGui::SetColumnOffset(2, 2 * group_w / 3.0f);
-        ImGui::SetColumnOffset(3, group_w);
-
-        ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
-		ImGui::Checkbox("Third Person", g_Options.misc_thirdperson);
-		if(g_Options.misc_thirdperson)
-			ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);
-        ImGui::Checkbox("No hands", g_Options.misc_no_hands);
-		ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
-		ImGui::Checkbox("Watermark##hc", g_Options.misc_watermark);
-        //ImGui::PushItemWidth(-1.0f);
-		ImGui::NextColumn();
-        ImGui::SliderInt("viewmodel_fov:", g_Options.viewmodel_fov, 68, 120);
-        //ImGui::PopItemWidth();
-
-        ImGui::Columns(1, nullptr, false);
-        ImGui::PopStyleVar();
-    }
-    ImGui::EndGroupBox();
-}
-
-void RenderConfigTab()
-{
-    auto& style = ImGui::GetStyle();
-    float group_w = ImGui::GetCurrentWindow()->Size.x - style.WindowPadding.x * 2;
-
-    bool placeholder_true = true;
-
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0,0));
-    ImGui::ToggleButton("CONFIG", &placeholder_true, ImVec2{ group_w, 25.0f });
-    ImGui::PopStyleVar();
-
-    ImGui::BeginGroupBox("##body_content");
-    {
-		if (ImGui::Button("Save cfg")) {
-			Config::Get().Save();
-		}
-		if (ImGui::Button("Load cfg")) {
-			Config::Get().Load();
-		}
-    }
-    ImGui::EndGroupBox();
-}
-
-void Menu::Initialize()
-{
+void Menu::Initialize() {
 	CreateStyle();
 
     _visible = true;
 }
 
-void Menu::Shutdown()
-{
+void Menu::Shutdown() {
     ImGui_ImplDX9_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 }
 
-void Menu::OnDeviceLost()
-{
+void Menu::OnDeviceLost() {
     ImGui_ImplDX9_InvalidateDeviceObjects();
 }
 
-void Menu::OnDeviceReset()
-{
+void Menu::OnDeviceReset() {
     ImGui_ImplDX9_CreateDeviceObjects();
 }
 
-void Menu::Render()
-{
+void legitbot_tab() {
+    switch (SubTabLegit) {
+    case 1:
+        ImGui::Text("Here legit tab");
+        break;
+    case 2:
+        ImGui::Text("Here trigger tab");
+        break;
+    }
+}
+void visuals_tab() {
+    switch (SubTabVisuals) {
+    case 1: {
+        ImGui::Columns(2, nullptr, false);
+
+        ImGui::Checkbox("Enabled", g_Options.esp_enabled);
+        ImGui::Checkbox("Team check", g_Options.esp_enemies_only);
+        ImGui::Checkbox("Boxes", g_Options.esp_player_boxes);
+        ImGui::Checkbox("Names", g_Options.esp_player_names);
+        ImGui::Checkbox("Health", g_Options.esp_player_health);
+        ImGui::Checkbox("Armour", g_Options.esp_player_armour);
+        ImGui::Checkbox("Weapon", g_Options.esp_player_weapons);
+        ImGui::Checkbox("Snaplines", g_Options.esp_player_snaplines);
+
+        ImGui::NextColumn();
+
+        ImGui::Checkbox("Crosshair", g_Options.esp_crosshair);
+        ImGui::Checkbox("Dropped Weapons", g_Options.esp_dropped_weapons);
+        ImGui::Checkbox("Defuse Kit", g_Options.esp_defuse_kit);
+        ImGui::Checkbox("Planted C4", g_Options.esp_planted_c4);
+        ImGui::Checkbox("Item Esp", g_Options.esp_items);
+    } break;
+    case 2: {
+        ImGui::Columns(2, nullptr, false);
+        ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
+            ImGui::Checkbox("Enabled", g_Options.glow_enabled);
+            ImGui::Checkbox("Team check", g_Options.glow_enemies_only);
+            ImGui::Checkbox("Players", g_Options.glow_players);
+        }
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
+            ImGui::Checkbox("Chickens", g_Options.glow_chickens);
+            ImGui::Checkbox("C4 Carrier", g_Options.glow_c4_carrier);
+            ImGui::Checkbox("Planted C4", g_Options.glow_planted_c4);
+            ImGui::Checkbox("Defuse Kits", g_Options.glow_defuse_kits);
+            ImGui::Checkbox("Weapons", g_Options.glow_weapons);
+        }
+        ImGui::EndChild();
+    } break;
+    case 3: {
+        ImGui::Columns(2, nullptr, false);
+        static char* chams_material[] = { "Regular", "Flat", "Glow" };
+        static char* chams_material_arms[] = { "Regular", "Flat", "Glow" };
+        ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
+            ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
+            ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
+            ImGui::Combo("Material##player", g_Options.chams_material, chams_material, IM_ARRAYSIZE(chams_material));
+            ImGui::Checkbox("Wireframe", g_Options.chams_player_wireframe);
+            ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez);
+        }
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
+            ImGui::Checkbox("Enabled Arms", g_Options.chams_arms_enabled);
+            ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_arms, IM_ARRAYSIZE(chams_material_arms));
+            ImGui::Checkbox("Wireframe", g_Options.chams_arms_wireframe);
+            ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);
+        }
+        ImGui::EndChild();
+    } break;
+    case 4: {
+        ImGui::SliderInt("##viewmodel_fov", g_Options.viewmodel_fov, 68, 120, "Viewmodel FOV : %.1f");
+        ImGui::Checkbox("Third Person", g_Options.misc_thirdperson);
+        if (g_Options.misc_thirdperson)
+            ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);
+        ImGui::Checkbox("No hands", g_Options.misc_no_hands);
+    } break;
+    case 5: {
+        ImGui::Columns(3, nullptr, false);
+        ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
+            ImGui::ColorEdit4("Allies Visible", g_Options.color_esp_ally_visible, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Enemies Visible", g_Options.color_esp_enemy_visible, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Allies Occluded", g_Options.color_esp_ally_occluded, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Enemies Occluded", g_Options.color_esp_enemy_occluded, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Crosshair", g_Options.color_esp_crosshair, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Dropped Weapons", g_Options.color_esp_weapons, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Defuse Kit", g_Options.color_esp_defuse, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Planted C4", g_Options.color_esp_c4, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Item Esp", g_Options.color_esp_item, ImGuiColorEditFlags_NoInputs);
+        }
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
+            ImGui::ColorEdit4("Ally", g_Options.color_glow_ally, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Enemy", g_Options.color_glow_enemy, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Chickens", g_Options.color_glow_chickens, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("C4 Carrier", g_Options.color_glow_c4_carrier, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Planted C4", g_Options.color_glow_planted_c4, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Defuse Kits", g_Options.color_glow_defuse, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Weapons", g_Options.color_glow_weapons, ImGuiColorEditFlags_NoInputs);
+        }
+        ImGui::EndChild();
+
+        ImGui::NextColumn();
+
+        ImGui::BeginChild("##thirddchild", ImVec2(0, 0)); {
+            ImGui::ColorEdit4("Ally Visible", g_Options.color_chams_player_ally_visible, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Ally Occluded", g_Options.color_chams_player_ally_occluded, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Enemy Visible", g_Options.color_chams_player_enemy_visible, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Enemy Occluded", g_Options.color_chams_player_enemy_occluded, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Arms Color", g_Options.color_chams_arms, ImGuiColorEditFlags_NoInputs);
+        }
+        ImGui::EndChild();
+    } break;
+    }
+}
+void skins_tab() {
+
+}
+void misc_tab() {
+    switch (SubTabMisc) {
+    case 1: {
+        ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
+        ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
+        ImGui::Checkbox("Watermark##hc", g_Options.misc_watermark);
+        if (ImGui::Button("Unload")) {
+            g_Unload = true;
+        }
+    } break;
+    case 2: {
+        if (ImGui::Button("Save cfg")) {
+            Config::Get().Save();
+        }
+        if (ImGui::Button("Load cfg")) {
+            Config::Get().Load();
+        }
+    } break;
+    }
+}
+
+void Menu::Render() {
 	ImGui::GetIO().MouseDrawCursor = _visible;
 
-    if(!_visible)
-        return;
-
-    static int Tabs = 1;
-    static int SubTabLegit = 1;
-    static int SubTabMisc = 1;
-    static int SubTabVisuals = 1;
+    if(!_visible) return;
 
     static auto flags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar;
     ImGui::SetNextWindowSize({ 430,430 });
@@ -394,146 +344,11 @@ void Menu::Render()
             ImGui::SameLine();
         }
         if (ImGui::BeginChild("Child3", ImVec2(-1, -1), false, flags)) {
-            if (Tabs == 1) {
-                if (SubTabLegit == 1) {
-                    ImGui::Text("Here legit tab");
-                }
-                if (SubTabLegit == 2) {
-                    ImGui::Text("Here trigger tab");
-                }
-            }
-            if (Tabs == 2) {
-                if (SubTabVisuals == 1) {
-                    ImGui::Columns(2, nullptr, false);
-
-                    ImGui::Checkbox("Enabled", g_Options.esp_enabled);
-                    ImGui::Checkbox("Team check", g_Options.esp_enemies_only);
-                    ImGui::Checkbox("Boxes", g_Options.esp_player_boxes);
-                    ImGui::Checkbox("Names", g_Options.esp_player_names);
-                    ImGui::Checkbox("Health", g_Options.esp_player_health);
-                    ImGui::Checkbox("Armour", g_Options.esp_player_armour);
-                    ImGui::Checkbox("Weapon", g_Options.esp_player_weapons);
-                    ImGui::Checkbox("Snaplines", g_Options.esp_player_snaplines);
-
-                    ImGui::NextColumn();
-
-                    ImGui::Checkbox("Crosshair", g_Options.esp_crosshair);
-                    ImGui::Checkbox("Dropped Weapons", g_Options.esp_dropped_weapons);
-                    ImGui::Checkbox("Defuse Kit", g_Options.esp_defuse_kit);
-                    ImGui::Checkbox("Planted C4", g_Options.esp_planted_c4);
-                    ImGui::Checkbox("Item Esp", g_Options.esp_items);
-                }
-                if (SubTabVisuals == 2) {
-                    ImGui::Columns(2, nullptr, false);
-                    ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
-                        ImGui::Checkbox("Enabled", g_Options.glow_enabled);
-                        ImGui::Checkbox("Team check", g_Options.glow_enemies_only);
-                        ImGui::Checkbox("Players", g_Options.glow_players);             
-                    }
-                    ImGui::EndChild();
-
-                    ImGui::NextColumn();
-
-                    ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
-                        ImGui::Checkbox("Chickens", g_Options.glow_chickens);
-                        ImGui::Checkbox("C4 Carrier", g_Options.glow_c4_carrier);
-                        ImGui::Checkbox("Planted C4", g_Options.glow_planted_c4);
-                        ImGui::Checkbox("Defuse Kits", g_Options.glow_defuse_kits);
-                        ImGui::Checkbox("Weapons", g_Options.glow_weapons);
-                    }
-                    ImGui::EndChild();
-                }
-                if (SubTabVisuals == 3) {
-                    ImGui::Columns(2, nullptr, false);
-                    static char* chams_material[] = { "Regular", "Flat", "Glass", "Glow" };
-                    static char* chams_material_arms[] = { "Regular", "Flat", "Glass", "Glow" };
-                    ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
-                        ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
-                        ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
-                        ImGui::Combo("Material##player", g_Options.chams_material, chams_material, IM_ARRAYSIZE(chams_material));
-                        ImGui::Checkbox("Wireframe", g_Options.chams_player_wireframe);
-                        ImGui::Checkbox("Ignore-Z", g_Options.chams_player_ignorez);
-                    }
-                    ImGui::EndChild();
-
-                    ImGui::NextColumn();
-
-                    ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
-                        ImGui::Checkbox("Enabled Arms", g_Options.chams_arms_enabled);
-                        ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_arms, IM_ARRAYSIZE(chams_material_arms));
-                        ImGui::Checkbox("Wireframe", g_Options.chams_arms_wireframe);
-                        ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);                   
-                    }
-                    ImGui::EndChild();
-                }
-                if (SubTabVisuals == 4) {
-                    ImGui::SliderInt("##viewmodel_fov", g_Options.viewmodel_fov, 68, 120, "Viewmodel FOV : %.1f");
-                    ImGui::Checkbox("Third Person", g_Options.misc_thirdperson);
-                    if (g_Options.misc_thirdperson)
-                        ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);
-                    ImGui::Checkbox("No hands", g_Options.misc_no_hands);
-                }
-                if (SubTabVisuals == 5) {
-                    ImGui::Columns(3, nullptr, false);
-                    ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
-                        ImGui::ColorEdit4("Allies Visible", g_Options.color_esp_ally_visible, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Enemies Visible", g_Options.color_esp_enemy_visible, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Allies Occluded", g_Options.color_esp_ally_occluded, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Enemies Occluded", g_Options.color_esp_enemy_occluded, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Crosshair", g_Options.color_esp_crosshair, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Dropped Weapons", g_Options.color_esp_weapons, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Defuse Kit", g_Options.color_esp_defuse, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Planted C4", g_Options.color_esp_c4, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Item Esp", g_Options.color_esp_item, ImGuiColorEditFlags_NoInputs);
-                    }
-                    ImGui::EndChild();
-
-                    ImGui::NextColumn();
-
-                    ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
-                        ImGui::ColorEdit4("Ally", g_Options.color_glow_ally, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Enemy", g_Options.color_glow_enemy, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Chickens", g_Options.color_glow_chickens, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("C4 Carrier", g_Options.color_glow_c4_carrier, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Planted C4", g_Options.color_glow_planted_c4, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Defuse Kits", g_Options.color_glow_defuse, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Weapons", g_Options.color_glow_weapons, ImGuiColorEditFlags_NoInputs);
-                    }
-                    ImGui::EndChild();
-
-                    ImGui::NextColumn();
-
-                    ImGui::BeginChild("##thirddchild", ImVec2(0, 0)); {
-                        ImGui::ColorEdit4("Ally Visible", g_Options.color_chams_player_ally_visible, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Ally Occluded", g_Options.color_chams_player_ally_occluded, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Enemy Visible", g_Options.color_chams_player_enemy_visible, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Enemy Occluded", g_Options.color_chams_player_enemy_occluded, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Arms Color Visible", g_Options.color_chams_arms_visible, ImGuiColorEditFlags_NoInputs);
-                        ImGui::ColorEdit4("Arms Color Occluded", g_Options.color_chams_arms_occluded, ImGuiColorEditFlags_NoInputs);
-                    }
-                    ImGui::EndChild();
-                }
-            }
-            if (Tabs == 3) {
-
-            }
-            if (Tabs == 4) {
-                if (SubTabMisc == 1) {
-                    ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
-                    ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
-                    ImGui::Checkbox("Watermark##hc", g_Options.misc_watermark);
-                    if (ImGui::Button("Unload")) {
-                        g_Unload = true;
-                    }
-                }
-                if (SubTabMisc == 2) {
-                    if (ImGui::Button("Save cfg")) {
-                        Config::Get().Save();
-                    }
-                    if (ImGui::Button("Load cfg")) {
-                        Config::Get().Load();
-                    }
-                }
+            switch (Tabs) {
+            case 1: legitbot_tab(); break;
+            case 2: visuals_tab();  break;
+            case 3: skins_tab();    break;
+            case 4: misc_tab();     break;
             }
         }
         ImGui::EndChild();
