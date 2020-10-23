@@ -8,13 +8,14 @@
 #include "../configs/options.hpp"
 #include "../configs/config.hpp"
 #include "../ui/ui.hpp"
+#include "../resource/constchar.h"
 
 #define IMGUI_DEFINE_MATH_OPERATORS
 #include "../imgui/imgui_internal.h"
 #include "../imgui/impl/imgui_impl_dx9.h"
 #include "../imgui/impl/imgui_impl_win32.h"
 
-#pragma region MenuTabs
+#pragma region CustomImGui
 bool SubTabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg)
 {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
@@ -89,33 +90,23 @@ bool Tab(const char* label, const char* icon, const ImVec2& size_arg, const bool
     return TabEx(label, icon, selected, size_arg);
 }
 #pragma endregion
-#pragma region initialize
-static int Tabs = 1;
-static int SubTabLegit = 1;
-static int SubTabMisc = 1;
-static int SubTabVisuals = 1;
-#pragma endregion;
-
 void Menu::Initialize() {
 	CreateStyle();
 
     _visible = true;
 }
-
 void Menu::Shutdown() {
     ImGui_ImplDX9_Shutdown();
 	ImGui_ImplWin32_Shutdown();
 	ImGui::DestroyContext();
 }
-
 void Menu::OnDeviceLost() {
     ImGui_ImplDX9_InvalidateDeviceObjects();
 }
-
 void Menu::OnDeviceReset() {
     ImGui_ImplDX9_CreateDeviceObjects();
 }
-
+#pragma region Tabs
 void legitbot_tab() {
     switch (SubTabLegit) {
     case 1:
@@ -170,8 +161,7 @@ void visuals_tab() {
     } break;
     case 3: {
         ImGui::Columns(2, nullptr, false);
-        static char* chams_material[] = { "Regular", "Flat", "Glow" };
-        static char* chams_material_arms[] = { "Regular", "Flat", "Glow" };
+       
         ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
             ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
             ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
@@ -197,6 +187,7 @@ void visuals_tab() {
         if (g_Options.misc_thirdperson)
             ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);
         ImGui::Checkbox("No hands", g_Options.misc_no_hands);
+        ImGui::SliderInt("##Aspect Ratio", g_Options.aspectratio, 0, 15, "Aspect Ratio: %.3f");
     } break;
     case 5: {
         ImGui::Columns(3, nullptr, false);
@@ -262,7 +253,7 @@ void misc_tab() {
     } break;
     }
 }
-
+#pragma endregion
 void Menu::Render() {
 	ImGui::GetIO().MouseDrawCursor = _visible;
 
@@ -355,14 +346,10 @@ void Menu::Render() {
     }
     ImGui::End();
 }
-
-void Menu::Toggle()
-{
+void Menu::Toggle() {
     _visible = !_visible;
 }
-
-void Menu::CreateStyle()
-{
+void Menu::CreateStyle() {
 	ImGui::StyleColorsDark();
 	ImGui::SetColorEditOptions(ImGuiColorEditFlags_HEX);
 	_style.FrameRounding = 0.f;

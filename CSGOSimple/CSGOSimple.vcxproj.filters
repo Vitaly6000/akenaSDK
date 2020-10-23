@@ -391,6 +391,9 @@
     <ClInclude Include="hooks\minhook\minhook.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource\constchar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="hooks\minhook\minhook.lib" />

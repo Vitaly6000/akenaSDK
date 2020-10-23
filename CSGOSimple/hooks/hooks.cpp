@@ -25,6 +25,7 @@ namespace Hooks {
 		clientmode_hook.setup(g_ClientMode);
 		ConVar* sv_cheats_con = g_CVar->FindVar("sv_cheats");
 		sv_cheats.setup(sv_cheats_con);
+		engineclient_hook.setup(g_EngineClient);
 
 		const auto gv_endscene = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::EndScene));
 		const auto gv_reset	   = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::Reset));
@@ -37,6 +38,7 @@ namespace Hooks {
 		const auto gv_pse	   = reinterpret_cast<void*>(get_virtual(g_ClientMode,  index::DoPostScreenSpaceEffects));
 		const auto gv_ovview   = reinterpret_cast<void*>(get_virtual(g_ClientMode,  index::OverrideView));;
 		const auto gv_cheats   = reinterpret_cast<void*>(get_virtual(sv_cheats_con, index::SvCheatsGetBool));
+		const auto gv_aratio   = reinterpret_cast<void*>(get_virtual(g_EngineClient, index::AspectRatio));
 
 		if (MH_Initialize() != MH_OK)
 			throw std::runtime_error("failed to initialize hooks.");
@@ -52,6 +54,7 @@ namespace Hooks {
 		MH_CreateHook(gv_pse,      &dpse::hook,			 reinterpret_cast<void**>(&dpse::o_effects));
 		MH_CreateHook(gv_ovview,   &override_view::hook, reinterpret_cast<void**>(&override_view::o_ovview));
 		MH_CreateHook(gv_cheats,   &cheats::hook,		 reinterpret_cast<void**>(&cheats::o_cheats));
+		MH_CreateHook(gv_aratio,   &aspect_ratio::hook,  reinterpret_cast<void**>(&aspect_ratio::o_aspect_ratio));
 
 		if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
 			throw std::runtime_error("failed to enable hooks.");
@@ -66,6 +69,7 @@ namespace Hooks {
 		clientmode_hook.unhook_all();
 		sound_hook.unhook_all();
 		sv_cheats.unhook_all();
+		engineclient_hook.unhook_all();
 
 		MH_Uninitialize();
 		MH_DisableHook(MH_ALL_HOOKS);
@@ -234,5 +238,12 @@ namespace Hooks {
 		if (!ofunc) return false;
 		if (reinterpret_cast<DWORD>(_ReturnAddress()) == reinterpret_cast<DWORD>(dwCAM_Think)) return true;
 		return o_cheats(convar, edx);
+	}
+	//--------------------------------------------------------------------------------
+	float __fastcall aspect_ratio::hook(void* ecx, void* edx, int32_t width, int32_t height) {
+		if (g_Options.aspectratio == 0) o_aspect_ratio(ecx, edx, width, height);
+		else return ((float)g_Options.aspectratio / 10);
+
+		o_aspect_ratio(ecx, edx, width, height);
 	}
 }

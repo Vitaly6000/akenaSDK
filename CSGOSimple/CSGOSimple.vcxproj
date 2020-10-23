@@ -136,6 +136,7 @@
     <ClInclude Include="hooks\minhook\minhook.h" />
     <ClInclude Include="imgui\impl\imgui_impl_dx9.h" />
     <ClInclude Include="imgui\impl\imgui_impl_win32.h" />
+    <ClInclude Include="resource\constchar.h" />
     <ClInclude Include="sdk\misc\datamap.hpp" />
     <ClInclude Include="fonts\droid.hpp" />
     <ClInclude Include="features\bhop.hpp" />

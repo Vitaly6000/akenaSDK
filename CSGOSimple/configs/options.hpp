@@ -84,6 +84,7 @@ public:
 		OPTION(bool, misc_watermark, true);
 		OPTION(float, misc_thirdperson_dist, 50.f);
 		OPTION(int, viewmodel_fov, 68);
+		OPTION(int, aspectratio, 0);
 
 		// 
 		// COLORS

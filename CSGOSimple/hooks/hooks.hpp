@@ -19,6 +19,7 @@ namespace index {
 	constexpr auto SvCheatsGetBool          = 13;
 	constexpr auto OverrideView             = 18;
 	constexpr auto LockCursor               = 67;
+	constexpr auto AspectRatio			    = 101;
 }
 
 namespace Hooks {
@@ -36,6 +37,7 @@ namespace Hooks {
 	inline vfunc_hook sound_hook;
 	inline vfunc_hook clientmode_hook;
 	inline vfunc_hook sv_cheats;
+	inline vfunc_hook engineclient_hook;
 
 	namespace end_scene {
 		using fn_endscene = long(__stdcall*)(IDirect3DDevice9*);
@@ -101,6 +103,12 @@ namespace Hooks {
 		using fn_cheats = bool(__fastcall*)(void*, void*);
 		bool __fastcall hook(void* convar, void* edx);
 		inline fn_cheats o_cheats = nullptr;
+	}
+
+	namespace aspect_ratio {
+		using fn_aspect_ratio = void(__fastcall*)(void*, void*, int32_t, int32_t);
+		float __fastcall hook(void* ecx, void* edx, int32_t width, int32_t height);
+		inline fn_aspect_ratio o_aspect_ratio = nullptr;
 	}
 
 }
