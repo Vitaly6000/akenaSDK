@@ -5,7 +5,13 @@
 #include "../render/render.hpp"
 #include "../helpers/math.hpp"
 #include "../sdk/csgostructs.hpp"
+#include <deque>
 
+struct velo_info {
+public:
+	float velocity;
+	bool on_ground;
+};
 
 class Visuals : public Singleton<Visuals>
 {
@@ -44,6 +50,8 @@ public:
 	void RenderPlantedC4(C_BaseEntity* ent);
 	void RenderItemEsp(C_BaseEntity* ent);
 	void ThirdPerson();
+	void DrawSpeed();
+	void DrawKeyPresses();
 public:
 	void AddToDrawList();
 	void Render();

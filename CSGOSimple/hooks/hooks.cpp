@@ -10,6 +10,7 @@
 #include "../features/chams.hpp"
 #include "../features/visuals.hpp"
 #include "../features/glow.hpp"
+#include "../features/misc/misc.h"
 
 #pragma comment(lib, "minhook.lib")
 #pragma intrinsic(_ReturnAddress)  
@@ -147,6 +148,8 @@ namespace Hooks {
 		if (g_Options.misc_bhop)
 			BunnyHop::OnCreateMove(cmd);
 
+		nade_pred.trace(cmd);
+
 		// https://github.com/spirthack/CSGOSimple/issues/69
 		if (g_Options.misc_showranks && cmd->buttons & IN_SCORE) // rank revealer will work even after unhooking, idk how to "hide" ranks  again
 			g_CHLClient->DispatchUserMessage(CS_UM_ServerRankRevealAll, 0, 0, nullptr);
@@ -204,6 +207,60 @@ namespace Hooks {
 	//--------------------------------------------------------------------------------
 	void __fastcall fsn::hook(void* _this, int edx, ClientFrameStage_t stage) {
 		// may be u will use it lol
+
+		static int originalIdx = 0;
+
+		if (!g_LocalPlayer) {
+			originalIdx = 0;
+			return;
+		}
+
+		constexpr auto getModel = [](int team) constexpr noexcept -> const char* {
+			constexpr std::array models_ct{
+				"models/player/custom_player/legacy/ctm_st6_variante.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantk.mdl",
+				"models/player/custom_player/legacy/ctm_fbi_variantf.mdl",
+				"models/player/custom_player/legacy/ctm_sas_variantf.mdl",
+				"models/player/custom_player/legacy/ctm_fbi_variantg.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantg.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantm.mdl",
+				"models/player/custom_player/legacy/ctm_st6_varianti.mdl",
+				"models/player/custom_player/legacy/ctm_fbi_variantb.mdl"
+			};
+			constexpr std::array models_t{
+				"models/player/custom_player/legacy/tm_phoenix_variantf.mdl",
+				"models/player/custom_player/legacy/tm_phoenix_varianth.mdl",
+				"models/player/custom_player/legacy/tm_leet_variantg.mdl",
+				"models/player/custom_player/legacy/tm_balkan_varianti.mdl",
+				"models/player/custom_player/legacy/tm_leet_varianth.mdl",
+				"models/player/custom_player/legacy/tm_phoenix_variantg.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantf.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantj.mdl",
+				"models/player/custom_player/legacy/tm_leet_varianti.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantg.mdl",
+				"models/player/custom_player/legacy/tm_balkan_varianth.mdl",
+				"models/player/custom_player/legacy/tm_leet_variantf.mdl"
+			};
+
+			switch (team) {
+			case 2: return static_cast<std::size_t>(g_Options.agent_changer_t - 1) < models_t.size() ? models_t[g_Options.agent_changer_t - 1] : nullptr;
+			case 3: return static_cast<std::size_t>(g_Options.agent_changer_ct - 1) < models_ct.size() ? models_ct[g_Options.agent_changer_ct - 1] : nullptr;
+			default: return nullptr;
+			}
+		};
+
+		if (const auto model = getModel(g_LocalPlayer->m_iTeamNum())) {
+			if (stage == FRAME_RENDER_START)
+				originalIdx = g_LocalPlayer->m_nModelIndex();
+
+			const auto idx = stage == FRAME_RENDER_END && originalIdx ? originalIdx : g_MdlInfo->GetModelIndex(model);
+
+			g_LocalPlayer->SetModelIndex(idx);
+
+			if (const auto ragdoll = g_LocalPlayer->get_entity_from_handle(g_LocalPlayer->m_hRagdoll()))
+				ragdoll->SetModelIndex(idx);
+		}
+
 		o_fsn(g_CHLClient, edx, stage);
 	}
 	//--------------------------------------------------------------------------------

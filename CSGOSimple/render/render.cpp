@@ -3,6 +3,7 @@
 #include <mutex>
 
 #include "../features/visuals.hpp"
+#include "../features/misc/misc.h"
 #include "../sdk/csgostructs.hpp"
 #include "../helpers/input.hpp"
 #include "../menu/menu.hpp"
@@ -78,8 +79,17 @@ void Render::BeginScene() {
 		Render::Get().RenderText(ss.str(), 10, 10, 14.f, Color(255, 255, 255, 255), false, false, g_pDefaultFont);
 	}
 
-	if (g_EngineClient->IsInGame() && g_LocalPlayer && g_Options.esp_enabled)
+	int w, h;
+	g_EngineClient->GetScreenSize(w, h);
+
+	if (g_EngineClient->IsInGame() && g_LocalPlayer && g_Options.esp_enabled) {
+		if (g_Options.misc_info) {
+			Visuals::Get().DrawKeyPresses();
+			Visuals::Get().DrawSpeed();
+		}
 		Visuals::Get().AddToDrawList();
+		nade_pred.draw();
+	}
 
 
 	render_mutex.lock();

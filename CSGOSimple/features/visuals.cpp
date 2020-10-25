@@ -1,4 +1,8 @@
 #include <algorithm>
+#include <cstdint>
+#include <iostream>
+#include <iomanip>
+#include <random>
 
 #include "visuals.hpp"
 
@@ -6,9 +10,7 @@
 #include "../helpers/math.hpp"
 #include "../helpers/utils.hpp"
 
-
-RECT GetBBox(C_BaseEntity* ent)
-{
+RECT GetBBox(C_BaseEntity* ent) {
 	RECT rect{};
 	auto collideable = ent->GetCollideable();
 
@@ -109,7 +111,7 @@ bool Visuals::Player::Begin(C_BasePlayer* pl)
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderBox() {
-	Render::Get().RenderBoxByType(ctx.bbox.left, ctx.bbox.top, ctx.bbox.right, ctx.bbox.bottom, ctx.clr, 1);
+	Render::Get().RenderBoxByType(ctx.bbox.left, ctx.bbox.top, ctx.bbox.right, ctx.bbox.bottom, ctx.clr, 1, g_Options.esp_player_boxes_type);
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderName()
@@ -118,7 +120,7 @@ void Visuals::Player::RenderName()
 
 	auto sz = g_pDefaultFont->CalcTextSizeA(14.f, FLT_MAX, 0.0f, info.szName);
 
-	Render::Get().RenderText(info.szName, ctx.feet_pos.x - sz.x / 2, ctx.head_pos.y - sz.y, 14.f,  ctx.clr);
+	Render::Get().RenderText(info.szName, ctx.feet_pos.x - sz.x / 2, ctx.head_pos.y - sz.y, 14.f, ctx.clr, false);
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderHealth()
@@ -168,13 +170,11 @@ void Visuals::Player::RenderWeaponName()
 
 	auto text = weapon->GetCSWeaponData()->szWeaponName + 7;
 	auto sz = g_pDefaultFont->CalcTextSizeA(14.f, FLT_MAX, 0.0f, text);
-	Render::Get().RenderText(text, ctx.feet_pos.x, ctx.feet_pos.y, 14.f, ctx.clr, true,
-		g_pDefaultFont);
+	Render::Get().RenderText(text, ctx.feet_pos.x, ctx.feet_pos.y, 14.f, ctx.clr, true, g_pDefaultFont);
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderSnapline()
 {
-
 	int screen_w, screen_h;
 	g_EngineClient->GetScreenSize(screen_w, screen_h);
 
@@ -395,8 +395,70 @@ void Visuals::ThirdPerson() {
 		g_Input->m_fCameraInThirdPerson = false;
 	}
 }
+//--------------------------------------------------------------------------------
+void Visuals::DrawSpeed() {
 
+	auto last_log = 0;
 
+	if (!g_LocalPlayer || !g_LocalPlayer->IsAlive())
+		return;
+
+	int x, y;
+	g_EngineClient->GetScreenSize(x, y);
+
+	Vector vec = g_LocalPlayer->m_vecVelocity();
+	float velocity = sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+	bool in_air = g_LocalPlayer->m_fFlags() & IN_JUMP;
+
+	Render::Get().RenderText(std::to_string((int)round(velocity)), ImVec2(x / 2 + 2, y - 100), 27.f, Color::White, false, false);
+
+	Render::Get().RenderLine(x / 2 - 100, y / 2 + 325, x / 2 - 100, y / 2 + 445, Color(100, 100, 100, 125));
+	Render::Get().RenderLine(x / 2 - 115, y / 2 + 430, x / 2 + 95, y / 2 + 430, Color(100, 100, 100, 125));
+
+	std::deque<velo_info>velocity_data;
+	if (g_GlobalVars->curtime - last_log > g_GlobalVars->interval_per_tick) {
+		last_log = g_GlobalVars->curtime;
+		velocity_data.push_back({ velocity, in_air });
+	}
+
+	if (velocity_data.size() > 40) {
+		velocity_data.pop_front();
+	}
+	
+	for (auto i = 0; i < velocity_data.size() - 1; i++) {
+		auto cur = velocity_data[i].velocity;
+		auto next = velocity_data[i + 1].velocity;
+		auto landed = velocity_data[i].on_ground && !velocity_data[i + 1].on_ground;
+
+	//	Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255), 1.0f);
+
+		if (landed) {
+		//	Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255), 1.0f);
+			Render::Get().RenderText(std::to_string(round(next)), ImVec2(x / 2 + 100 - (i + 1) * 5, y / 2 + 415 * 75 / 320), 3.f, Color(245, 245, 220, 255), false);
+		}
+	}
+}
+//--------------------------------------------------------------------------------
+void Visuals::DrawKeyPresses() {
+	int w, h;
+	g_EngineClient->GetScreenSize(w, h);
+	if (GetAsyncKeyState(int('W')))
+		Render::Get().RenderText("W", ImVec2(w / 2, h - h / 5), 15.f, Color::White, true, false);
+	else Render::Get().RenderText("_", ImVec2(w / 2, h - h / 5), 15.f, Color::White, true, false);
+
+	if (GetAsyncKeyState(int('S')))
+		Render::Get().RenderText("S", ImVec2(w / 2, h - h / 5 + 15), 15.f, Color::White, true, false);
+	else Render::Get().RenderText("_", ImVec2(w / 2, h - h / 5 + 15), 15.f, Color::White, true, false);
+
+	if (GetAsyncKeyState(int('A')))
+		Render::Get().RenderText("A", ImVec2(w / 2 - 15, h - h / 5), 15.f, Color::White, true, false);
+	else Render::Get().RenderText("_", ImVec2(w / 2 - 15, h - h / 5), 15.f, Color::White, true, false);
+
+	if (GetAsyncKeyState(int('D')))
+		Render::Get().RenderText("D", ImVec2(w / 2 + 15, h - h / 5), 15.f, Color::White, true, false);
+	else Render::Get().RenderText("_", ImVec2(w / 2 + 15, h - h / 5), 15.f, Color::White, true, false);
+}
+//--------------------------------------------------------------------------------
 void Visuals::AddToDrawList() {
 	for (auto i = 1; i <= g_EntityList->GetHighestEntityIndex(); ++i) {
 		auto entity = C_BaseEntity::GetEntityByIndex(i);

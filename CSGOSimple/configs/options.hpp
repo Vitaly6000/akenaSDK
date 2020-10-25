@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <vector>
 #include "../sdk/Misc/Color.hpp"
+#include "../helpers/json.hpp"
 
 #define A( s ) #s
 #define OPTION(type, var, val) Var<type> var = {A(var), val}
@@ -25,6 +26,52 @@ public:
 	//operator T*() const { return value; }
 };
 
+using json = nlohmann::json;
+
+class C_ConfigManager
+{
+public:
+	class C_ConfigItem
+	{
+	public:
+		std::string name;
+		void* pointer;
+		std::string type;
+
+		C_ConfigItem(std::string name, void* pointer, std::string type)  //-V818
+		{
+			this->name = name; //-V820
+			this->pointer = pointer;
+			this->type = type; //-V820
+		}
+	};
+
+	void add_item(void* pointer, const char* name, const std::string& type);
+	void setup_item(int*, int, const std::string&);
+	void setup_item(bool*, bool, const std::string&);
+	void setup_item(float*, float, const std::string&);
+	void setup_item(Color*, Color, const std::string&);
+	void setup_item(std::vector< int >*, int, const std::string&);
+	void setup_item(std::vector< std::string >*, const std::string&);
+	void setup_item(std::string*, const std::string&, const std::string&);
+
+	std::vector <C_ConfigItem*> items;
+
+	C_ConfigManager()
+	{
+		setup();
+	};
+
+	void setup();
+	void save(std::string config);
+	void load(std::string config, bool load_script_items);
+	void remove(std::string config);
+	std::vector<std::string> files;
+	void config_files();
+};
+
+extern C_ConfigManager* cfg_manager;
+
 class Options
 {
 public:
@@ -34,6 +81,7 @@ public:
 		OPTION(bool, esp_enabled, false);
 		OPTION(bool, esp_enemies_only, false);
 		OPTION(bool, esp_player_boxes, false);
+		OPTION(int, esp_player_boxes_type, 0);
 		OPTION(bool, esp_player_names, false);
 		OPTION(bool, esp_player_health, false);
 		OPTION(bool, esp_player_armour, false);
@@ -82,9 +130,19 @@ public:
 		OPTION(bool, misc_thirdperson, false);
 		OPTION(bool, misc_showranks, true);
 		OPTION(bool, misc_watermark, true);
+		OPTION(bool, misc_info, false);	
 		OPTION(float, misc_thirdperson_dist, 50.f);
 		OPTION(int, viewmodel_fov, 68);
-		OPTION(int, aspectratio, 0);
+		OPTION(int, aspectratio, 0);		
+		OPTION(bool, esp_nade_prediction, false);
+
+		/*
+		OPTION(int, agent_changer_ct, 0);
+		OPTION(int, agent_changer_t, 0);
+		*/
+
+		int agent_changer_ct{ 0 };
+		int agent_changer_t{ 0 };
 
 		// 
 		// COLORS

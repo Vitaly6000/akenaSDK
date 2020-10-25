@@ -125,6 +125,8 @@ void visuals_tab() {
         ImGui::Checkbox("Enabled", g_Options.esp_enabled);
         ImGui::Checkbox("Team check", g_Options.esp_enemies_only);
         ImGui::Checkbox("Boxes", g_Options.esp_player_boxes);
+        if(g_Options.esp_player_boxes)
+            ImGui::Combo("Type##boxes", g_Options.esp_player_boxes_type, esp_boxes, IM_ARRAYSIZE(esp_boxes));
         ImGui::Checkbox("Names", g_Options.esp_player_names);
         ImGui::Checkbox("Health", g_Options.esp_player_health);
         ImGui::Checkbox("Armour", g_Options.esp_player_armour);
@@ -188,6 +190,9 @@ void visuals_tab() {
             ImGui::SliderFloat("Distance", g_Options.misc_thirdperson_dist, 0.f, 150.f);
         ImGui::Checkbox("No hands", g_Options.misc_no_hands);
         ImGui::SliderInt("##Aspect Ratio", g_Options.aspectratio, 0, 15, "Aspect Ratio: %.3f");
+        ImGui::Combo("Model Ct##agents", &g_Options.agent_changer_ct, player_model_ct, IM_ARRAYSIZE(player_model_ct));
+        ImGui::Combo("Model T##agents", &g_Options.agent_changer_t, player_model_t, IM_ARRAYSIZE(player_model_t));
+        ImGui::Checkbox("Nade Prediction", g_Options.esp_nade_prediction);
     } break;
     case 5: {
         ImGui::Columns(3, nullptr, false);
@@ -238,7 +243,8 @@ void misc_tab() {
     case 1: {
         ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
         ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
-        ImGui::Checkbox("Watermark##hc", g_Options.misc_watermark);
+        ImGui::Checkbox("Watermark##wm", g_Options.misc_watermark);
+        ImGui::Checkbox("Draw Info", g_Options.misc_info);
         if (ImGui::Button("Unload")) {
             g_Unload = true;
         }

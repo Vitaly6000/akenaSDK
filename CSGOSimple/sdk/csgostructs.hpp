@@ -103,12 +103,17 @@ public:
 	NETVAR(CHandle<C_BasePlayer>, m_hOwnerEntity, "DT_BaseEntity", "m_hOwnerEntity");
 	NETVAR(bool, m_bSpotted, "DT_BaseEntity", "m_bSpotted");
 	NETVAR(float_t, m_flC4Blow, "DT_PlantedC4", "m_flC4Blow");
+	NETVAR(int, m_hRagdoll, "DT_CSPlayer", "m_hRagdoll");
 
 
 	const matrix3x4_t& m_rgflCoordinateFrame()
 	{
 		static auto _m_rgflCoordinateFrame = NetvarSys::Get().GetOffset("DT_BaseEntity", "m_CollisionGroup") - 0x30;
 		return *(matrix3x4_t*)((uintptr_t)this + _m_rgflCoordinateFrame);
+	}
+
+	void SetModelIndex(int index) {
+		return CallVFunction<void(__thiscall*)(C_BaseEntity*, int)>(this, 75)(this, index);
 	}
 
 	bool IsPlayer();
@@ -287,7 +292,9 @@ public:
 		return *(float_t*)((uintptr_t)this + _m_flMaxspeed);
 	}
 
-
+	void SetModelIndex(int index) {
+		return CallVFunction<void(__thiscall*)(C_BaseEntity*, int)>(this, 75)(this, index);
+	}
 
 	Vector        GetEyePos();
 	player_info_t GetPlayerInfo();
