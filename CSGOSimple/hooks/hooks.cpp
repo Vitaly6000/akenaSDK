@@ -84,18 +84,13 @@ namespace Hooks {
 		device->SetSamplerState(NULL, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
 		device->SetSamplerState(NULL, D3DSAMP_ADDRESSW, D3DTADDRESS_WRAP);
 		device->SetSamplerState(NULL, D3DSAMP_SRGBTEXTURE, NULL);
-
 		
 		ImGui_ImplDX9_NewFrame();
 		ImGui_ImplWin32_NewFrame();
 		ImGui::NewFrame();
 
-
 		auto esp_drawlist = Render::Get().RenderScene();
-
 		Menu::Get().Render();
-	
-
 		ImGui::Render(esp_drawlist);
 
 		ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
@@ -131,8 +126,7 @@ namespace Hooks {
 
 		nade_pred.trace(cmd);
 
-		// https://github.com/spirthack/CSGOSimple/issues/69
-		if (g_Options.misc_showranks && cmd->buttons & IN_SCORE) // rank revealer will work even after unhooking, idk how to "hide" ranks  again
+		if (g_Options.misc_showranks && cmd->buttons & IN_SCORE)
 			g_CHLClient->DispatchUserMessage(CS_UM_ServerRankRevealAll, 0, 0, nullptr);
 
 		return false;
@@ -148,14 +142,11 @@ namespace Hooks {
 				panelId = panel;
 			}
 		}
-		else if (panelId == panel) 
-		{
-			//Ignore 50% cuz it called very often
+		else if (panelId == panel)  {
 			static bool bSkip = false;
 			bSkip = !bSkip;
 
-			if (bSkip)
-				return;
+			if (bSkip) return;
 
 			Render::Get().BeginScene();
 		}

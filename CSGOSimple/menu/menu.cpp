@@ -369,4 +369,3 @@ void Menu::CreateStyle() {
 	_style.Colors[ImGuiCol_PopupBg] = ImVec4(0.076f, 0.143f, 0.209f, 1.000f);
 	ImGui::GetStyle() = _style;
 }
-

@@ -8,7 +8,6 @@ struct IDirect3DDevice9;
 
 class Menu : public Singleton<Menu> {
 public:
-
     void Initialize();
     void Shutdown();
 
