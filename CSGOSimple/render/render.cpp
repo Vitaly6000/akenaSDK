@@ -2,7 +2,7 @@
 
 #include <mutex>
 
-#include "../features/visuals.hpp"
+#include "../features/visuals/visuals.hpp"
 #include "../features/misc/nade_prediction.h"
 #include "../sdk/csgostructs.hpp"
 #include "../helpers/input.hpp"

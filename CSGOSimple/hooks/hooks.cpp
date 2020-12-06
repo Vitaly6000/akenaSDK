@@ -6,10 +6,10 @@
 #include "../configs/options.hpp"
 #include "../helpers/input.hpp"
 #include "../helpers/utils.hpp"
-#include "../features/bhop.hpp"
-#include "../features/chams.hpp"
-#include "../features/visuals.hpp"
-#include "../features/glow.hpp"
+#include "../features/misc/bhop.hpp"
+#include "../features/visuals/chams.hpp"
+#include "../features/visuals/visuals.hpp"
+#include "../features/visuals/glow.hpp"
 #include "../features/misc/nade_prediction.h"
 
 #pragma comment(lib, "minhook.lib")

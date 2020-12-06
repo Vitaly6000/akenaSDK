@@ -4,13 +4,7 @@
 #include <algorithm>
 #include <vector>
 
-//template <class T>
-//bool ComboForSkins(const char* label, std::vector current_item, bool(*items_getter)(void* data, int idx, const char** out_text), void* data, int items_count, int popup_max_height_in_items = -1) {
-//	
-//}
-bool ImGui::ToggleButton(const char* label, bool* v, const ImVec2& size_arg)
-{
-
+bool ImGui::ToggleButton(const char* label, bool* v, const ImVec2& size_arg) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	if (window->SkipItems)
 		return false;
@@ -43,8 +37,7 @@ bool ImGui::ToggleButton(const char* label, bool* v, const ImVec2& size_arg)
 	return pressed;
 }
 
-static bool Items_ArrayGetter(void* data, int idx, const char** out_text)
-{
+static bool Items_ArrayGetter(void* data, int idx, const char** out_text) {
 	const char* const* items = (const char* const*)data;
 	if (out_text)
 		*out_text = items[idx];
@@ -82,7 +75,6 @@ bool ImGui::BeginGroupBox(const char* name, const ImVec2& size_arg)
 	ImGui::SetNextWindowSize(size);
 	bool ret;
 	ImGui::Begin(name, &ret, flags);
-	//bool ret = ImGui::Begin(name, NULL, size, -1.0f, flags);
 
 	window = ImGui::GetCurrentWindow();
 
@@ -92,18 +84,13 @@ bool ImGui::BeginGroupBox(const char* name, const ImVec2& size_arg)
 
 	if (text_size.x > 1.0f) {
 		window->DrawList->PushClipRectFullScreen();
-		//window->DrawList->AddRectFilled(window->DC.CursorPos - ImVec2{ 4, 0 }, window->DC.CursorPos + (text_size + ImVec2{ 4, 0 }), GetColorU32(ImGuiCol_ChildWindowBg));
-		//RenderTextClipped(pos, pos + text_size, name, NULL, NULL, GetColorU32(ImGuiCol_Text));
 		window->DrawList->PopClipRect();
 	}
-	//if (!(window->Flags & ImGuiWindowFlags_ShowBorders))
-	//	ImGui::GetCurrentWindow()->Flags &= ~ImGuiWindowFlags_ShowBorders;
 
 	return ret;
 }
 
-void ImGui::EndGroupBox()
-{
+void ImGui::EndGroupBox() {
 	ImGui::EndChild();
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	window->DC.CursorPosPrevLine.y -= GImGui->FontSize / 2;
@@ -278,8 +265,7 @@ const char* const KeyNames[] = {
 	"VK_RMENU"
 };
 
-bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg)
-{
+bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	if (window->SkipItems)
 		return false;
@@ -373,9 +359,6 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg)
 		}
 	}
 
-	// Render
-	// Select which buffer we are going to display. When ImGuiInputTextFlags_NoLiveEdit is Set 'buf' might still be the old value. We Set buf to NULL to prevent accidental usage from now on.
-
 	char buf_display[64] = "None";
 
 	ImGui::RenderFrame(frame_bb.Min, frame_bb.Max, ImGui::GetColorU32(ImVec4(0.20f, 0.25f, 0.30f, 1.0f)), true, style.FrameRounding);
@@ -390,8 +373,6 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg)
 	const ImRect clip_rect(frame_bb.Min.x, frame_bb.Min.y, frame_bb.Min.x + size.x, frame_bb.Min.y + size.y); // Not using frame_bb.Max because we have adjusted size
 	ImVec2 render_pos = frame_bb.Min + style.FramePadding;
 	ImGui::RenderTextClipped(frame_bb.Min + style.FramePadding, frame_bb.Max - style.FramePadding, buf_display, NULL, NULL, style.ButtonTextAlign, &clip_rect);
-	//RenderTextClipped(frame_bb.Min + style.FramePadding, frame_bb.Max - style.FramePadding, buf_display, NULL, NULL, GetColorU32(ImGuiCol_Text), style.ButtonTextAlign, &clip_rect);
-	//draw_window->DrawList->AddText(g.Font, g.FontSize, render_pos, GetColorU32(ImGuiCol_Text), buf_display, NULL, 0.0f, &clip_rect);
 
 	if (label_size.x > 0)
 		ImGui::RenderText(ImVec2(total_bb.Min.x, frame_bb.Min.y + style.FramePadding.y), label);
@@ -404,7 +385,6 @@ bool ImGui::ListBox(const char* label, int* current_item, std::string items[], i
 	char **tmp;
 	tmp = new char*[items_count];//(char**)malloc(sizeof(char*) * items_count);
 	for (int i = 0; i < items_count; i++) {
-		//tmp[i] = new char[items[i].size()];//(char*)malloc(sizeof(char*));
 		tmp[i] = const_cast<char*>(items[i].c_str());
 	}
 
@@ -412,8 +392,7 @@ bool ImGui::ListBox(const char* label, int* current_item, std::string items[], i
 	return value_changed;
 }
 
-bool ImGui::ListBox(const char* label, int* current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items)
-{
+bool ImGui::ListBox(const char* label, int* current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items) {
 	return ImGui::ListBox(label, current_item, [](void* data, int idx, const char** out_text)
 	{
 		*out_text = (*reinterpret_cast<std::function<const char*(int)>*>(data))(idx);
@@ -421,8 +400,7 @@ bool ImGui::ListBox(const char* label, int* current_item, std::function<const ch
 	}, &lambda, items_count, height_in_items);
 }
 
-bool ImGui::Combo(const char* label, int* current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items)
-{
+bool ImGui::Combo(const char* label, int* current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items) {
 	return ImGui::Combo(label, current_item, [](void* data, int idx, const char** out_text)
 	{
 		*out_text = (*reinterpret_cast<std::function<const char*(int)>*>(data))(idx);

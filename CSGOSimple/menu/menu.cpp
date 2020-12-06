@@ -16,8 +16,7 @@
 #include "../imgui/impl/imgui_impl_win32.h"
 
 #pragma region CustomImGui
-bool SubTabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg)
-{
+bool SubTabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     if (window->SkipItems)
         return false;
@@ -48,13 +47,11 @@ bool SubTabEx(const char* label, const char* icon, const bool selected, const Im
     return pressed;
 }
 
-bool SubTab(const char* label, const char* icon, const ImVec2& size_arg, const bool selected)
-{
+bool SubTab(const char* label, const char* icon, const ImVec2& size_arg, const bool selected) {
     return SubTabEx(label, icon, selected, size_arg);
 }
 
-bool TabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg)
-{
+bool TabEx(const char* label, const char* icon, const bool selected, const ImVec2& size_arg) {
     ImGuiWindow* window = ImGui::GetCurrentWindow();
     if (window->SkipItems)
         return false;
@@ -65,7 +62,6 @@ bool TabEx(const char* label, const char* icon, const bool selected, const ImVec
     const ImVec2 label_size = ImGui::CalcTextSize(label, NULL, true);
 
     ImVec2 pos = window->DC.CursorPos;
-
     ImVec2 size = ImGui::CalcItemSize(size_arg, label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
 
     const ImRect bb(pos, ImVec2(pos.x + size.x, pos.y + size.y));
@@ -85,8 +81,7 @@ bool TabEx(const char* label, const char* icon, const bool selected, const ImVec
     return pressed;
 }
 
-bool Tab(const char* label, const char* icon, const ImVec2& size_arg, const bool selected)
-{
+bool Tab(const char* label, const char* icon, const ImVec2& size_arg, const bool selected) {
     return TabEx(label, icon, selected, size_arg);
 }
 #pragma endregion
@@ -305,14 +300,16 @@ void Menu::Render() {
         ImGui::EndChild();
         if (Tabs == 1 || Tabs == 2 || Tabs == 4) {
             if (ImGui::BeginChild("Child4", ImVec2(75, -1), false, flags)) {
-                if (Tabs == 1) {
+                switch (Tabs) {
+                case 1: {
                     if (SubTab("Legit", "", { 75,50 }, SubTabLegit == 1 ? true : false))
                         SubTabLegit = 1;
 
                     if (SubTab("Trigger", "", { 75,50 }, SubTabLegit == 2 ? true : false))
                         SubTabLegit = 2;
                 }
-                if (Tabs == 2) {
+                      break;
+                case 2: {
                     if (SubTab("Esp", "", { 75,50 }, SubTabVisuals == 1 ? true : false))
                         SubTabVisuals = 1;
 
@@ -328,12 +325,15 @@ void Menu::Render() {
                     if (SubTab("Color", "", { 75,50 }, SubTabVisuals == 5 ? true : false))
                         SubTabVisuals = 5;
                 }
-                if (Tabs == 4) {
+                      break;
+                case 4: {
                     if (SubTab("Misc", "", { 75,50 }, SubTabMisc == 1 ? true : false))
                         SubTabMisc = 1;
 
                     if (SubTab("Cfg", "", { 75,50 }, SubTabMisc == 2 ? true : false))
                         SubTabMisc = 2;
+                }
+                      break;
                 }
             }
             ImGui::EndChild();
@@ -364,8 +364,6 @@ void Menu::CreateStyle() {
 	_style.Colors[ImGuiCol_Button] = ImVec4(0.260f, 0.590f, 0.980f, 0.670f);
 	_style.Colors[ImGuiCol_Header] = ImVec4(0.260f, 0.590f, 0.980f, 0.670f);
 	_style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.260f, 0.590f, 0.980f, 1.000f);
-	//_style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.000f, 0.545f, 1.000f, 1.000f);
-	//_style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.060f, 0.416f, 0.980f, 1.000f);
 	_style.Colors[ImGuiCol_FrameBg] = ImVec4(0.20f, 0.25f, 0.30f, 1.0f);
 	_style.Colors[ImGuiCol_WindowBg] = ImVec4(0.000f, 0.009f, 0.120f, 0.940f);
 	_style.Colors[ImGuiCol_PopupBg] = ImVec4(0.076f, 0.143f, 0.209f, 1.000f);

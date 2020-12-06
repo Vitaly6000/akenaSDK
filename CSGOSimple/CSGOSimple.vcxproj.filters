@@ -50,20 +50,8 @@
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="features\bhop.cpp">
-      <Filter>Source Files\features</Filter>
-    </ClCompile>
-    <ClCompile Include="features\chams.cpp">
-      <Filter>Source Files\features</Filter>
-    </ClCompile>
-    <ClCompile Include="features\glow.cpp">
-      <Filter>Source Files\features</Filter>
-    </ClCompile>
     <ClCompile Include="helpers\input.cpp">
       <Filter>Source Files\SDK</Filter>
-    </ClCompile>
-    <ClCompile Include="features\visuals.cpp">
-      <Filter>Source Files\features</Filter>
     </ClCompile>
     <ClCompile Include="imgui\impl\imgui_impl_dx9.cpp">
       <Filter>Source Files\imgui</Filter>
@@ -131,6 +119,18 @@
     <ClCompile Include="features\misc\nade_prediction.cpp">
       <Filter>Source Files\features</Filter>
     </ClCompile>
+    <ClCompile Include="features\visuals\chams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="features\visuals\glow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="features\visuals\visuals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="features\misc\bhop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\stb_rect_pack.h">
@@ -159,18 +159,6 @@
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="features\bhop.hpp">
-      <Filter>Header Files\features</Filter>
-    </ClInclude>
-    <ClInclude Include="features\chams.hpp">
-      <Filter>Header Files\features</Filter>
-    </ClInclude>
-    <ClInclude Include="features\glow.hpp">
-      <Filter>Header Files\features</Filter>
-    </ClInclude>
-    <ClInclude Include="features\visuals.hpp">
-      <Filter>Header Files\features</Filter>
     </ClInclude>
     <ClInclude Include="helpers\input.hpp">
       <Filter>Header Files</Filter>
@@ -407,6 +395,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="features\misc\nade_prediction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="features\visuals\visuals.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="features\visuals\chams.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="features\visuals\glow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="features\misc\bhop.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
