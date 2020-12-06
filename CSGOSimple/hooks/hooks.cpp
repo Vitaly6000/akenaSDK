@@ -48,6 +48,8 @@ namespace Hooks {
 		MH_CreateHook(gv_cheats,   &cheats::hook,		 reinterpret_cast<void**>(&cheats::o_cheats));
 		MH_CreateHook(gv_aratio,   &aspect_ratio::hook,  reinterpret_cast<void**>(&aspect_ratio::o_aspect_ratio));
 
+		Visuals::Get().create_fonts();
+
 		if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
 			throw std::runtime_error("failed to enable hooks.");
 	}

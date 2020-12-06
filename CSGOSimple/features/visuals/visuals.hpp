@@ -13,8 +13,7 @@ public:
 	bool on_ground;
 };
 
-class Visuals : public Singleton<Visuals>
-{
+class Visuals : public Singleton<Visuals> {
 	friend class Singleton<Visuals>;
 
 	CRITICAL_SECTION cs;
@@ -22,6 +21,34 @@ class Visuals : public Singleton<Visuals>
 	Visuals();
 	~Visuals();
 public:
+
+	enum font_render_flag {
+		font_left = 0,
+		font_right = 1,
+		font_center = 2
+	};
+
+	vgui::HFont esp_font;
+	vgui::HFont weapon_font;
+	vgui::HFont flags_font;
+	vgui::HFont weapon_icons;
+	vgui::HFont hud_font;
+
+	void create_fonts();
+	void text(int X, int Y, const char* text, vgui::HFont font, Color color, bool center);
+	void text_size(int& width, int& height, const char* text, vgui::HFont font);
+	void filled_rectange(int x1, int y1, int x2, int y2, Color color);
+	void outlined_rectange(int x1, int y1, int x2, int y2, Color color);
+	void line(int x1, int y1, int x2, int y2, Color color);
+	void circle(int x, int y, int r, int seg, Color color);
+	void draw_string(unsigned long font, int x, int y, Color color, unsigned long alignment, const char* msg, ...);
+	void draw_string(unsigned long font, bool center, int x, int y, Color color, const char* fmt, ...);
+	void text_w(bool center, unsigned long font, int x, int y, Color color, wchar_t* string);
+	void draw_line(float x1, float y1, float x2, float y2, Color color, float size = 1.f);
+	void draw_3dcircle(Vector position, float points, float radius, Color color);
+	void draw_box_edges(float x1, float y1, float x2, float y2, Color clr, float edge_size, float size = 1.f);
+	RECT get_viewport();
+
 	class Player
 	{
 	public:
