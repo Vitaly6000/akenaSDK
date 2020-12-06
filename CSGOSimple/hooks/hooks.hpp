@@ -28,17 +28,6 @@ namespace Hooks {
     void Initialize();
     void Shutdown();
 
-    inline vfunc_hook hlclient_hook;
-	inline vfunc_hook direct3d_hook;
-	inline vfunc_hook vguipanel_hook;
-	inline vfunc_hook vguisurf_hook;
-	inline vfunc_hook mdlrender_hook;
-	inline vfunc_hook viewrender_hook;
-	inline vfunc_hook sound_hook;
-	inline vfunc_hook clientmode_hook;
-	inline vfunc_hook sv_cheats;
-	inline vfunc_hook engineclient_hook;
-
 	namespace end_scene {
 		using fn_endscene = long(__stdcall*)(IDirect3DDevice9*);
 		long __stdcall hook(IDirect3DDevice9* device);

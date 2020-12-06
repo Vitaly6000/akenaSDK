@@ -1,14 +1,13 @@
-#include "misc.h"
-
+#include "nade_prediction.h"
 
 c_nade_prediction nade_pred;
 
-void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
+void c_nade_prediction::predict(CUserCmd* cmd) noexcept {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame())
         return;
 
     auto local_player = g_LocalPlayer;
-    //    readability
+    //readability
     constexpr float restitution = 0.45f;
     constexpr float power[] = { 1.0f, 1.0f, 0.5f, 0.0f };
     constexpr float velocity = 403.0f * 0.9f;
@@ -18,18 +17,18 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
     Vector pos, thrown_direction, start, eye_origin;
     QAngle angles, thrown;
 
-    //    first time setup
+    //first time setup
     static auto sv_gravity = g_CVar->FindVar("sv_gravity");
 
-    //    calculate step and actual gravity value
+    //calculate step and actual gravity value
     gravity = sv_gravity->GetFloat() / 8.0f;
     step = g_GlobalVars->interval_per_tick;
 
-    //    get local view and eye origin
+    //get local view and eye origin
     eye_origin = local_player->GetEyePos();
-    angles = user_cmd->viewangles;
+    angles = cmd->viewangles;
 
-    //    copy current angles and normalise pitch
+    //copy current angles and normalise pitch
     thrown = angles;
 
     if (thrown.pitch < 0) {
@@ -39,9 +38,9 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
         thrown.pitch = -10 + thrown.pitch * ((90 + 10) / 90.0f);
     }
 
-    //    find out how we're throwing the grenade
-    auto primary_attack = user_cmd->buttons & IN_ATTACK;
-    auto secondary_attack = user_cmd->buttons & IN_ATTACK2;
+    //find out how we're throwing the grenade
+    auto primary_attack = cmd->buttons & IN_ATTACK;
+    auto secondary_attack = cmd->buttons & IN_ATTACK2;
 
     if (primary_attack && secondary_attack) {
         grenade_act = ACT_LOB;
@@ -50,7 +49,7 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
         grenade_act = ACT_DROP;
     }
 
-    //    apply 'magic' and modulate by velocity
+    //apply 'magic' and modulate by velocity
     unk01 = power[grenade_act];
 
     unk01 = unk01 * 0.7f;
@@ -58,13 +57,13 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
 
     new_velocity = velocity * unk01;
 
-    //    here's where the fun begins
+    //here's where the fun begins
     Math::AngleVectors(thrown, thrown_direction);
 
     start = eye_origin + thrown_direction * 16.0f;
     thrown_direction = (thrown_direction * new_velocity) + local_player->m_vecVelocity();
 
-    //    let's go ahead and predict
+    //let's go ahead and predict
     for (auto time = 0.0f; index < 500; time += step) {
 
         pos = start + thrown_direction * step;
@@ -75,7 +74,7 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
         ray.Init(start, pos);
         g_EngineTrace->TraceRay(ray, MASK_SOLID, &filter, &trace);
 
-        //    modify path if we have hit something
+        //modify path if we have hit something
         if (trace.fraction != 1.0f) {
             thrown_direction = trace.plane.normal * -2.0f * thrown_direction.Dot(trace.plane.normal) + thrown_direction;
 
@@ -86,14 +85,14 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
             time += (step * (1.0f - trace.fraction));
         }
 
-        //    check for detonation
+        //check for detonation
         auto detonate = detonated(local_player->m_hActiveWeapon().Get(), time, trace);
 
-        //    emplace nade point
+        //emplace nade point
         _points.at(index++) = c_nadepoint(start, pos, trace.fraction != 1.0f, true, trace.plane.normal, detonate);
         start = pos;
 
-        //    apply gravity modifier
+        //apply gravity modifier
         thrown_direction.z -= gravity * trace.fraction * step;
 
         if (detonate) {
@@ -101,7 +100,7 @@ void c_nade_prediction::predict(CUserCmd* user_cmd) noexcept {
         }
     }
 
-    //    invalidate all empty points and finish prediction
+    //invalidate all empty points and finish prediction
     for (auto n = index; n < 500; ++n) {
         _points.at(n).m_valid = false;
     }
@@ -116,11 +115,11 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
         return true;
     }
 
-    //    get weapon item index
+    //get weapon item index
     const auto index = weapon->m_Item().m_iItemDefinitionIndex();
 
     switch (index) {
-        //    flash and HE grenades only live up to 2.5s after thrown
+        //flash and HE grenades only live up to 2.5s after thrown
     case WEAPON_HEGRENADE:
     case WEAPON_FLASHBANG:
         if (time > 2.5f) {
@@ -128,7 +127,7 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
         }
         break;
 
-        //    fire grenades detonate on ground hit, or 3.5s after thrown
+        //fire grenades detonate on ground hit, or 3.5s after thrown
     case WEAPON_MOLOTOV:
     case WEAPON_INCGRENADE:
         if (trace.fraction != 1.0f && trace.plane.normal.z > 0.7f || time > 3.5f) {
@@ -136,7 +135,7 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
         }
         break;
 
-        //    decoy and smoke grenades were buggy in prediction, so i used this ghetto work-around
+        //decoy and smoke grenades were buggy in prediction, so i used this ghetto work-around
     case WEAPON_DECOY:
     case WEAPON_SMOKEGRENADE:
         if (time > 5.0f) {
@@ -148,7 +147,7 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
     return false;
 }
 
-void c_nade_prediction::trace(CUserCmd* user_cmd) noexcept {
+void c_nade_prediction::trace(CUserCmd* cmd) noexcept {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame())
         return;
 
@@ -159,12 +158,12 @@ void c_nade_prediction::trace(CUserCmd* user_cmd) noexcept {
         return;
     }
 
-    if (!(user_cmd->buttons & IN_ATTACK) && !(user_cmd->buttons & IN_ATTACK2)) {
+    if (!(cmd->buttons & IN_ATTACK) && !(cmd->buttons & IN_ATTACK2)) {
         _predicted = false;
         return;
     }
 
-    const static std::vector< int > nades{
+    const static std::vector< int > nades {
         WEAPON_FLASHBANG,
         WEAPON_SMOKEGRENADE,
         WEAPON_HEGRENADE,
@@ -173,7 +172,7 @@ void c_nade_prediction::trace(CUserCmd* user_cmd) noexcept {
         WEAPON_INCGRENADE
     };
 
-    //    grab local weapon
+    //grab local weapon
     auto weapon = g_LocalPlayer->m_hActiveWeapon().Get();
 
     if (!weapon) {
@@ -181,7 +180,7 @@ void c_nade_prediction::trace(CUserCmd* user_cmd) noexcept {
     }
 
     if (std::find(nades.begin(), nades.end(), weapon->m_Item().m_iItemDefinitionIndex()) != nades.end()) {
-        return predict(user_cmd);
+        return predict(cmd);
     }
 
     _predicted = false;
@@ -208,7 +207,7 @@ void c_nade_prediction::draw() noexcept {
 
     Vector start, end;
 
-    //    draw nade path
+    //draw nade path
     if (_predicted) {
         for (auto& p : _points) {
             if (!p.m_valid) break;

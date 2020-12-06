@@ -3,9 +3,7 @@
 #include <sstream>
 #include <stdint.h>
 #include <d3d9.h>
-#include <d3dx9.h>
 #pragma comment(lib,"d3d9.lib")
-#pragma comment(lib,"d3dx9.lib")
 
 #include "../helpers/singleton.hpp"
 #include "../imgui/imgui.h"
@@ -21,16 +19,14 @@ extern ImFont* g_pSecondFont;
 
 class Vector;
 
-class Render
-	: public Singleton<Render>
-{
+class Render : public Singleton<Render> {
 	friend class Singleton<Render>;
 
 private:
 	ImDrawList * draw_list_act;
 	ImDrawList * draw_list_rendering;
-	ImDrawList* draw_list;
-	ImDrawData draw_data;
+	ImDrawList*  draw_list;
+	ImDrawData   draw_data;
 
 	ImU32 GetU32(Color _color)
 	{

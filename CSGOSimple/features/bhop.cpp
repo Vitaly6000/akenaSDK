@@ -2,8 +2,7 @@
 
 #include "../sdk/csgostructs.hpp"
 
-void BunnyHop::OnCreateMove(CUserCmd* cmd)
-{
+void BunnyHop::OnCreateMove(CUserCmd* cmd) {
     static bool jumped_last_tick = false;
     static bool should_fake_jump = false;
 

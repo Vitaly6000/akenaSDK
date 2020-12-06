@@ -10,23 +10,14 @@
 #include "../features/chams.hpp"
 #include "../features/visuals.hpp"
 #include "../features/glow.hpp"
-#include "../features/misc/misc.h"
+#include "../features/misc/nade_prediction.h"
 
 #pragma comment(lib, "minhook.lib")
 #pragma intrinsic(_ReturnAddress)  
 
 namespace Hooks {
 	void Initialize() {
-		hlclient_hook.setup(g_CHLClient);
-		direct3d_hook.setup(g_D3DDevice9);
-		vguipanel_hook.setup(g_VGuiPanel);
-		vguisurf_hook.setup(g_VGuiSurface);
-		sound_hook.setup(g_EngineSound);
-		mdlrender_hook.setup(g_MdlRender);
-		clientmode_hook.setup(g_ClientMode);
 		ConVar* sv_cheats_con = g_CVar->FindVar("sv_cheats");
-		sv_cheats.setup(sv_cheats_con);
-		engineclient_hook.setup(g_EngineClient);
 
 		const auto gv_endscene = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::EndScene));
 		const auto gv_reset	   = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::Reset));
@@ -62,16 +53,6 @@ namespace Hooks {
 	}
 	//--------------------------------------------------------------------------------
 	void Shutdown() {
-		hlclient_hook.unhook_all();
-		direct3d_hook.unhook_all();
-		vguipanel_hook.unhook_all();
-		vguisurf_hook.unhook_all();
-		mdlrender_hook.unhook_all();
-		clientmode_hook.unhook_all();
-		sound_hook.unhook_all();
-		sv_cheats.unhook_all();
-		engineclient_hook.unhook_all();
-
 		MH_Uninitialize();
 		MH_DisableHook(MH_ALL_HOOKS);
 
@@ -206,8 +187,6 @@ namespace Hooks {
 	}
 	//--------------------------------------------------------------------------------
 	void __fastcall fsn::hook(void* _this, int edx, ClientFrameStage_t stage) {
-		// may be u will use it lol
-
 		static int originalIdx = 0;
 
 		if (!g_LocalPlayer) {
@@ -291,8 +270,7 @@ namespace Hooks {
 	//--------------------------------------------------------------------------------
 	bool __fastcall cheats::hook(PVOID convar, void* edx) {
 		static auto dwCAM_Think = Utils::PatternScan(GetModuleHandleW(L"client.dll"), "85 C0 75 30 38 86");
-		static auto ofunc = sv_cheats.get_original<bool(__thiscall *)(PVOID)>(13);
-		if (!ofunc) return false;
+		if (!o_cheats) return false;
 		if (reinterpret_cast<DWORD>(_ReturnAddress()) == reinterpret_cast<DWORD>(dwCAM_Think)) return true;
 		return o_cheats(convar, edx);
 	}
