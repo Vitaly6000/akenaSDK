@@ -1,10 +1,11 @@
 #pragma once
 
 //int
-static int Tabs = 1;
-static int SubTabLegit = 1;
-static int SubTabMisc = 1;
-static int SubTabVisuals = 1;
+static int Tabs = 0;
+static int SubTabLegit = 0;
+static int SubTabMisc = 0;
+static int SubTabSkins = 0;
+static int SubTabVisuals = 0;
 
 //char
 const char* chams_material[] = { "Regular", "Flat", "Glow" };

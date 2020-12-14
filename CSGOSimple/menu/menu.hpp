@@ -19,7 +19,7 @@ public:
     void Toggle();
 
     bool IsVisible() const { return _visible; }
-
+   
 private:
     void CreateStyle();
 
