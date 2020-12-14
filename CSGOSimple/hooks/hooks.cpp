@@ -189,29 +189,58 @@ namespace Hooks {
 
 		constexpr auto getModel = [](int team) constexpr noexcept -> const char* {
 			constexpr std::array models_ct{
-				"models/player/custom_player/legacy/ctm_st6_variante.mdl",
-				"models/player/custom_player/legacy/ctm_st6_variantk.mdl",
-				"models/player/custom_player/legacy/ctm_fbi_variantf.mdl",
-				"models/player/custom_player/legacy/ctm_sas_variantf.mdl",
+				//fbi
+				"models/player/custom_player/legacy/ctm_fbi_variantb.mdl",
+				"models/player/custom_player/legacy/ctm_fbi_varianth.mdl",
 				"models/player/custom_player/legacy/ctm_fbi_variantg.mdl",
-				"models/player/custom_player/legacy/ctm_st6_variantg.mdl",
+				"models/player/custom_player/legacy/ctm_fbi_variantf.mdl",
+				//st6
+				"models/player/custom_player/legacy/ctm_st6_variante.mdl",
 				"models/player/custom_player/legacy/ctm_st6_variantm.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantg.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantk.mdl",
 				"models/player/custom_player/legacy/ctm_st6_varianti.mdl",
-				"models/player/custom_player/legacy/ctm_fbi_variantb.mdl"
+				"models/player/custom_player/legacy/ctm_st6_variantj.mdl",
+				"models/player/custom_player/legacy/ctm_st6_variantl.mdl",
+				//swat
+				"models/player/custom_player/legacy/ctm_swat_variante.mdl",
+				"models/player/custom_player/legacy/ctm_swat_variantf.mdl",
+				"models/player/custom_player/legacy/ctm_swat_variantg.mdl",
+				"models/player/custom_player/legacy/ctm_swat_varianth.mdl",
+				"models/player/custom_player/legacy/ctm_swat_varianti.mdl",
+				"models/player/custom_player/legacy/ctm_swat_variantj.mdl",
+				//sas
+				"models/player/custom_player/legacy/ctm_sas_variantf.mdl"
 			};
 			constexpr std::array models_t{
-				"models/player/custom_player/legacy/tm_phoenix_variantf.mdl",
-				"models/player/custom_player/legacy/tm_phoenix_varianth.mdl",
-				"models/player/custom_player/legacy/tm_leet_variantg.mdl",
-				"models/player/custom_player/legacy/tm_balkan_varianti.mdl",
-				"models/player/custom_player/legacy/tm_leet_varianth.mdl",
-				"models/player/custom_player/legacy/tm_phoenix_variantg.mdl",
-				"models/player/custom_player/legacy/tm_balkan_variantf.mdl",
-				"models/player/custom_player/legacy/tm_balkan_variantj.mdl",
+				//leet
+				"models/player/custom_player/legacy/tm_leet_variantf.mdl",
 				"models/player/custom_player/legacy/tm_leet_varianti.mdl",
-				"models/player/custom_player/legacy/tm_balkan_variantg.mdl",
+				"models/player/custom_player/legacy/tm_leet_varianth.mdl",
+				"models/player/custom_player/legacy/tm_leet_variantg.mdl",
+				//balkan
+				"models/player/custom_player/legacy/tm_balkan_varianti.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantf.mdl",
 				"models/player/custom_player/legacy/tm_balkan_varianth.mdl",
-				"models/player/custom_player/legacy/tm_leet_variantf.mdl"
+				"models/player/custom_player/legacy/tm_balkan_variantg.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantj.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantk.mdl",
+				"models/player/custom_player/legacy/tm_balkan_variantl.mdl",
+				//phoenix
+				"models/player/custom_player/legacy/tm_phoenix_varianth.mdl",
+				"models/player/custom_player/legacy/tm_phoenix_variantf.mdl",
+				"models/player/custom_player/legacy/tm_phoenix_variantg.mdl",
+				"models/player/custom_player/legacy/tm_phoenix_varianti.mdl",
+				//proffesional
+				"models/player/custom_player/legacy/tm_professional_varf.mdl",
+				"models/player/custom_player/legacy/tm_professional_varf1.mdl",
+				"models/player/custom_player/legacy/tm_professional_varf2.mdl",
+				"models/player/custom_player/legacy/tm_professional_varf3.mdl",
+				"models/player/custom_player/legacy/tm_professional_varf4.mdl",
+				"models/player/custom_player/legacy/tm_professional_varg.mdl",
+				"models/player/custom_player/legacy/tm_professional_varh.mdl",
+				"models/player/custom_player/legacy/tm_professional_vari.mdl",
+				"models/player/custom_player/legacy/tm_professional_varj.mdl"
 			};
 
 			switch (team) {
