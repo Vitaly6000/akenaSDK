@@ -172,9 +172,11 @@ void visuals_tab() {
 
         ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
             ImGui::Checkbox("Enabled Arms", g_Options.chams_arms_enabled);
-            ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_arms, IM_ARRAYSIZE(chams_material_arms));
-            ImGui::Checkbox("Wireframe", g_Options.chams_arms_wireframe);
-            ImGui::Checkbox("Ignore-Z", g_Options.chams_arms_ignorez);
+            ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_other, IM_ARRAYSIZE(chams_material_other));
+            ImGui::Checkbox("Enabled Weapon", g_Options.chams_weapon_enabled);
+            ImGui::Combo("Material##weapon", g_Options.chams_material_weapon, chams_material_other, IM_ARRAYSIZE(chams_material_other));
+            ImGui::Checkbox("Enabled Sleeve", g_Options.chams_sleeve_enabled);
+            ImGui::Combo("Material##sleeve", g_Options.chams_material_sleeve, chams_material_other, IM_ARRAYSIZE(chams_material_other));
         }
         ImGui::EndChild();
     } break;
@@ -224,7 +226,9 @@ void visuals_tab() {
             ImGui::ColorEdit4("Ally Occluded", g_Options.color_chams_player_ally_occluded, ImGuiColorEditFlags_NoInputs);
             ImGui::ColorEdit4("Enemy Visible", g_Options.color_chams_player_enemy_visible, ImGuiColorEditFlags_NoInputs);
             ImGui::ColorEdit4("Enemy Occluded", g_Options.color_chams_player_enemy_occluded, ImGuiColorEditFlags_NoInputs);
-            ImGui::ColorEdit4("Arms Color", g_Options.color_chams_arms, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Arms color", g_Options.color_chams_arms, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Weapon color", g_Options.color_chams_weapon, ImGuiColorEditFlags_NoInputs);
+            ImGui::ColorEdit4("Sleeve color", g_Options.color_chams_sleeve, ImGuiColorEditFlags_NoInputs);
         }
         ImGui::EndChild();
     } break;

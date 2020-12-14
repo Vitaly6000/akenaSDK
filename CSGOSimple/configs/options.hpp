@@ -114,13 +114,15 @@ public:
 		OPTION(bool, chams_player_flat, false);
 		OPTION(bool, chams_player_ignorez, false);
 		OPTION(bool, chams_player_glass, false);
+
 		OPTION(bool, chams_arms_enabled, false);
-		OPTION(bool, chams_arms_wireframe, false);
-		OPTION(bool, chams_arms_flat, false);
-		OPTION(bool, chams_arms_ignorez, false);
-		OPTION(bool, chams_arms_glass, false);
+		OPTION(bool, chams_weapon_enabled, false);
+		OPTION(bool, chams_sleeve_enabled, false);
+
 		OPTION(int, chams_material, 0);
 		OPTION(int, chams_material_arms, 0);
+		OPTION(int, chams_material_weapon, 0);
+		OPTION(int, chams_material_sleeve, 0);
 
 		//
 		// MISC
@@ -170,6 +172,8 @@ public:
 		float color_chams_player_enemy_visible[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_player_enemy_occluded[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_arms[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_sleeve[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float color_chams_weapon[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 };
 
 inline Options g_Options;

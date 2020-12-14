@@ -8,7 +8,7 @@ static int SubTabVisuals = 1;
 
 //char
 const char* chams_material[] = { "Regular", "Flat", "Glow" };
-const char* chams_material_arms[] = { "Regular", "Flat", "Glow" };
+const char* chams_material_other[] = { "Regular", "Flat", "Glow" };
 const char* esp_boxes[] = { "Normal", "Edge"};
 
 const char* player_model_t[] = { "Default",

@@ -43,11 +43,21 @@ void Chams::OverrideMaterial(bool ignoreZ, bool wireframe, int type, const Color
 void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& state,const ModelRenderInfo_t& info,matrix3x4_t* matrix) {
 	const auto mdl = info.pModel;
 	bool is_arm = strstr(mdl->szName, "arms") != nullptr;
-	bool is_player = strstr(mdl->szName, "models/player") != nullptr; //usless after agents update
+	bool is_player = strstr(mdl->szName, "models/player") != nullptr;
 	bool is_sleeve = strstr(mdl->szName, "sleeve") != nullptr;
 	bool is_weapon = strstr(mdl->szName, "models/weapons/v_") != nullptr;
 
-	if (g_Options.chams_player_enabled) {
+	if (is_sleeve && g_Options.chams_sleeve_enabled) {
+		OverrideMaterial(false, false, g_Options.chams_material_sleeve, Color(g_Options.color_chams_sleeve));
+	}
+	else if (is_arm && g_Options.chams_arms_enabled) {
+		OverrideMaterial(false, false, g_Options.chams_material_arms, Color(g_Options.color_chams_arms));
+	}
+	else if (is_weapon && g_Options.chams_weapon_enabled && !is_arm) {
+		//if (is_arm) return;
+		OverrideMaterial(false, false, g_Options.chams_material_weapon, Color(g_Options.color_chams_weapon));
+	}
+	else if (g_Options.chams_player_enabled) {
 		C_BasePlayer* entity = (C_BasePlayer*)g_EntityList->GetClientEntity(info.entity_index);
 		if (!entity || entity->IsDormant() || !entity->IsPlayer()) return;
 
@@ -65,16 +75,6 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 			Hooks::dme::o_dme(g_MdlRender, 0, ctx, state, info, matrix);
 			OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
 		}
-		else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);		
-	}
-	else if (is_sleeve && g_Options.chams_arms_enabled) {
-		auto material = g_MatSystem->FindMaterial(mdl->szName, TEXTURE_GROUP_MODEL);
-		if (!material) return;
-		material->SetMaterialVarFlag(MATERIAL_VAR_NO_DRAW, true);
-		g_MdlRender->ForcedMaterialOverride(material);
-	}
-	else if (is_arm) {
-		if (g_Options.chams_arms_enabled) 
-			OverrideMaterial(false, false, g_Options.chams_material_arms, Color(g_Options.color_chams_arms));
+		else OverrideMaterial(false, g_Options.chams_player_wireframe, g_Options.chams_material, clr_front);
 	}
 }
