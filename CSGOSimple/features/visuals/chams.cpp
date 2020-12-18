@@ -54,7 +54,6 @@ void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& st
 		OverrideMaterial(false, false, g_Options.chams_material_arms, Color(g_Options.color_chams_arms));
 	}
 	else if (is_weapon && g_Options.chams_weapon_enabled && !is_arm) {
-		//if (is_arm) return;
 		OverrideMaterial(false, false, g_Options.chams_material_weapon, Color(g_Options.color_chams_weapon));
 	}
 	else if (g_Options.chams_player_enabled) {
