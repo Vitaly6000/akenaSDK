@@ -359,19 +359,22 @@ void Visuals::ThirdPerson() {
 }
 //--------------------------------------------------------------------------------
 void Visuals::DrawSpeed() {
-	auto last_log = 0;
-
+	//to-do
 	if (!g_LocalPlayer || !g_LocalPlayer->IsAlive()) return;
+
+	int last_log = 0;
 
 	int x, y;
 	g_EngineClient->GetScreenSize(x, y);
+
+	const int iIdealY = y / 2 + 270;
 
 	Vector vec = g_LocalPlayer->m_vecVelocity();
 	float velocity = sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
 	bool in_air = g_LocalPlayer->m_fFlags() & IN_JUMP;
 
 	Render::Get().RenderText(std::to_string((int)round(velocity)), ImVec2(x / 2 + 2, y - 100), 27.f, Color::White, false, false);
-
+	
 	Render::Get().RenderLine(x / 2 - 100, y / 2 + 325, x / 2 - 100, y / 2 + 445, Color(100, 100, 100, 125));
 	Render::Get().RenderLine(x / 2 - 115, y / 2 + 430, x / 2 + 95, y / 2 + 430, Color(100, 100, 100, 125));
 
@@ -384,16 +387,16 @@ void Visuals::DrawSpeed() {
 	if (velocity_data.size() > 40) {
 		velocity_data.pop_front();
 	}
-	
-	for (auto i = 0; i < velocity_data.size() - 1; i++) {
-		auto cur = velocity_data[i].velocity;
-		auto next = velocity_data[i + 1].velocity;
+
+	for (int i = 0; i < velocity_data.size() - 1; i++) {
+		int cur = velocity_data[i].velocity;
+		int next = velocity_data[i + 1].velocity;
 		auto landed = velocity_data[i].on_ground && !velocity_data[i + 1].on_ground;
 
-	//	Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255), 1.0f);
+		Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255));
 
 		if (landed) {
-		//	Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255), 1.0f);
+			Render::Get().RenderLine(x / 2 + 90 - (i - 1) * 5, y / 2 + 430 - (std::clamp(cur, 0, 450) * 75 / 320), x / 2 + 90 - i * 5, y / 2 + 130 - (std::clamp(next, 0, 450) * 75 / 320), Color(200, 200, 200, 255), 1.0f);
 			Render::Get().RenderText(std::to_string(round(next)), ImVec2(x / 2 + 100 - (i + 1) * 5, y / 2 + 415 * 75 / 320), 3.f, Color(245, 245, 220, 255), false);
 		}
 	}
