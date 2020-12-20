@@ -43,7 +43,6 @@ void Chams::OverrideMaterial(bool ignoreZ, bool wireframe, int type, const Color
 void Chams::OnDrawModelExecute(IMatRenderContext* ctx,const DrawModelState_t& state,const ModelRenderInfo_t& info,matrix3x4_t* matrix) {
 	const auto mdl = info.pModel;
 	bool is_arm = strstr(mdl->szName, "arms") != nullptr;
-	bool is_player = strstr(mdl->szName, "models/player") != nullptr;
 	bool is_sleeve = strstr(mdl->szName, "sleeve") != nullptr;
 	bool is_weapon = strstr(mdl->szName, "models/weapons/v_") != nullptr;
 
