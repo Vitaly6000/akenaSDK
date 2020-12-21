@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+#define deg(a) a * 57.295779513082
+
 class Vector
 {
 public:
@@ -127,6 +129,20 @@ public:
         return res;
     }
 
+    void CrossProduct(const Vector& a, const Vector& b, Vector& result)
+    {
+        result.x = a.y * b.z - a.z * b.y;
+        result.y = a.z * b.x - a.x * b.z;
+        result.z = a.x * b.y - a.y * b.x;
+    }
+
+    Vector Cross(const Vector& vOther)
+    {
+        Vector res;
+        CrossProduct(*this, vOther, res);
+        return res;
+    }
+
     float DistTo(const Vector &vOther) const
     {
         Vector delta;
@@ -197,6 +213,21 @@ public:
     Vector Vector::operator/(const Vector& v) const
     {
         return Vector(x / v.x, y / v.y, z / v.z);
+    }
+
+    inline Vector Angle(Vector* up = 0)
+    {
+        if (!x && !y)
+            return Vector(0, 0, 0);
+
+        float roll = 0;
+
+        if (up)
+        {
+            Vector left = (*up).Cross(*this);
+            roll = deg(atan2f(left.z, (left.y * x) - (left.x * y)));
+        }
+        return Vector(deg(atan2f(-z, sqrtf(x * x + y * y))), deg(atan2f(y, x)), roll);
     }
 
     float x, y, z;

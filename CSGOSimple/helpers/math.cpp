@@ -37,6 +37,31 @@ namespace Math
 		return res;
 	}
     //--------------------------------------------------------------------------------
+    void NormalizeAngles(QAngle& angles)
+    {
+        for (auto i = 0; i < 3; i++)
+        {
+            while (angles[i] < -180.0f)
+            {
+                angles[i] += 360.0f;
+            }
+            while (angles[i] > 180.0f)
+            {
+                angles[i] -= 360.0f;
+            }
+        }
+    }
+    //--------------------------------------------------------------------------------
+    float NormalizeYaw(float yaw)
+    {
+        if (yaw > 180)
+            yaw -= (round(yaw / 360) * 360.f);
+        else if (yaw < -180)
+            yaw += (round(yaw / 360) * -360.f);
+
+        return yaw;
+    }
+    //--------------------------------------------------------------------------------
     void ClampAngles(QAngle& angles)
     {
         if(angles.pitch > 89.0f) angles.pitch = 89.0f;

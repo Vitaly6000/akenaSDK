@@ -23,6 +23,8 @@ namespace Math
 	float VectorDistance(const Vector& v1, const Vector& v2);
 	QAngle CalcAngle(const Vector& src, const Vector& dst);
 	float GetFOV(const QAngle& viewAngle, const QAngle& aimAngle);
+	void NormalizeAngles(QAngle& angles);
+	float NormalizeYaw(float yaw);
 	template<class T>
 	void Normalize3(T& vec)
 	{

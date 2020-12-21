@@ -3,32 +3,11 @@
 #include "../sdk/csgostructs.hpp"
 #include "../configs/options.hpp"
 
-Glow::Glow()
-{
-}
+Glow::Glow() { }
 
-Glow::~Glow()
-{
-    // We cannot call shutdown here unfortunately.
-    // Reason is not very straightforward but anyways:
-    // - This destructor will be called when the dll unloads
-    //   but it cannot distinguish between manual unload 
-    //   (pressing the Unload button or calling FreeLibrary)
-    //   or unload due to game exit.
-    //   What that means is that this destructor will be called
-    //   when the game exits.
-    // - When the game is exiting, other dlls might already 
-    //   have been unloaded before us, so it is not safe to 
-    //   access intermodular variables or functions.
-    //   
-    //   Trying to call Shutdown here will crash CSGO when it is
-    //   exiting (because we try to access g_GlowObjManager).
-    //
-}
+Glow::~Glow() { }
 
-void Glow::Shutdown()
-{
-    // Remove glow from all entities
+void Glow::Shutdown() {
     for(auto i = 0; i < g_GlowObjManager->m_GlowObjectDefinitions.Count(); i++) {
         auto& glowObject = g_GlowObjManager->m_GlowObjectDefinitions[i];
         auto entity = reinterpret_cast<C_BasePlayer*>(glowObject.m_pEntity);
@@ -43,8 +22,7 @@ void Glow::Shutdown()
     }
 }
 
-void Glow::Run()
-{
+void Glow::Run() {
     for(auto i = 0; i < g_GlowObjManager->m_GlowObjectDefinitions.Count(); i++) {
         auto& glowObject = g_GlowObjManager->m_GlowObjectDefinitions[i];
         auto entity = reinterpret_cast<C_BasePlayer*>(glowObject.m_pEntity);
@@ -59,8 +37,7 @@ void Glow::Run()
         auto color = Color{};
 
         switch(class_id) {
-            case ClassId_CCSPlayer:
-            {
+            case ClassId_CCSPlayer:  {
                 auto is_enemy = entity->m_iTeamNum() != g_LocalPlayer->m_iTeamNum();
 
                 if(entity->HasC4() && is_enemy && g_Options.glow_c4_carrier) {
@@ -94,8 +71,7 @@ void Glow::Run()
                     continue;
                 color = Color(g_Options.color_glow_planted_c4);
                 break;
-            default:
-            {
+            default: {
                 if(entity->IsWeapon()) {
                     if(!g_Options.glow_weapons)
                         continue;
