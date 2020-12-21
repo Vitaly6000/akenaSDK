@@ -339,7 +339,7 @@ void misc_tab() {
             notify::add("csgosimple", "injected", g_Options.notify_timer);
         }
 
-        ImGui::ColorEdit3("##menu_color", g_Options.menu_color, ImGuiColorEditFlags_NoInputs);
+        ImGui::ColorEdit3("Custom Color##menu_color", g_Options.menu_color, ImGuiColorEditFlags_NoInputs);
         ImGui::SliderInt("##Timer", g_Options.notify_timer, 0, 10000, "Timer : %.1f");
 
     } break;

@@ -8,7 +8,7 @@ static int SubTabSkins = 0;
 static int SubTabVisuals = 0;
 
 //char
-const char* chams_material[] = { "Regular", "Flat", "Glow", "Eso Glow", "Glow Armsrace" };
+const char* chams_material[] = { "Regular", "Flat", "Glow", "Glow Armsrace" };
 const char* esp_boxes[] = { "Normal", "Edge"};
 
 const char* player_model_t[] = { "Default",
