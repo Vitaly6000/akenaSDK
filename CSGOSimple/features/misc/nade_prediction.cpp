@@ -34,10 +34,8 @@ void c_nade_prediction::predict(CUserCmd* cmd) noexcept {
     if (thrown.pitch < 0) {
         thrown.pitch = -10 + thrown.pitch * ((90 - 10) / 90.0f);
     }
-    else {
-        thrown.pitch = -10 + thrown.pitch * ((90 + 10) / 90.0f);
-    }
-
+    else thrown.pitch = -10 + thrown.pitch * ((90 + 10) / 90.0f);
+    
     //find out how we're throwing the grenade
     auto primary_attack = cmd->buttons & IN_ATTACK;
     auto secondary_attack = cmd->buttons & IN_ATTACK2;
@@ -110,7 +108,6 @@ void c_nade_prediction::predict(CUserCmd* cmd) noexcept {
 
 
 bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_t& trace)noexcept {
-
     if (!weapon) {
         return true;
     }
@@ -150,7 +147,6 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
 void c_nade_prediction::trace(CUserCmd* cmd) noexcept {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame())
         return;
-
 
     auto local_player = g_LocalPlayer;
 

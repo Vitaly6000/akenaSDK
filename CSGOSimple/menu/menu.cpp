@@ -28,7 +28,6 @@ IMGUI_API bool MenuTab(const char* name, bool active, ImVec2 size_arg) {
     const ImVec2 label_size = ImGui::CalcTextSize(name, NULL, true);
     DWORD flags = ImGuiWindowFlags_None;
 
-
     ImVec2 pos = window->DC.CursorPos;
     ImVec2 size = ImGui::CalcItemSize(size_arg, label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
 

@@ -23,7 +23,6 @@ void Render::Initialize()
 {
 	ImGui::CreateContext();
 
-
 	ImGui_ImplWin32_Init(InputSys::Get().GetMainWindow());
 	ImGui_ImplDX9_Init(g_D3DDevice9);
 
@@ -92,7 +91,6 @@ void Render::BeginScene() {
 		Visuals::Get().AddToDrawList();
 		nade_pred.draw();
 	}
-
 
 	render_mutex.lock();
 	*draw_list_act = *draw_list;

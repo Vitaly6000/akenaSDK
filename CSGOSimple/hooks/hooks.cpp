@@ -19,17 +19,17 @@ namespace Hooks {
 	void Initialize() {
 		ConVar* sv_cheats_con = g_CVar->FindVar("sv_cheats");
 
-		const auto gv_endscene = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::EndScene));
-		const auto gv_reset	   = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,  index::Reset));
-		const auto gv_fsn	   = reinterpret_cast<void*>(get_virtual(g_CHLClient,   index::FrameStageNotify));
-		const auto gv_crmove   = reinterpret_cast<void*>(get_virtual(g_ClientMode,  index::CreateMove));
-		const auto gv_painttr  = reinterpret_cast<void*>(get_virtual(g_VGuiPanel,   index::PaintTraverse));
-		const auto gv_sound	   = reinterpret_cast<void*>(get_virtual(g_EngineSound, index::EmitSound1));
-		const auto gv_lcursor  = reinterpret_cast<void*>(get_virtual(g_VGuiSurface, index::LockCursor));
-		const auto gv_dme	   = reinterpret_cast<void*>(get_virtual(g_MdlRender,   index::DrawModelExecute));
-		const auto gv_pse	   = reinterpret_cast<void*>(get_virtual(g_ClientMode,  index::DoPostScreenSpaceEffects));
-		const auto gv_ovview   = reinterpret_cast<void*>(get_virtual(g_ClientMode,  index::OverrideView));;
-		const auto gv_cheats   = reinterpret_cast<void*>(get_virtual(sv_cheats_con, index::SvCheatsGetBool));
+		const auto gv_endscene = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,   index::EndScene));
+		const auto gv_reset	   = reinterpret_cast<void*>(get_virtual(g_D3DDevice9,   index::Reset));
+		const auto gv_fsn	   = reinterpret_cast<void*>(get_virtual(g_CHLClient,    index::FrameStageNotify));
+		const auto gv_crmove   = reinterpret_cast<void*>(get_virtual(g_ClientMode,   index::CreateMove));
+		const auto gv_painttr  = reinterpret_cast<void*>(get_virtual(g_VGuiPanel,    index::PaintTraverse));
+		const auto gv_sound	   = reinterpret_cast<void*>(get_virtual(g_EngineSound,  index::EmitSound1));
+		const auto gv_lcursor  = reinterpret_cast<void*>(get_virtual(g_VGuiSurface,  index::LockCursor));
+		const auto gv_dme	   = reinterpret_cast<void*>(get_virtual(g_MdlRender,    index::DrawModelExecute));
+		const auto gv_pse	   = reinterpret_cast<void*>(get_virtual(g_ClientMode,   index::DoPostScreenSpaceEffects));
+		const auto gv_ovview   = reinterpret_cast<void*>(get_virtual(g_ClientMode,   index::OverrideView));;
+		const auto gv_cheats   = reinterpret_cast<void*>(get_virtual(sv_cheats_con,  index::SvCheatsGetBool));
 		const auto gv_aratio   = reinterpret_cast<void*>(get_virtual(g_EngineClient, index::AspectRatio));
 
 		if (MH_Initialize() != MH_OK)

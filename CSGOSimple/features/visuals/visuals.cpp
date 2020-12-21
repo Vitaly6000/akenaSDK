@@ -136,22 +136,21 @@ void Visuals::Player::RenderName() {
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderHealth() {
-	float health_value = ctx.pl->m_iHealth();
-	int i_health_value = health_value;
-	int red = 255 - (health_value * 2.00);
-	int green = health_value * 2.00;
-	float fl_boxes = std::ceil(ctx.pl->m_iHealth() / 10.f);
+	auto hp = std::clamp(ctx.pl->m_iHealth(), 0, 100);
 
-	float height = (ctx.bbox.bottom - ctx.bbox.top) * (health_value / 100);
-	float height2 = (ctx.bbox.bottom - ctx.bbox.top) * (100 / 100);
-	float fl_height = height2 / 10.f;
+	int green = int(hp * 2.55f);
+	int red = 255 - green;
+	Color main = Color(red, green, 0, 255);
 
-	int x = ctx.bbox.left - 3;
+	float box_w = (float)fabs(ctx.bbox.right - ctx.bbox.left);
+	float box_h = (float)fabs(ctx.bbox.bottom - ctx.bbox.top);
 
-	Render::Get().filled_rectange(x - 5, ctx.bbox.top - 1, x - 1, ctx.bbox.bottom + 1, Color::Black);
-	Render::Get().filled_rectange(x - 4, ctx.bbox.bottom - height, x - 2, ctx.bbox.bottom, Color(red, green, 0, 255));
+	float x = ctx.bbox.left - 7;
+	float y = ctx.bbox.bottom;
 
-	for (int i = 0; i < 10; i++) Render::Get().draw_line(x - 5, ctx.bbox.top + i * fl_height, x - 2, ctx.bbox.top + i * fl_height, Color::Black);
+	Render::Get().outlined_rectange(x, y - box_h - 1, x + 4, y + 1, Color::Black);
+	Render::Get().filled_rectange(x + 1, y - (int)box_h, x + 4 - 1, y, Color::Black);
+	Render::Get().filled_rectange(x + 1, y - ((box_h * hp) / 100), x + 4 - 1, y, main);
 }
 //--------------------------------------------------------------------------------
 void Visuals::Player::RenderArmour() {
