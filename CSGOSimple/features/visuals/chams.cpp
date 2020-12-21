@@ -9,6 +9,7 @@
 Chams::Chams() {
 	materialRegular = g_MatSystem->FindMaterial("debug/debugambientcube");
 	materialFlat = g_MatSystem->FindMaterial("debug/debugdrawflat");
+
 	std::ofstream("csgo\\materials\\material_glow.vmt") << R"#("VertexLitGeneric" 
 {
  "$additive"               "1"
@@ -20,9 +21,23 @@ Chams::Chams() {
 }
 )#";
 	materialGlow = g_MatSystem->FindMaterial("material_glow");
+
+	std::ofstream("csgo\\materials\\material_eso_glow.vmt") << R"#("VertexLitGeneric" {
+ 
+	"$additive"               "1"
+	"$envmap"                 "models/effects/cube_white"
+	"$envmaptint"             "[1 1 1]"
+	"$envmapfresnel"          "1"
+	"$envmapfresnelminmaxexp" "[0 1 2]"
+	"$alpha"				  "0.8"
+})#";
+	materialEsoGlow = g_MatSystem->FindMaterial("material_eso_glow");
 }
 
-Chams::~Chams() { }
+Chams::~Chams() { 
+	std::remove("csgo\\materials\\material_glow.vmt");
+	std::remove("csgo\\materials\\material_eso_glow.vmt");
+}
 
 void Chams::OverrideMaterial(bool ignoreZ, bool wireframe, int type, const Color& rgba) {
 	bool bFound = false;

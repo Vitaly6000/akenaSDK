@@ -216,11 +216,11 @@ void visuals_tab() {
 
         ImGui::BeginChild("##secondchild", ImVec2(0, 0)); {
             ImGui::Checkbox("Enabled Arms", g_Options.chams_arms_enabled);
-            ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material_other, IM_ARRAYSIZE(chams_material_other));
+            ImGui::Combo("Material##arms", g_Options.chams_material_arms, chams_material, IM_ARRAYSIZE(chams_material));
             ImGui::Checkbox("Enabled Weapon", g_Options.chams_weapon_enabled);
-            ImGui::Combo("Material##weapon", g_Options.chams_material_weapon, chams_material_other, IM_ARRAYSIZE(chams_material_other));
+            ImGui::Combo("Material##weapon", g_Options.chams_material_weapon, chams_material, IM_ARRAYSIZE(chams_material));
             ImGui::Checkbox("Enabled Sleeve", g_Options.chams_sleeve_enabled);
-            ImGui::Combo("Material##sleeve", g_Options.chams_material_sleeve, chams_material_other, IM_ARRAYSIZE(chams_material_other));
+            ImGui::Combo("Material##sleeve", g_Options.chams_material_sleeve, chams_material, IM_ARRAYSIZE(chams_material));
         }
         ImGui::EndChild();
     } break;
