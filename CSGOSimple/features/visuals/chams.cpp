@@ -32,6 +32,7 @@ Chams::Chams() {
 	"$alpha"				  "0.8"
 })#";
 	materialEsoGlow = g_MatSystem->FindMaterial("material_eso_glow");
+	materialGlowArmsrace = g_MatSystem->FindMaterial("dev/glow_armsrace.vmt");
 }
 
 Chams::~Chams() { 

@@ -31,6 +31,7 @@ private:
     IMaterial* materialFlat = nullptr;
     IMaterial* materialGlow = nullptr;
     IMaterial* materialEsoGlow = nullptr;
+    IMaterial* materialGlowArmsrace = nullptr;
 
     constexpr auto change_material(int material) {
         switch (material) {
@@ -38,6 +39,7 @@ private:
         case 1: return materialFlat;
         case 2: return materialGlow;
         case 3: return materialEsoGlow;
+        case 4: return materialGlowArmsrace;
         }
     }
 };
