@@ -31,6 +31,8 @@ namespace Utils {
      * Replacement to printf that works with the newly created console
      */
     bool ConsolePrint(const char* fmt, ...);
+
+    std::string printf(const char* text, ...);
     
     /*
      * @brief Blocks execution until a key is pressed on the console window
@@ -71,4 +73,7 @@ namespace Utils {
      * @param name New name
      */
     void SetName(const char* name);
+
+    int epoch_time();
+    float lerp(float a, float b, float f);
 }

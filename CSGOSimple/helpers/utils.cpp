@@ -8,6 +8,7 @@
 
 #include "../sdk/csgostructs.hpp"
 #include "Math.hpp"
+#include <chrono>
 
 
 HANDLE _out = NULL, _old_out = NULL;
@@ -135,7 +136,19 @@ namespace Utils {
         _vsnprintf_s(buf, 1024, fmt, va);
         va_end(va);
 
-        return !!WriteConsoleA(_out, buf, static_cast<DWORD>(strlen(buf)), nullptr, nullptr);
+        return !!WriteConsoleA(_out, buf, static_cast<DWORD>(strlen(buf)), nullptr, nullptr);     
+    }
+
+    std::string printf(const char* text, ...)
+    {
+        char buf[1024];
+        va_list va;
+
+        va_start(va, text);
+        _vsnprintf_s(buf, 1024, text, va);
+        va_end(va);
+
+        return std::string(buf);
     }
 
     /*
@@ -295,5 +308,13 @@ namespace Utils {
         static auto do_once = (nameConvar->SetValue("\n���"), true);
 
         nameConvar->SetValue(name);
+    }
+
+    int epoch_time() {
+        return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    }
+
+    float lerp(float a, float b, float f) {
+        return a + f * (b - a);
     }
 }

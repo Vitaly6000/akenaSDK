@@ -14,6 +14,7 @@
 #include "../imgui/imgui_internal.h"
 #include "../imgui/impl/imgui_impl_dx9.h"
 #include "../imgui/impl/imgui_impl_win32.h"
+#include "../features/notify/notify.h"
 
 #pragma region CustomImGui
 IMGUI_API bool MenuTab(const char* name, bool active, ImVec2 size_arg) {
@@ -321,6 +322,26 @@ void misc_tab() {
         if (ImGui::Button("Unload")) {
             g_Unload = true;
         }
+        //just for test
+        if (ImGui::Button("type 1")) {
+            notify::add("injected", log_type::screen_standart);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("type 1 + timer")) {
+            notify::add("injected", g_Options.notify_timer);
+        }
+        
+        if (ImGui::Button("type 2")) {
+            notify::add("csgosimple", "injected", log_type::screen_standart);
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("type 2 + timer")) {
+            notify::add("csgosimple", "injected", g_Options.notify_timer);
+        }
+
+        ImGui::ColorEdit3("##menu_color", g_Options.menu_color, ImGuiColorEditFlags_NoInputs);
+        ImGui::SliderInt("##Timer", g_Options.notify_timer, 0, 10000, "Timer : %.1f");
+
     } break;
     case 1: {
         if (ImGui::Button("Save cfg")) {

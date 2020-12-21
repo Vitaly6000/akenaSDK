@@ -131,12 +131,13 @@ public:
 		OPTION(bool, misc_no_hands, false);
 		OPTION(bool, misc_thirdperson, false);
 		OPTION(bool, misc_showranks, false);
-		OPTION(bool, misc_watermark, true);
+		OPTION(bool, misc_watermark, false);
 		OPTION(bool, misc_info, false);	
 		OPTION(float, misc_thirdperson_dist, 50.f);
 		OPTION(int, viewmodel_fov, 68);
 		OPTION(int, aspectratio, 0);		
 		OPTION(bool, esp_nade_prediction, false);
+		OPTION(int, notify_timer, 1000);
 
 		/*
 		OPTION(int, agent_changer_ct, 0);
@@ -174,6 +175,7 @@ public:
 		float color_chams_arms[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_sleeve[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		float color_chams_weapon[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float menu_color[3] = { 0.537f, 0.196f, 0.658f };
 };
 
 inline Options g_Options;

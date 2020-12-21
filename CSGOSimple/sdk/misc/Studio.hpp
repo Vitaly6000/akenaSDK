@@ -85,6 +85,17 @@ enum Hitboxes
 	HITBOX_MAX
 };
 
+enum Hitbox_Event
+{
+    HIT_HEAD        = 1,
+    HIT_NECK        = 8,
+    HIT_LOWER_CHEST = 3,
+    HIT_CHEST       = 2,
+    HIT_RIGHT_FOOT  = 7,
+    HIT_LEFT_FOOT   = 6,
+    HIT_RIGHT_HAND  = 5,
+    HIT_LEFT_HAND   = 4
+};
 
 typedef unsigned short MDLHandle_t;
 

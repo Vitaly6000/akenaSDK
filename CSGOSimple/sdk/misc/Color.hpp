@@ -21,6 +21,21 @@ public:
 			static_cast<int>(_a * 255.0f))
 	{
 	}
+
+	Color(Color cl, int a)
+	{
+		SetColor(cl.r(), cl.g(), cl.b(), a);
+	}
+
+	Color(int* cl, int a)
+	{
+		SetColor(cl[0], cl[1], cl[3], a);
+	}
+
+	Color(float* rgb, int a)
+	{
+		SetColor(rgb[0], rgb[1], rgb[2], a);
+	}
 	explicit Color(float* rgb) : Color(rgb[0], rgb[1], rgb[2], 1.0f) {}
 	explicit Color(unsigned long argb)
 	{
@@ -33,6 +48,7 @@ public:
 	void    SetRawColor(int color32);
 	int     GetRawColor() const;
 	void    SetColor(int _r, int _g, int _b, int _a = 0);
+	void    SetColor(float _r, float _g, float _b, int _a = 0);
 	void    SetColor(float _r, float _g, float _b, float _a = 0);
 	void    GetColor(int &_r, int &_g, int &_b, int &_a) const;
 

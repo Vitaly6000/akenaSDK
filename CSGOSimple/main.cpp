@@ -9,6 +9,7 @@
 #include "menu/menu.hpp"
 #include "configs/options.hpp"
 #include "render/render.hpp"
+#include "features/notify/notify.h"
 
 DWORD WINAPI OnDllAttach(LPVOID base)
 {
@@ -31,11 +32,6 @@ DWORD WINAPI OnDllAttach(LPVOID base)
         Menu::Get().Initialize();
 
         Hooks::Initialize();
-
-        // Register some hotkeys.
-        // - Note:  The function that is called when the hotkey is pressed
-        //          is called from the WndProc thread, not this thread.
-        // 
 
         // Panic button
         InputSys::Get().RegisterHotkey(VK_DELETE, [base]() {
@@ -66,9 +62,6 @@ DWORD WINAPI OnDllAttach(LPVOID base)
 
         FreeLibraryAndExitThread(static_cast<HMODULE>(base), 1);
     }
-
-    // unreachable
-    //return TRUE;
 }
 
 BOOL WINAPI OnDllDetach()

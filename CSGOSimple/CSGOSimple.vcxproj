@@ -100,6 +100,7 @@
     <ClCompile Include="configs\options.cpp" />
     <ClCompile Include="features\misc\bhop.cpp" />
     <ClCompile Include="features\misc\nade_prediction.cpp" />
+    <ClCompile Include="features\notify\notify.cpp" />
     <ClCompile Include="features\visuals\chams.cpp" />
     <ClCompile Include="features\visuals\glow.cpp" />
     <ClCompile Include="features\visuals\visuals.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="configs\config.hpp" />
     <ClInclude Include="features\misc\bhop.hpp" />
     <ClInclude Include="features\misc\nade_prediction.h" />
+    <ClInclude Include="features\notify\notify.h" />
     <ClInclude Include="features\visuals\chams.hpp" />
     <ClInclude Include="features\visuals\glow.hpp" />
     <ClInclude Include="features\visuals\visuals.hpp" />

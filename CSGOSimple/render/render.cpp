@@ -10,6 +10,7 @@
 #include "../configs/options.hpp"
 #include "../fonts/fonts.hpp"
 #include "../helpers/math.hpp"
+#include "../features/notify/notify.h"
 
 ImFont* g_pDefaultFont;
 ImFont* g_pSecondFont;
@@ -65,6 +66,7 @@ void Render::BeginScene() {
 	draw_list->Clear();
 	draw_list->PushClipRectFullScreen();
 
+	notify::render();
 
 	if (g_Options.misc_watermark) {
 		std::stringstream ss;
