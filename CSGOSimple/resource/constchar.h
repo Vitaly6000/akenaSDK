@@ -35,3 +35,9 @@ const char* player_model_ct[] = { "Default",
 								"Bio-haz Specialist", "Sergeant Bombson", "Chem-haz Specialist",
 								//sas
 								"B Squadron Officer" };
+
+static std::string sub_legit[] = { "Aimbot", "Trigger" };
+static std::string sub_visuals[] = { "Esp", "Glow", "Chams", "Misc", "Colors" };
+static std::string sub_skins[] = { "Skins", "Inventory", "Profile" };
+static std::string sub_misc[] = { "Misc", "Config" };
+static std::string tabs[] = { "Legit", "Visuals", "Skins", "Misc" };

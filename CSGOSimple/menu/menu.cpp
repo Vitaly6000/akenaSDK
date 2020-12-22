@@ -92,13 +92,12 @@ auto flags = ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse |
 #pragma endregion
 #pragma region Tabs
 void legitbot_sub() {
-    if (MenuSubTab("Aimbot", { 110, 30 }, SubTabLegit == 0 ? true : false))
-        SubTabLegit = 0;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Trigger", { 110, 30 }, SubTabLegit == 1 ? true : false))
-        SubTabLegit = 1;
+    for (int i = 0; i < 2; i++) {
+        if (MenuSubTab(sub_legit[i].c_str(), ImVec2(110, 30), SubTabLegit == i)) {
+            SubTabLegit = i;
+        }
+        ImGui::SameLine();
+    }
 }
 void legitbot_tab() {
     legitbot_sub();
@@ -114,28 +113,12 @@ void legitbot_tab() {
 }
 //-----------------
 void visuals_sub() {
-    if (MenuSubTab("Esp", { 110, 30 }, SubTabVisuals == 0 ? true : false))
-        SubTabVisuals = 0;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Glow", { 110, 30 }, SubTabVisuals == 1 ? true : false))
-        SubTabVisuals = 1;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Chams", { 110, 30 }, SubTabVisuals == 2 ? true : false))
-        SubTabVisuals = 2;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Misc", { 110, 30 }, SubTabVisuals == 3 ? true : false))
-        SubTabVisuals = 3;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Colors", { 110, 30 }, SubTabVisuals == 4 ? true : false))
-        SubTabVisuals = 4;
+    for (int i = 0; i < 5; i++) {
+        if (MenuSubTab(sub_visuals[i].c_str(), ImVec2(110, 30), SubTabVisuals == i)) {
+            SubTabVisuals = i;
+        }
+        ImGui::SameLine();
+    }
 }
 void visuals_tab() {
     visuals_sub();
@@ -266,31 +249,24 @@ void visuals_tab() {
 }
 //-----------------
 void skins_sub() {
-    if (MenuSubTab("Skins", { 110, 30 }, SubTabSkins == 0 ? true : false))
-        SubTabSkins = 0;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Inventory", { 110, 30 }, SubTabSkins == 1 ? true : false))
-        SubTabSkins = 1;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Profile", { 110, 30 }, SubTabSkins == 2 ? true : false))
-        SubTabSkins = 2;
+    for (int i = 0; i < 3; i++) {
+        if (MenuSubTab(sub_skins[i].c_str(), ImVec2(110, 30), SubTabSkins == i)) {
+            SubTabSkins = i;
+        }
+        ImGui::SameLine();
+    }
 }
 void skins_tab() {
     skins_sub();
 }
 //-----------------
 void misc_sub() {
-    if (MenuSubTab("Misc", { 110, 30 }, SubTabMisc == 0 ? true : false))
-        SubTabMisc = 0;
-
-    ImGui::SameLine();
-
-    if (MenuSubTab("Config", { 110, 30 }, SubTabMisc == 1 ? true : false))
-        SubTabMisc = 1;
+    for (int i = 0; i < 2; i++) {
+        if (MenuSubTab(sub_misc[i].c_str(), ImVec2(110, 30), SubTabMisc == i)) {
+            SubTabMisc = i;
+        }
+        ImGui::SameLine();
+    }
 }
 void misc_tab() {
     misc_sub();
@@ -373,14 +349,11 @@ void Menu::Render() {
         ImGui::EndChild();
 
         if (ImGui::BeginChild("Child2", ImVec2(100, 0), false, flags)) {
-            if (MenuTab("Legit", Tabs == 0, ImVec2(100, 30)))
-                Tabs = 0;
-            if (MenuTab("Visuals", Tabs == 1, ImVec2(100, 30)))
-                Tabs = 1;
-            if (MenuTab("Skins", Tabs == 2, ImVec2(100, 30)))
-                Tabs = 2;
-            if (MenuTab("Misc", Tabs == 3, ImVec2(100, 30)))
-                Tabs = 3;
+            for (int i = 0; i < 4; i++) {
+                if (MenuTab(tabs[i].c_str(), Tabs == i, ImVec2(100, 30))) {
+                    Tabs = i;
+                }
+            }
         }
         ImGui::EndChild();
 
