@@ -6,11 +6,12 @@
 #include "../configs/options.hpp"
 #include "../helpers/input.hpp"
 #include "../helpers/utils.hpp"
-#include "../features/misc/bhop.hpp"
 #include "../features/visuals/chams.hpp"
 #include "../features/visuals/visuals.hpp"
 #include "../features/visuals/glow.hpp"
 #include "../features/misc/nade_prediction.h"
+#include "../features/misc/misc.h"
+#include "../features/misc/engine_prediction.h"
 
 #pragma comment(lib, "minhook.lib")
 #pragma intrinsic(_ReturnAddress)  
@@ -123,13 +124,14 @@ namespace Hooks {
 		if (Menu::Get().IsVisible())
 			cmd->buttons &= ~IN_ATTACK;
 
-		if (g_Options.misc_bhop)
-			BunnyHop::OnCreateMove(cmd);
-
+		misc.CreateMove(cmd);
 		nade_pred.trace(cmd);
 
-		if (g_Options.misc_showranks && cmd->buttons & IN_SCORE)
-			g_CHLClient->DispatchUserMessage(CS_UM_ServerRankRevealAll, 0, 0, nullptr);
+		EnginePrediction::Begin(cmd);
+		{
+			misc.NullStrafe(cmd);
+		}
+		EnginePrediction::End();
 
 		return false;
 	}

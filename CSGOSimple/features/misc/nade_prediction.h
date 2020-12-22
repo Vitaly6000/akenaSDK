@@ -36,12 +36,12 @@ class c_nade_prediction {
     std::array< c_nadepoint, 500 >    _points{ };
     bool         _predicted = false;
 
-    void predict(CUserCmd* cmd) noexcept;
-    bool detonated(C_BaseCombatWeapon* weapon, float time, trace_t& trace) noexcept;
+    void predict(CUserCmd* cmd);
+    bool detonated(C_BaseCombatWeapon* weapon, float time, trace_t& trace);
 public:
 
-    void trace(CUserCmd* cmd) noexcept;
-    void draw() noexcept;
+    void trace(CUserCmd* cmd);
+    void draw();
 };
 
 extern c_nade_prediction nade_pred;

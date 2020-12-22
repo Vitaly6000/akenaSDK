@@ -138,6 +138,9 @@ public:
 		OPTION(int, aspectratio, 0);		
 		OPTION(bool, esp_nade_prediction, false);
 		OPTION(int, notify_timer, 1000);
+		OPTION(bool, misc_null_strafe, false);
+		OPTION(bool, misc_jump_bug, false);
+		OPTION(int, misc_jump_bug_key, 0);
 
 		/*
 		OPTION(int, agent_changer_ct, 0);

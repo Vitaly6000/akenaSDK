@@ -2,7 +2,7 @@
 
 c_nade_prediction nade_pred;
 
-void c_nade_prediction::predict(CUserCmd* cmd) noexcept {
+void c_nade_prediction::predict(CUserCmd* cmd) {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame())
         return;
 
@@ -106,8 +106,7 @@ void c_nade_prediction::predict(CUserCmd* cmd) noexcept {
     _predicted = true;
 }
 
-
-bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_t& trace)noexcept {
+bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_t& trace) {
     if (!weapon) {
         return true;
     }
@@ -144,7 +143,7 @@ bool c_nade_prediction::detonated(C_BaseCombatWeapon* weapon, float time, trace_
     return false;
 }
 
-void c_nade_prediction::trace(CUserCmd* cmd) noexcept {
+void c_nade_prediction::trace(CUserCmd* cmd) {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame())
         return;
 
@@ -182,7 +181,7 @@ void c_nade_prediction::trace(CUserCmd* cmd) noexcept {
     _predicted = false;
 }
 
-void c_nade_prediction::draw() noexcept {
+void c_nade_prediction::draw() {
     if (!g_EngineClient->IsConnected() && !g_EngineClient->IsInGame()) return;
 
     auto local_player = g_LocalPlayer;

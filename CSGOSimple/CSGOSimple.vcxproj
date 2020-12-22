@@ -98,7 +98,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="configs\options.cpp" />
-    <ClCompile Include="features\misc\bhop.cpp" />
+    <ClCompile Include="features\misc\misc.cpp" />
     <ClCompile Include="features\misc\nade_prediction.cpp" />
     <ClCompile Include="features\notify\notify.cpp" />
     <ClCompile Include="features\visuals\chams.cpp" />
@@ -135,7 +135,8 @@
   <ItemGroup>
     <ClInclude Include="configs\base64.h" />
     <ClInclude Include="configs\config.hpp" />
-    <ClInclude Include="features\misc\bhop.hpp" />
+    <ClInclude Include="features\misc\engine_prediction.h" />
+    <ClInclude Include="features\misc\misc.h" />
     <ClInclude Include="features\misc\nade_prediction.h" />
     <ClInclude Include="features\notify\notify.h" />
     <ClInclude Include="features\visuals\chams.hpp" />
