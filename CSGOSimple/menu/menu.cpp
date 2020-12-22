@@ -90,23 +90,6 @@ IMGUI_API bool MenuSubTab(const char* label, const ImVec2& size_arg, const bool 
 auto flags = ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse |
              ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar;
 #pragma endregion
-
-void Menu::Initialize() {
-	CreateStyle();
-
-    _visible = true;
-}
-void Menu::Shutdown() {
-    ImGui_ImplDX9_Shutdown();
-	ImGui_ImplWin32_Shutdown();
-	ImGui::DestroyContext();
-}
-void Menu::OnDeviceLost() {
-    ImGui_ImplDX9_InvalidateDeviceObjects();
-}
-void Menu::OnDeviceReset() {
-    ImGui_ImplDX9_CreateDeviceObjects();
-}
 #pragma region Tabs
 void legitbot_sub() {
     if (MenuSubTab("Aimbot", { 110, 30 }, SubTabLegit == 0 ? true : false))
@@ -164,7 +147,7 @@ void visuals_tab() {
         ImGui::Checkbox("Enabled", g_Options.esp_enabled);
         ImGui::Checkbox("Team check", g_Options.esp_enemies_only);
         ImGui::Checkbox("Boxes", g_Options.esp_player_boxes);
-        if(g_Options.esp_player_boxes)
+        if (g_Options.esp_player_boxes)
             ImGui::Combo("Type##boxes", g_Options.esp_player_boxes_type, esp_boxes, IM_ARRAYSIZE(esp_boxes));
         ImGui::Checkbox("Names", g_Options.esp_player_names);
         ImGui::Checkbox("Health", g_Options.esp_player_health);
@@ -202,7 +185,7 @@ void visuals_tab() {
     } break;
     case 2: {
         ImGui::Columns(2, nullptr, false);
-       
+
         ImGui::BeginChild("##firstchild", ImVec2(0, 0)); {
             ImGui::Checkbox("Enabled Chams", g_Options.chams_player_enabled);
             ImGui::Checkbox("Team Check", g_Options.chams_player_enemies_only);
@@ -315,6 +298,9 @@ void misc_tab() {
     switch (SubTabMisc) {
     case 0: {
         ImGui::Checkbox("Bunny hop", g_Options.misc_bhop);
+        if (g_Options.misc_bhop)
+            ImGui::Checkbox("Null Strafe", g_Options.misc_null_strafe);
+
         ImGui::Checkbox("Rank reveal", g_Options.misc_showranks);
         ImGui::Checkbox("Watermark##wm", g_Options.misc_watermark);
         ImGui::Checkbox("Draw Info", g_Options.misc_info);
@@ -329,7 +315,7 @@ void misc_tab() {
         if (ImGui::Button("type 1 + timer")) {
             notify::add("injected", g_Options.notify_timer);
         }
-        
+
         if (ImGui::Button("type 2")) {
             notify::add("csgosimple", "injected", log_type::screen_standart);
         }
@@ -353,6 +339,23 @@ void misc_tab() {
     }
 }
 #pragma endregion
+
+void Menu::Initialize() {
+	CreateStyle();
+
+    _visible = true;
+}
+void Menu::Shutdown() {
+    ImGui_ImplDX9_Shutdown();
+	ImGui_ImplWin32_Shutdown();
+	ImGui::DestroyContext();
+}
+void Menu::OnDeviceLost() {
+    ImGui_ImplDX9_InvalidateDeviceObjects();
+}
+void Menu::OnDeviceReset() {
+    ImGui_ImplDX9_CreateDeviceObjects();
+}
 void Menu::Render() {
 	ImGui::GetIO().MouseDrawCursor = _visible;
 

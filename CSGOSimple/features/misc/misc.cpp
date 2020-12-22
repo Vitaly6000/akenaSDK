@@ -47,7 +47,7 @@ void c_misc::RankReveal(CUserCmd* cmd){
 }
 
 void c_misc::NullStrafe(CUserCmd* cmd) {
-    if (!g_Options.misc_null_strafe)
+    if (!g_Options.misc_null_strafe && !g_Options.misc_bhop)
         return;
 
     if (g_LocalPlayer->m_nMoveType() == MOVETYPE_LADDER || g_LocalPlayer->m_nMoveType() == MOVETYPE_NOCLIP || g_LocalPlayer->m_fFlags() & FL_INWATER)
