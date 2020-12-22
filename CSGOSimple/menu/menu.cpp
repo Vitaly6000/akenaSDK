@@ -330,10 +330,10 @@ void misc_tab() {
     } break;
     case 1: {
         if (ImGui::Button("Save cfg")) {
-            Config::Get().Save();
+            notify::add("config saved", log_type::screen_standart);
         }
         if (ImGui::Button("Load cfg")) {
-            Config::Get().Load();
+            notify::add("config loaded", log_type::screen_standart);
         }
     } break;
     }
