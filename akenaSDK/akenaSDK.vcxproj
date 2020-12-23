@@ -48,7 +48,7 @@
     <OutDir>$(SolutionDir)output\debug\</OutDir>
     <IntDir>$(SolutionDir)intermediate\</IntDir>
     <IncludePath>C:\projects\directx\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <TargetName>csgosimple</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <LibraryPath>C:\projects\directx\Lib\x86;$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -56,7 +56,7 @@
     <OutDir>$(SolutionDir)output\release\</OutDir>
     <IntDir>$(SolutionDir)intermediate\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
-    <TargetName>csgosimple</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <LibraryPath>$(SolutionDir)hooks/minhook;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
