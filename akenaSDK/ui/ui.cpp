@@ -408,15 +408,15 @@ bool ImGui::Combo(const char* label, int* current_item, std::function<const char
 	}, &lambda, items_count, height_in_items);
 }
 
-bool ImGui::MenuTab(const char* name, bool active, ImVec2 size_arg) {
+bool ImGui::MenuTab(const char* label, bool active, ImVec2 size_arg) {
 	ImGuiWindow* window = ImGui::GetCurrentWindow();
 	if (window->SkipItems)
 		return false;
 
 	ImGuiContext& g = *GImGui;
 	const ImGuiStyle& style = g.Style;
-	const ImGuiID id = window->GetID(name);
-	const ImVec2 label_size = ImGui::CalcTextSize(name, NULL, true);
+	const ImGuiID id = window->GetID(label);
+	const ImVec2 label_size = ImGui::CalcTextSize(label, NULL, true);
 	DWORD flags = ImGuiWindowFlags_None;
 
 	ImVec2 pos = window->DC.CursorPos;
@@ -441,8 +441,8 @@ bool ImGui::MenuTab(const char* name, bool active, ImVec2 size_arg) {
 		color = ImColor(255, 255, 255, 255);
 	}
 
-	window->DrawList->AddText(bb.Min + ImVec2(15, 7), ImColor(0, 0, 0, 255), name);
-	window->DrawList->AddText(bb.Min + ImVec2(14, 6), color, name);
+	window->DrawList->AddText(bb.Min + ImVec2(15, 7), ImColor(0, 0, 0, 255), label);
+	window->DrawList->AddText(bb.Min + ImVec2(14, 6), color, label);
 
 	return pressed;
 }
