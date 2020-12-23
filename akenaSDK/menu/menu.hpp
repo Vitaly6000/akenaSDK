@@ -20,6 +20,8 @@ public:
 
     bool IsVisible() const { return _visible; }
    
+    ImGuiWindowFlags flags = ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse |
+        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar;
 private:
     void CreateStyle();
 

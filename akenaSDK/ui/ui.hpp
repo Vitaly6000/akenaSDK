@@ -16,4 +16,6 @@ namespace ImGui {
 	bool ListBox(const char * label, int * current_item, std::string items[], int items_count, int height_items);
 	bool ListBox(const char * label, int * current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items);
 	bool Combo(const char * label, int * current_item, std::function<const char*(int)> lambda, int items_count, int height_in_items);
+	bool MenuTab(const char* name, bool active, ImVec2 size_arg);
+	bool MenuSubTab(const char* label, const ImVec2& size_arg, const bool selected);
 }

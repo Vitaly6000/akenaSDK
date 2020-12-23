@@ -407,3 +407,73 @@ bool ImGui::Combo(const char* label, int* current_item, std::function<const char
 		return true;
 	}, &lambda, items_count, height_in_items);
 }
+
+bool ImGui::MenuTab(const char* name, bool active, ImVec2 size_arg) {
+	ImGuiWindow* window = ImGui::GetCurrentWindow();
+	if (window->SkipItems)
+		return false;
+
+	ImGuiContext& g = *GImGui;
+	const ImGuiStyle& style = g.Style;
+	const ImGuiID id = window->GetID(name);
+	const ImVec2 label_size = ImGui::CalcTextSize(name, NULL, true);
+	DWORD flags = ImGuiWindowFlags_None;
+
+	ImVec2 pos = window->DC.CursorPos;
+	ImVec2 size = ImGui::CalcItemSize(size_arg, label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
+
+	const ImRect bb(pos, pos + size);
+	ImGui::ItemSize(size, style.FramePadding.y);
+	if (!ImGui::ItemAdd(bb, id))
+		return false;
+
+	if (window->DC.ItemFlags & ImGuiItemFlags_ButtonRepeat)
+		flags |= ImGuiButtonFlags_Repeat;
+	bool hovered, held;
+	bool pressed = ImGui::ButtonBehavior(bb, id, &hovered, &held, flags);
+	if (pressed)
+		ImGui::MarkItemEdited(id);
+
+	ImColor color = ImColor(121, 121, 121, 255);
+	if (active) {
+		window->DrawList->AddRectFilled(bb.Min, bb.Max, ImColor(37, 37, 51));
+		window->DrawList->AddRectFilled({ bb.Max.x, bb.Max.y }, { bb.Max.x - 2, bb.Min.y }, ImColor(137, 50, 168));
+		color = ImColor(255, 255, 255, 255);
+	}
+
+	window->DrawList->AddText(bb.Min + ImVec2(15, 7), ImColor(0, 0, 0, 255), name);
+	window->DrawList->AddText(bb.Min + ImVec2(14, 6), color, name);
+
+	return pressed;
+}
+
+bool ImGui::MenuSubTab(const char* label, const ImVec2& size_arg, const bool selected) {
+	ImGuiWindow* window = ImGui::GetCurrentWindow();
+	if (window->SkipItems) return false;
+
+	ImGuiContext& g = *GImGui;
+	const ImGuiStyle& style = g.Style;
+	const ImGuiID id = window->GetID(label);
+	const ImVec2 label_size = ImGui::CalcTextSize(label, NULL, true);
+
+	ImVec2 pos = window->DC.CursorPos;
+
+	ImVec2 size = ImGui::CalcItemSize(size_arg, label_size.x + style.FramePadding.x * 2.0f, label_size.y + style.FramePadding.y * 2.0f);
+
+	const ImRect bb(pos, ImVec2(pos.x + size.x, pos.y + size.y));
+	ImGui::ItemSize(size, style.FramePadding.y);
+	if (!ImGui::ItemAdd(bb, id))
+		return false;
+
+	bool hovered, held;
+	bool pressed = ImGui::ButtonBehavior(bb, id, &hovered, &held, 0);
+
+	if (selected) {
+		window->DrawList->AddRectFilled(bb.Min, bb.Max, ImColor(37, 37, 51));
+		window->DrawList->AddRectFilled({ bb.Min.x, bb.Max.y }, { bb.Max.x, bb.Max.y - 2 }, ImColor(137, 50, 168));
+	}
+
+	window->DrawList->AddText(ImVec2(bb.Min.x + size_arg.x / 2 - ImGui::CalcTextSize(label).x / 2, bb.Min.y + size_arg.y / 2 - ImGui::CalcTextSize(label).y / 2), ImColor(255, 255, 235), label);
+
+	return pressed;
+}
