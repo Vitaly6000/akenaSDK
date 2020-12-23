@@ -92,7 +92,7 @@ auto flags = ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse |
 #pragma endregion
 #pragma region Tabs
 void legitbot_sub() {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < IM_ARRAYSIZE(sub_legit); i++) {
         if (MenuSubTab(sub_legit[i].c_str(), ImVec2(110, 30), SubTabLegit == i)) {
             SubTabLegit = i;
         }
@@ -113,7 +113,7 @@ void legitbot_tab() {
 }
 //-----------------
 void visuals_sub() {
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < IM_ARRAYSIZE(sub_visuals); i++) {
         if (MenuSubTab(sub_visuals[i].c_str(), ImVec2(110, 30), SubTabVisuals == i)) {
             SubTabVisuals = i;
         }
@@ -249,7 +249,7 @@ void visuals_tab() {
 }
 //-----------------
 void skins_sub() {
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < IM_ARRAYSIZE(sub_skins); i++) {
         if (MenuSubTab(sub_skins[i].c_str(), ImVec2(110, 30), SubTabSkins == i)) {
             SubTabSkins = i;
         }
@@ -261,7 +261,7 @@ void skins_tab() {
 }
 //-----------------
 void misc_sub() {
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < IM_ARRAYSIZE(sub_misc); i++) {
         if (MenuSubTab(sub_misc[i].c_str(), ImVec2(110, 30), SubTabMisc == i)) {
             SubTabMisc = i;
         }
@@ -349,7 +349,7 @@ void Menu::Render() {
         ImGui::EndChild();
 
         if (ImGui::BeginChild("Child2", ImVec2(100, 0), false, flags)) {
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < IM_ARRAYSIZE(tabs); i++) {
                 if (MenuTab(tabs[i].c_str(), Tabs == i, ImVec2(100, 30))) {
                     Tabs = i;
                 }
