@@ -69,7 +69,7 @@ void Render::BeginScene() {
 
 	if (g_Options.misc_watermark) {
 		std::stringstream ss;
-		ss << "csgosimple";
+		ss << "akenaSDK";
 
 		auto sz = g_pDefaultFont->CalcTextSizeA(14.f, FLT_MAX, 0.0f, ss.str().c_str());
 

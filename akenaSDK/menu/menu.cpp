@@ -293,11 +293,11 @@ void misc_tab() {
         }
 
         if (ImGui::Button("type 2")) {
-            notify::add("csgosimple", "injected", log_type::screen_standart);
+            notify::add("akenaSDK", "injected", log_type::screen_standart);
         }
         ImGui::SameLine();
         if (ImGui::Button("type 2 + timer")) {
-            notify::add("csgosimple", "injected", g_Options.notify_timer);
+            notify::add("akenaSDK", "injected", g_Options.notify_timer);
         }
 
         ImGui::ColorEdit3("Custom Color##menu_color", g_Options.menu_color, ImGuiColorEditFlags_NoInputs);
