@@ -380,10 +380,9 @@ bool ImGui::Hotkey(const char* label, int* k, const ImVec2& size_arg) {
 	return value_changed;
 }
 
-
 bool ImGui::ListBox(const char* label, int* current_item, std::string items[], int items_count, int height_items) {
 	char **tmp;
-	tmp = new char*[items_count];//(char**)malloc(sizeof(char*) * items_count);
+	tmp = new char*[items_count];
 	for (int i = 0; i < items_count; i++) {
 		tmp[i] = const_cast<char*>(items[i].c_str());
 	}

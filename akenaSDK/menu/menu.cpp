@@ -16,9 +16,6 @@
 #include "../imgui/impl/imgui_impl_win32.h"
 #include "../features/notify/notify.h"
 
-#pragma region flags
-
-#pragma endregion
 #pragma region Tabs
 void legitbot_sub() {
     for (int i = 0; i < IM_ARRAYSIZE(sub_legit); i++) {
