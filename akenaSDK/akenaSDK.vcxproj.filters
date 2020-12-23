@@ -117,19 +117,19 @@
       <Filter>Source Files\features</Filter>
     </ClCompile>
     <ClCompile Include="features\visuals\chams.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\features</Filter>
     </ClCompile>
     <ClCompile Include="features\visuals\glow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="features\visuals\visuals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="features\notify\notify.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\features</Filter>
     </ClCompile>
     <ClCompile Include="features\misc\misc.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
+    <ClCompile Include="features\notify\notify.cpp">
+      <Filter>Source Files\features</Filter>
+    </ClCompile>
+    <ClCompile Include="features\visuals\visuals.cpp">
+      <Filter>Source Files\features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,29 +388,29 @@
     <ClInclude Include="helpers\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="features\misc\nade_prediction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="features\visuals\visuals.hpp">
+    <ClInclude Include="helpers\base64.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="features\visuals\chams.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="features\visuals\glow.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="features\notify\notify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="features\misc\misc.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\features</Filter>
     </ClInclude>
     <ClInclude Include="features\misc\engine_prediction.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\features</Filter>
     </ClInclude>
-    <ClInclude Include="helpers\base64.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="features\visuals\glow.hpp">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="features\misc\misc.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="features\misc\nade_prediction.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="features\notify\notify.h">
+      <Filter>Header Files\features</Filter>
+    </ClInclude>
+    <ClInclude Include="features\visuals\visuals.hpp">
+      <Filter>Header Files\features</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
