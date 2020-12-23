@@ -385,9 +385,6 @@
     <ClInclude Include="resource\constchar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="configs\base64.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="helpers\json.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -410,6 +407,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="features\misc\engine_prediction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\base64.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
