@@ -34,7 +34,6 @@ void Render::Initialize()
 }
 
 void Render::GetFonts() {
-
 	// menu font
 	ImGui::GetIO().Fonts->AddFontFromMemoryCompressedTTF(
 		Fonts::Droid_compressed_data,
@@ -98,7 +97,6 @@ void Render::BeginScene() {
 }
 
 ImDrawList* Render::RenderScene() {
-
 	if (render_mutex.try_lock()) {
 		*draw_list_rendering = *draw_list_act;
 		render_mutex.unlock();
