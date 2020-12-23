@@ -1,9 +1,8 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSGOSimple", "CSGOSimple\CSGOSimple.vcxproj", "{F3E42845-8D56-4BB3-821D-8163AB1337F0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "akenaSDK", "akenaSDK\akenaSDK.vcxproj", "{F3E42845-8D56-4BB3-821D-8163AB1337F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
