@@ -124,7 +124,6 @@ public:
     virtual TraceType GetTraceType() const = 0;
 };
 
-
 //-----------------------------------------------------------------------------
 // Classes are expected to inherit these + implement the ShouldHitEntity method
 //-----------------------------------------------------------------------------
@@ -175,7 +174,6 @@ public:
         return TraceType::TRACE_ENTITIES_ONLY;
     }
 };
-
 
 //-----------------------------------------------------------------------------
 // Classes need not inherit from these
@@ -257,7 +255,6 @@ public:
     }
 };
 
-
 enum class DebugTraceCounterBehavior_t
 {
     kTRACE_COUNTER_SET = 0,
@@ -274,10 +271,9 @@ public:
     virtual bool EnumEntity(IHandleEntity *pHandleEntity) = 0;
 };
 
-
 struct BrushSideInfo_t
 {
-    Vector4D plane;               // The plane of the brush side
+    Vector4D plane;          // The plane of the brush side
     unsigned short bevel;    // Bevel plane?
     unsigned short thin;     // Thin?
 };

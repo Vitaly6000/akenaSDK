@@ -126,7 +126,7 @@ public:
     virtual void          ApplyChanges() = 0;
     virtual bool          IsWithin(int x, int y) = 0;
     virtual bool          HasFocus() = 0;
-    virtual bool          SupportsFeature(int /*SurfaceFeature_t*/ feature) = 0;
+    virtual bool          SupportsFeature(int feature) = 0;
     virtual void          RestrictPaintToSinglePanel(vgui::VPANEL panel, bool bForceAllowNonModalSurface = false) = 0;
     virtual void          SetModalPanel(vgui::VPANEL) = 0;
     virtual vgui::VPANEL  GetModalPanel() = 0;

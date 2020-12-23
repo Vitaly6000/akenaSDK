@@ -23,7 +23,6 @@ enum DrawFlags_t
     DF_SHADOW_DEPTH_MAP = 0x100000	// Currently rendering a shadow depth map
 };
 
-
 //-----------------------------------------------------------------------------
 // Purpose: View setup and rendering
 //-----------------------------------------------------------------------------

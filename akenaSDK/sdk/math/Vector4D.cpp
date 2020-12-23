@@ -85,7 +85,6 @@ Vector4D& Vector4D::operator=(const Vector4D &vOther)
     return *this;
 }
 
-
 //-----------------------------------------------------------------------------
 // Array access
 //-----------------------------------------------------------------------------
@@ -98,7 +97,6 @@ vec_t Vector4D::operator[](int i) const
 {
     return ((vec_t*)this)[i];
 }
-
 
 //-----------------------------------------------------------------------------
 // Base address...
@@ -128,11 +126,7 @@ bool Vector4D::IsValid() const
 
 void Vector4D::Invalidate()
 {
-    //#ifdef _DEBUG
-    //#ifdef VECTOR_PARANOIA
     x = y = z = w = std::numeric_limits<float>::infinity();
-    //#endif
-    //#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -148,7 +142,6 @@ bool Vector4D::operator!=(const Vector4D& src) const
 {
     return (src.x != x) || (src.y != y) || (src.z != z) || (src.w != w);
 }
-
 
 //-----------------------------------------------------------------------------
 // Copy
@@ -244,7 +237,6 @@ Vector4D Vector4D::Max(const Vector4D &vOther) const
         z > vOther.z ? z : vOther.z,
         w > vOther.w ? w : vOther.w);
 }
-
 
 //-----------------------------------------------------------------------------
 // arithmetic operations

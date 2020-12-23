@@ -21,7 +21,6 @@ enum MaterialVarFlags_t
     MATERIAL_VAR_SELFILLUM = (1 << 6),
     MATERIAL_VAR_ADDITIVE = (1 << 7),
     MATERIAL_VAR_ALPHATEST = (1 << 8),
-    //MATERIAL_VAR_UNUSED = (1 << 9),
     MATERIAL_VAR_ZNEARER = (1 << 10),
     MATERIAL_VAR_MODEL = (1 << 11),
     MATERIAL_VAR_FLAT = (1 << 12),

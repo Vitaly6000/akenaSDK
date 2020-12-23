@@ -114,4 +114,3 @@ private:
 };
 
 inline C_LocalPlayer g_LocalPlayer;
-

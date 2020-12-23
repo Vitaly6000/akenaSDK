@@ -2,9 +2,7 @@
 
 #include "Vector2D.hpp"
 
-Vector2D::Vector2D(void)
-{
-}
+Vector2D::Vector2D(void) { }
 
 Vector2D::Vector2D(vec_t X, vec_t Y)
 {
@@ -97,7 +95,6 @@ bool Vector2D::operator!=(const Vector2D& src) const
     return (src.x != x) || (src.y != y);
 }
 
-
 //-----------------------------------------------------------------------------
 // Copy
 //-----------------------------------------------------------------------------
@@ -145,7 +142,6 @@ void Vector2DMultiply(const Vector2D& a, const Vector2D& b, Vector2D& c)
     c.x = a.x * b.x;
     c.y = a.y * b.y;
 }
-
 
 void Vector2DDivide(const Vector2D& a, vec_t b, Vector2D& c)
 {
@@ -240,7 +236,6 @@ void Vector2DMin(const Vector2D &a, const Vector2D &b, Vector2D &result)
     result.y = (a.y < b.y) ? a.y : b.y;
 }
 
-
 void Vector2DMax(const Vector2D &a, const Vector2D &b, Vector2D &result)
 {
     result.x = (a.x > b.x) ? a.x : b.x;
@@ -276,7 +271,6 @@ Vector2D Vector2D::Max(const Vector2D &vOther) const
 {
     return Vector2D(x > vOther.x ? x : vOther.x, y > vOther.y ? y : vOther.y);
 }
-
 
 //-----------------------------------------------------------------------------
 // arithmetic operations

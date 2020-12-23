@@ -15,7 +15,6 @@ enum class ClearFlags_t
     VIEW_CLEAR_STENCIL = 0x20,
 };
 
-
 enum class MotionBlurMode_t
 {
     MOTION_BLUR_DISABLE = 1,

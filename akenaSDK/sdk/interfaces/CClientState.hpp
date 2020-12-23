@@ -60,7 +60,6 @@ public:
 	CEventInfo* next;
 };
 
-// Thanks soufiw 
 class CClientState
 {
 public:

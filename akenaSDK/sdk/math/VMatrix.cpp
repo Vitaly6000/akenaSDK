@@ -3,9 +3,7 @@
 //-----------------------------------------------------------------------------
 // VMatrix inlines.
 //-----------------------------------------------------------------------------
-inline VMatrix::VMatrix()
-{
-}
+inline VMatrix::VMatrix() { }
 
 inline VMatrix::VMatrix(
     float m00, float m01, float m02, float m03,
@@ -21,12 +19,10 @@ inline VMatrix::VMatrix(
     );
 }
 
-
 inline VMatrix::VMatrix(const matrix3x4_t& matrix3x4)
 {
     Init(matrix3x4);
 }
-
 
 //-----------------------------------------------------------------------------
 // Creates a matrix where the X axis = forward
@@ -41,7 +37,6 @@ inline VMatrix::VMatrix(const Vector& xAxis, const Vector& yAxis, const Vector& 
         0.0f, 0.0f, 0.0f, 1.0f
     );
 }
-
 
 inline void VMatrix::Init(
     float m00, float m01, float m02, float m03,
@@ -70,7 +65,6 @@ inline void VMatrix::Init(
     m[3][2] = m32;
     m[3][3] = m33;
 }
-
 
 //-----------------------------------------------------------------------------
 // Initialize from a 3x4
@@ -152,7 +146,6 @@ inline void VMatrix::SetBasisVectors(const Vector &vForward, const Vector &vLeft
     SetUp(vUp);
 }
 
-
 //-----------------------------------------------------------------------------
 // Methods related to the translation component of the matrix
 //-----------------------------------------------------------------------------
@@ -177,7 +170,6 @@ inline void VMatrix::SetTranslation(const Vector &vTrans)
     m[2][3] = vTrans.z;
 }
 
-
 //-----------------------------------------------------------------------------
 // appply translation to this matrix in the input space
 //-----------------------------------------------------------------------------
@@ -189,7 +181,6 @@ inline void VMatrix::PreTranslate(const Vector &vTrans)
     m[1][3] = tmp.y;
     m[2][3] = tmp.z;
 }
-
 
 //-----------------------------------------------------------------------------
 // appply translation to this matrix in the output space
@@ -222,7 +213,6 @@ inline void VMatrix::Set3x4(matrix3x4_t& matrix3x4) const
 {
     memcpy(matrix3x4.Base(), m, sizeof(matrix3x4_t));
 }
-
 
 //-----------------------------------------------------------------------------
 // Matrix Math operations
@@ -273,7 +263,6 @@ inline VMatrix VMatrix::operator-() const
 // Vector transformation
 //-----------------------------------------------------------------------------
 
-
 inline Vector VMatrix::operator*(const Vector &vVec) const
 {
     Vector vRet;
@@ -290,7 +279,6 @@ inline Vector VMatrix::VMul4x3(const Vector &vVec) const
     Vector3DMultiplyPosition(*this, vVec, vResult);
     return vResult;
 }
-
 
 inline Vector VMatrix::VMul4x3Transpose(const Vector &vVec) const
 {
@@ -324,7 +312,6 @@ inline Vector VMatrix::VMul3x3Transpose(const Vector &vVec) const
     );
 }
 
-
 inline void VMatrix::V3Mul(const Vector &vIn, Vector &vOut) const
 {
     float rw;
@@ -345,7 +332,6 @@ inline void VMatrix::Identity()
     m[2][0] = 0.0f; m[2][1] = 0.0f; m[2][2] = 1.0f; m[2][3] = 0.0f;
     m[3][0] = 0.0f; m[3][1] = 0.0f; m[3][2] = 0.0f; m[3][3] = 1.0f;
 }
-
 
 inline bool VMatrix::IsIdentity() const
 {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../sdk/csgostructs.hpp"
-#include "../helpers/vfunc_hook.hpp"
 #include "minhook/minhook.h"
 #include <d3d9.h>
 

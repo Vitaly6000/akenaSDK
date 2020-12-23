@@ -89,7 +89,6 @@ struct Frustum_t;
 
 typedef void(*pfnDemoCustomDataCallback)(uint8_t *pData, size_t iSize);
 
-
 typedef struct player_info_s
 {
 	__int64         unknown;            //0x0000 
@@ -143,7 +142,6 @@ public:
 	virtual	void ShowHurts(bool state) = 0;	// show player icon flashing if player is hurt
 	virtual	void ShowTracks(float seconds) = 0; // show player trails for n seconds
 };
-
 
 class IVEngineClient
 {
@@ -352,7 +350,7 @@ public:
 	virtual void                  GetStartupImage(char* filename, int size) = 0;
 	virtual bool                  IsUsingLocalNetworkBackdoor(void) = 0;
 	virtual void                  SaveGame(const char*, bool, char*, int, char*, int) = 0;
-	virtual void                  GetGenericMemoryStats(/* GenericMemoryStat_t */ void **) = 0;
+	virtual void                  GetGenericMemoryStats(void **) = 0;
 	virtual bool                  GameHasShutdownAndFlushedMemory(void) = 0;
 	virtual int                   GetLastAcknowledgedCommand(void) = 0;
 	virtual void                  FinishContainerWrites(int i) = 0;

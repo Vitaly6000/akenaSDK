@@ -2,14 +2,10 @@
 #include "../Helpers/Math.hpp"
 #include "../Helpers/Utils.hpp"
 
-//increase it if valve added some funcs to baseentity :lillulmoa:
 constexpr auto VALVE_ADDED_FUNCS = 0ull;
 
 bool C_BaseEntity::IsPlayer()
 {
-	//index: 152
-	//ref: "effects/nightvision"
-	//sig: 8B 92 ? ? ? ? FF D2 84 C0 0F 45 F7 85 F6
 	return CallVFunction<bool(__thiscall*)(C_BaseEntity*)>(this, 157 + VALVE_ADDED_FUNCS)(this);
 }
 
@@ -27,12 +23,8 @@ bool C_BaseEntity::IsLoot() {
 
 bool C_BaseEntity::IsWeapon()
 {
-	//index: 160
-	//ref: "CNewParticleEffect::DrawModel"
-	//sig: 8B 80 ? ? ? ? FF D0 84 C0 74 6F 8B 4D A4
 	return CallVFunction<bool(__thiscall*)(C_BaseEntity*)>(this, 165 + VALVE_ADDED_FUNCS)(this);
 }
-
 
 bool C_BaseEntity::IsPlantedC4()
 {
@@ -198,14 +190,10 @@ int C_BasePlayer::GetSequenceActivity(int sequence)
 {
 	auto hdr = g_MdlInfo->GetStudiomodel(this->GetModel());
 
-	if (!hdr)
-		return -1;
+	if (!hdr) return -1;
 
-	// sig for stuidohdr_t version: 53 56 8B F1 8B DA 85 F6 74 55
-	// sig for C_BaseAnimating version: 55 8B EC 83 7D 08 FF 56 8B F1 74 3D
-	// c_csplayer vfunc 242, follow calls to find the function.
-	// Thanks @Kron1Q for merge request
-	static auto get_sequence_activity = reinterpret_cast<int(__fastcall*)(void*, studiohdr_t*, int)>(Utils::PatternScan(GetModuleHandle(L"client.dll"), "55 8B EC 53 8B 5D 08 56 8B F1 83"));
+	static auto get_sequence_activity =
+		reinterpret_cast<int(__fastcall*)(void*, studiohdr_t*, int)>(Utils::PatternScan(GetModuleHandle(L"client.dll"), "55 8B EC 53 8B 5D 08 56 8B F1 83"));
 
 	return get_sequence_activity(this, hdr, sequence);
 }

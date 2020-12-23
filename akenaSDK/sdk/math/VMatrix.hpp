@@ -7,8 +7,8 @@
 
 struct cplane_t
 {
-    Vector normal;
-    float dist;
+    Vector  normal;
+    float   dist;
     uint8_t type;   // for fast side tests
     uint8_t signbits;  // signx + (signy<<1) + (signz<<1)
     uint8_t pad[2];
@@ -185,7 +185,6 @@ public:
 
     // Apply the inverse (transposed) transformation (only works on pure rotation/translation)
     Vector  VMul4x3Transpose(const Vector &vVec) const;
-
 
     // Matrix->plane operations.
     //public:

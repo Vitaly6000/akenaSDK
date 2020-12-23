@@ -16,7 +16,6 @@ struct model_t;
 class IClientRenderable;
 class ITexture;
 
-
 //-----------------------------------------------------------------------------
 // Flags used by DrawWorldLists
 //-----------------------------------------------------------------------------
@@ -119,7 +118,6 @@ struct VisOverrideData_t
     float        m_fDistToAreaPortalTolerance;    // The distance from an area portal before using the full screen as the viewable portion.
 };
 
-
 //-----------------------------------------------------------------------------
 // interface for asking about the Brush surfaces from the client DLL
 //-----------------------------------------------------------------------------
@@ -138,7 +136,6 @@ public:
     // Gets at the material properties for this surface
     virtual IMaterial* GetMaterial() = 0;
 };
-
 
 //-----------------------------------------------------------------------------
 // interface for installing a new renderer for brush surfaces
