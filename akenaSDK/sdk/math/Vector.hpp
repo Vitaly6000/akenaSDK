@@ -215,21 +215,6 @@ public:
         return Vector(x / v.x, y / v.y, z / v.z);
     }
 
-    inline Vector Angle(Vector* up = 0)
-    {
-        if (!x && !y)
-            return Vector(0, 0, 0);
-
-        float roll = 0;
-
-        if (up)
-        {
-            Vector left = (*up).Cross(*this);
-            roll = deg(atan2f(left.z, (left.y * x) - (left.x * y)));
-        }
-        return Vector(deg(atan2f(-z, sqrtf(x * x + y * y))), deg(atan2f(y, x)), roll);
-    }
-
     float x, y, z;
 };
 

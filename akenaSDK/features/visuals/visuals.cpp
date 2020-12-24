@@ -404,21 +404,11 @@ void Visuals::DrawSpeed() {
 void Visuals::DrawKeyPresses() {
 	int w, h;
 	g_EngineClient->GetScreenSize(w, h);
-	if (GetAsyncKeyState(int('W')))
-		Render::Get().RenderText("W", ImVec2(w / 2, h - h / 5), 15.f, Color::White, true, false);
-	else Render::Get().RenderText("_", ImVec2(w / 2, h - h / 5), 15.f, Color::White, true, false);
 
-	if (GetAsyncKeyState(int('S')))
-		Render::Get().RenderText("S", ImVec2(w / 2, h - h / 5 + 15), 15.f, Color::White, true, false);
-	else Render::Get().RenderText("_", ImVec2(w / 2, h - h / 5 + 15), 15.f, Color::White, true, false);
-
-	if (GetAsyncKeyState(int('A')))
-		Render::Get().RenderText("A", ImVec2(w / 2 - 15, h - h / 5), 15.f, Color::White, true, false);
-	else Render::Get().RenderText("_", ImVec2(w / 2 - 15, h - h / 5), 15.f, Color::White, true, false);
-
-	if (GetAsyncKeyState(int('D')))
-		Render::Get().RenderText("D", ImVec2(w / 2 + 15, h - h / 5), 15.f, Color::White, true, false);
-	else Render::Get().RenderText("_", ImVec2(w / 2 + 15, h - h / 5), 15.f, Color::White, true, false);
+	Render::Get().RenderText(GetAsyncKeyState(int('W')) ? "W" : "_", ImVec2(w / 2, h - h / 5), 15.f, Color::White, true, false);
+	Render::Get().RenderText(GetAsyncKeyState(int('S')) ? "S" : "_", ImVec2(w / 2, h - h / 5 + 15), 15.f, Color::White, true, false);
+	Render::Get().RenderText(GetAsyncKeyState(int('A')) ? "A" : "_", ImVec2(w / 2 - 15, h - h / 5), 15.f, Color::White, true, false);
+	Render::Get().RenderText(GetAsyncKeyState(int('D')) ? "D" : "_", ImVec2(w / 2 + 15, h - h / 5), 15.f, Color::White, true, false);
 }
 //--------------------------------------------------------------------------------
 void Visuals::AddToDrawList() {

@@ -190,8 +190,8 @@ void c_nade_prediction::draw() {
     if (!g_Options.esp_nade_prediction) return;
   
     auto draw_3d_dotted_circle = [](Vector position, float points, float radius) {
-        float step = 3.141592654f * 2.0f / points;
-        for (float a = 0; a < 3.141592654f * 2.0f; a += step) {
+        float step = PI_F * 2.0f / points;
+        for (float a = 0; a < PI_F * 2.0f; a += step) {
             Vector start(radius * cosf(a) + position.x, radius * sinf(a) + position.y, position.z);
 
             Vector start2d;
