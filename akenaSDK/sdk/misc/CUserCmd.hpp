@@ -1,7 +1,6 @@
 #pragma once
 
 #include "checksum_crc.hpp"
-#include "checksum_md5.hpp"
 #include "../Math/QAngle.hpp"
 
 #define IN_ATTACK  (1 << 0)
